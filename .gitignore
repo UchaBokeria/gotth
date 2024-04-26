@@ -1,0 +1,23 @@
+# Development dirs
+bin
+tmp
+dist
+build
+node_modules
+
+.vscode
+.env
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.db
+
+# Test binary, built with `go test -c`
+*.test
+
+# Go workspace file
+go.work

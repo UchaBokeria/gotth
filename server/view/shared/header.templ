@@ -1,0 +1,43 @@
+package view
+
+import(
+    "main/server/model"
+)
+
+type Links struct {
+    Name string
+    Slug string
+    Path string
+}
+
+var Routes = []Links{
+    { Path: "products", Name: "პროდუქტი", Slug: "products" },
+    { Path: "news", Name: "სიახლეები", Slug: "news" },
+    { Path: "faq", Name: "დახმარება", Slug: "faq" },
+    { Path: "about", Name: "ჩვენს შესახებ", Slug: "about" },
+}
+
+templ Header(Interface model.Interface) {
+    <div class="flex justify-start items-center w-[100%] relative px-[150px] py-[15px] bg-primary">
+        <img    src="assets/images/logo.png" class="cursor-pointer flex-grow-0 flex-shrink-0 w-[104.26px] h-[60px] object-cover" 
+                hx-get={ "/" } hx-push hx-replace-url={ "/" } hx-swap="innerHTML" hx-target="#Content" />
+
+        <div class="flex justify-start items-center flex-grow relative gap-[50px] px-[50px]">
+            for _, Nav := range Routes {
+                <a  class="font-deja cursor-pointer flex-grow-0 flex-shrink-0 text-sm font-bold text-left text-white"
+                    hx-get={ Nav.Path } hx-push hx-push-url={ Nav.Path } hx-swap="innerHTML" hx-target="#Content">
+                    { Nav.Name }
+                </a> 
+            }
+        </div>
+
+        <div class="cursor-pointer flex flex-col justify-center items-center flex-grow-0 flex-shrink-0">
+            <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 h-[39px] relative gap-[11px] px-[20px] pt-[15px] pb-3.5 rounded-lg bg-secondary">
+                @Phone()
+                <p class="font-poppins flex-grow-0 flex-shrink-0  h-[19px] text-xs leading-snug font-semibold text-left text-primary">
+                    { Interface.Contact.Phone } 
+                </p>
+            </div>
+        </div>
+    </div>
+}

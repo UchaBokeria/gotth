@@ -1,0 +1,15 @@
+package view
+
+import(
+    "main/server/model"
+)
+
+templ About(About model.Interface_about) {
+    <p class="text-3xl font-nino font-bold text-left pb-[40px]">
+        <span class="text-3xl font-bold text-left text-primary">ჩვენს</span>
+        <span class="text-3xl font-bold text-left text-black"> შესახებ</span>
+    </p>
+    <p class="text-base text-left text-black">
+        { About.Body }
+    </p>
+}

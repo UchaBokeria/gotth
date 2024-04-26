@@ -1,0 +1,15 @@
+package view
+
+import(
+    "main/server/model"
+)
+
+templ Pages(Interface model.Interface, Page templ.Component) {
+    @Layout() {
+        @Header(Interface)
+        @Content(Page)
+        @Footer(Interface)
+
+        @Chat()
+    }
+}
