@@ -3,7 +3,7 @@ testdata_dir = "testdata"
 tmp_dir = "build"
 
 [build]
-  cmd = "make templ-clean && go build -o build/app ./cmd/app "
+  cmd = "make templ-clean && go build -o build/app ./cmd/app && curl http://localhost:9999/trigger"
   args_bin = []
   bin = "./build/app"
   delay = 0

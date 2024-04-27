@@ -7,6 +7,6 @@ import (
 )
 
 func Register(app *echo.Echo) {
-	app.GET("/", controller.Register(index))
-	app.GET("/:id", controller.Register(detail))
+	app.GET("/products", controller.Register(index))
+	app.GET("/products/:id", controller.Register(detail))
 }

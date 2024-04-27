@@ -1,7 +1,7 @@
 .PHONY: run
 run:
 	@rm -rf build && mkdir -p ./build/view && chmod -R 777 ./public
-	make -j3 tailwind-watch templ-watch runAir
+	make -j4 reload tailwind-watch templ-watch runAir
 
 .PHONY: reload
 reload:
