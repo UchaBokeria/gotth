@@ -21,6 +21,7 @@ This project utilizes the **Gotth stack** – a combination of Golang, Tailwind 
   - **server.routes.go**: Global router file defining HTTP routes.
   - **Model, Controller, View folders**: Follow the MVC (Model-View-Controller) structure.
     - **Controllers**: Handle HTTP routes.
+    - **Middleware**: Reuseable middlewares for routes.
     - **Models**: Interact with the database using GORM.
     - **View**: Contains template files.
     - **Common Folder**: Houses important helper packages for the project.
