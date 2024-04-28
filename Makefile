@@ -13,7 +13,7 @@ prod:
 
 .PHONY: build
 build:
-	make templ-build tailwind vet staticcheck test
+	make templ tailwind vet staticcheck test
 	go build -ldflags "-X main.Environment=production" -o ./bin/app ./cmd/app/main.go
 
 
@@ -30,7 +30,7 @@ seed:
 
 .PHONY: tailwind
 tailwind:
-	npx tailwindcss -i ./public/assets/styles/tailwind.css -o ./public/assets/styles/style.css --minify
+	npx tailwindcss -i ./public/assets/styles/tailwind.css -o ./public/assets/styles/style.css
 
 .PHONY: tailwind-watch
 tailwind-watch:

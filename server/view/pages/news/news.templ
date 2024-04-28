@@ -1,5 +1,32 @@
 package view
 
-templ News() {
-    news
+import(
+    "main/server/model"
+)
+
+templ News(News []model.News, Filters []model.News_types, Current string) {
+    <p class="text-3xl font-nino font-bold text-left pb-[30px]">
+        <span class="text-3xl font-bold text-left text-primary">სიახლეები</span>
+        <span class="text-3xl font-bold text-left text-black"> </span>
+    </p>
+
+    @NewsFilters(Filters, Current)
+
+    <div class="flex w-full flex-shrink-0 flex-grow-0 flex-row flex-wrap gap-auto items-start justify-start gap-[20px]">
+        for _, item := range News {
+            <div class="cursor-pointer flex flex-shrink-0 flex-grow-0 items-start justify-start gap-[67px] pb-[45px] pt-[7px]">
+                <div class="relative flex w-[300px] flex-shrink-0 flex-grow-0 flex-col items-center justify-center gap-2 overflow-hidden rounded-xl border border-[#e8e8ea] bg-white p-4">
+                    <img src={ "/assets/images/news/" + item.Thumbnail.Path } class="h-60 w-[360px] flex-shrink-0 flex-grow-0 rounded-md object-cover" />
+
+                    <div class="flex flex-shrink-0 flex-grow-0 flex-col items-start justify-start gap-5 self-stretch p-2">
+                        <div class="relative flex flex-shrink-0 flex-grow-0 flex-col items-start justify-start gap-4 self-stretch">
+                            <p class="line-clamp-2 w-[287px] h-[50px] flex-shrink-0 flex-grow-0 self-stretch text-left text-base font-bold text-[#181a2a]">
+                                { item.Title }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }

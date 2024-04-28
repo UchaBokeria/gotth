@@ -8,16 +8,18 @@ import (
 
 type Branches struct {
 	gorm.Model
-	Name       	*string
-	PhoneNumber *string
-	OpensAt     time.Time
-	ClosesAt    time.Time
+	Name       	string
+	PhoneNumber string
+	Region 		string
+	OpensAt     time.Time 	`gorm:"type:time"`
+	ClosesAt    time.Time 	`gorm:"type:time"`
 	CityID 		int
-	City 		Cities `gorm:"constraint: OnUpdate:CASCADE, OnDelete:SET NULL;"`
+	City 		Cities 		`gorm:"constraint: OnUpdate:CASCADE, OnDelete:SET NULL;"`
 }
 
 type Cities struct {
 	gorm.Model
-	Name  		*string
+	Name  		string
+	Slug 		string
 	State 		string
 }

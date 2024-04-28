@@ -1,5 +1,27 @@
 package view
 
-templ Faq() {
-    faq
+import(
+    "main/server/model"
+)
+
+templ Faq(Faq []model.Faq) {
+    <p class="text-3xl font-nino font-bold text-left pb-[30px]">
+        <span class="text-3xl font-bold text-left text-primary">ხშირად დასმული</span>
+        <span class="text-3xl font-bold text-left text-black"> შეკითხვები</span>
+    </p>
+    <div class="overflow-hidden rounded">
+        for _, faq := range Faq {
+            <div class="accordion-section group outline-none pb-5" tabindex={ faq.Slug }>
+                <div class="ease group relative flex cursor-pointer items-center justify-between bg-gray-100 px-4 py-4 pr-10 text-black transition duration-200">
+                    <div class="ease transition duration-500 group-focus:text-black"> { faq.Question } </div>
+                    <div class="text-large flex h-8 w-8 transform items-center justify-center rounded-full border border-gray-700  group-focus:-rotate-180">
+                        @DownToggleArrow()
+                    </div>
+                </div>
+                <div class="ease max-h-0 overflow-hidden bg-primary px-4 duration-500 group-focus:max-h-screen">
+                    <p class="py-7 text-justify text-white"> { faq.Answer } </p>
+                </div>
+            </div>
+        }
+    </div>
 }

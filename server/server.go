@@ -5,14 +5,16 @@ import (
 
 	"github.com/labstack/echo-contrib/echoprometheus"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 
-	"main/build/view"
 	"main/server/common/controller"
 	"main/server/common/storage"
 )
 
 func Run() {
 	app := echo.New()
+	app.Static("", "./public/")
+    app.Pre(middleware.RemoveTrailingSlash())
 	// app.Use(middleware.Secure())
 	// app.Pre(middleware.HTTPSNonWWWRedirect())
 	// app.Use(middleware.CORS())
@@ -27,11 +29,7 @@ func Run() {
 	app.Use(echoprometheus.NewMiddleware("yacco"))
 	app.GET("/metrics", echoprometheus.NewHandler())
 
-	app.Static("/", "./public/")
 	app.Use(controller.Initialize())
-	app.GET("/*", controller.Register(func(ctx *controller.Context) error { 
-		return ctx.Html(view.Wildcard())
-	}))
 	storage.Connect(storage.Default())
 
 	ServerRouters(app)

@@ -7,6 +7,5 @@ import (
 )
 
 func Register(app *echo.Echo) {
-	router := app.Group("branches")
-	router.GET("/", controller.Register(index))
+	app.GET("/branches", controller.Register(index))
 }

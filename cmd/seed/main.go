@@ -6,8 +6,12 @@ import (
 
 	"github.com/joho/godotenv"
 
+	"main/cmd/seed/branches"
+	"main/cmd/seed/categories"
+	"main/cmd/seed/faq"
 	"main/cmd/seed/files"
 	"main/cmd/seed/interfaces"
+	"main/cmd/seed/news"
 	"main/server/common/storage"
 )
 
@@ -18,11 +22,22 @@ func main() {
 	storage.Connect(storage.Default())
 
 	files.Types()
-	files.Init()
+	files.Populate()
 
-	interfaces.Init()
+	interfaces.Populate()
 	interfaces.SocialMedia()
 	interfaces.Slideshow()
-	interfaces.Reasons()
+	interfaces.Reason()
 	interfaces.Contact()
+	interfaces.About()
+	
+	categories.Populate()
+
+	news.Types()
+	news.Populate()
+
+	branches.Cities()
+	branches.Populate()
+
+	faq.Populate()
 }

@@ -1,5 +1,33 @@
 package view
 
-templ Branches(){
-    Hi
+import(
+    "main/server/model"
+)
+
+templ Branches(Branches []model.Branches){
+    <p class="text-3xl font-nino font-bold text-left pb-[30px]">
+        <span class="text-3xl font-bold text-left text-primary">ფილიალები</span>
+        <span class="text-3xl font-bold text-left text-black"> </span>
+    </p>
+
+    <div class="w-full flex flex-col justify-between gap-[30px]">
+        <iframe width="100%" height="450" style="border:0; outline:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11911.047469968405!2d44.7405822!3d41.725657149999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sge!4v1714332665419!5m2!1sen!2sge" ></iframe>
+        
+        <div class="pt-[30px] flex w-full flex-wrap items-center justify-start gap-[29px]">
+            for _, Branch := range Branches {
+                <div class="cursor-pointer flex h-[114px] w-[360.61px] flex-shrink-0 flex-grow-0 items-start justify-start gap-[76px] rounded-[10px] bg-[#f2f2f2] px-[25px] py-5">
+                    <div class="relative flex flex-shrink-0 flex-grow-0 flex-col items-start justify-start gap-[5px]">
+                        <p class="h-4 w-[61px] flex-shrink-0 flex-grow-0 text-left text-[13px] font-bold text-black"> { Branch.City.Name } </p>
+                        <p class="h-[15px] w-[69px] flex-shrink-0 flex-grow-0 text-left text-[13px] text-black"> { Branch.Region } </p>
+                    </div>
+
+                    <div class="relative flex flex-shrink-0 flex-grow-0 flex-col items-end justify-start gap-3 self-stretch">
+                        <p class="h-3 w-[111px] flex-shrink-0 flex-grow-0 text-left text-[13px] font-bold text-[#008772]"> { Branch.PhoneNumber } </p>
+                        <p class="h-[17px] w-[161px] flex-shrink-0 flex-grow-0 text-left text-[13px] text-black">კვირა: { Branch.OpensAt.Format("15:04") } - { Branch.ClosesAt.Format("15:04") }</p>
+                        <p class="h-[15px] w-[175px] flex-shrink-0 flex-grow-0 text-left text-[13px] text-black">ორშ-შაბ: { Branch.OpensAt.Format("15:04") } - { Branch.ClosesAt.Format("15:04") }</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 }

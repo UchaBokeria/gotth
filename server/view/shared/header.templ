@@ -11,21 +11,23 @@ type Links struct {
 }
 
 var Routes = []Links{
-    { Path: "products", Name: "პროდუქტი", Slug: "products" },
-    { Path: "news", Name: "სიახლეები", Slug: "news" },
-    { Path: "faq", Name: "დახმარება", Slug: "faq" },
-    { Path: "about", Name: "ჩვენს შესახებ", Slug: "about" },
+    { Path: "/categories", Name: "პროდუქტი", Slug: "categories" },
+    { Path: "/branches", Name: "ლოკაციები", Slug: "branches" },
+    { Path: "/news", Name: "სიახლეები", Slug: "news" },
+    { Path: "/faq", Name: "დახმარება", Slug: "faq" },
+    { Path: "/about", Name: "ჩვენს შესახებ", Slug: "about" },
 }
 
 templ Header(Interface model.Interface) {
-    <div class="flex justify-start items-center w-[100%] relative px-[150px] py-[15px] bg-primary">
-        <img    src="assets/images/logo.png" class="cursor-pointer flex-grow-0 flex-shrink-0 w-[104.26px] h-[60px] object-cover" 
-                hx-get={ "/" } hx-push hx-replace-url={ "/" } hx-swap="innerHTML" hx-target="#Content" />
+    <div class="w-[100%] flex justify-start items-center px-[150px] py-[15px] bg-primary">
+        <img    class="cursor-pointer w-[104.26px] h-[60px] object-cover" 
+                hx-get={ "/" } hx-push-url={ "/" } hx-swap="innerHTML" hx-target="#Content"
+                src="/assets/images/logo.png" />
 
-        <div class="flex justify-start items-center flex-grow relative gap-[50px] px-[50px]">
+        <div class="flex justify-start items-center flex-grow gap-[50px] px-[50px]">
             for _, Nav := range Routes {
-                <a  class="font-deja cursor-pointer flex-grow-0 flex-shrink-0 text-sm font-bold text-left text-white"
-                    hx-get={ Nav.Path } hx-push hx-push-url={ Nav.Path } hx-swap="innerHTML" hx-target="#Content">
+                <a  class="font-deja cursor-pointer text-sm font-bold text-left text-white"
+                    hx-get={ Nav.Path } hx-push-url={ Nav.Path } hx-swap="innerHTML" hx-target="#Content">
                     { Nav.Name }
                 </a> 
             }
@@ -34,9 +36,11 @@ templ Header(Interface model.Interface) {
         <div class="cursor-pointer flex flex-col justify-center items-center flex-grow-0 flex-shrink-0">
             <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 h-[39px] relative gap-[11px] px-[20px] pt-[15px] pb-3.5 rounded-lg bg-secondary">
                 @Phone()
-                <p class="font-poppins flex-grow-0 flex-shrink-0  h-[19px] text-xs leading-snug font-semibold text-left text-primary">
+                <button  class="flex mt-[0.5%] text-xs leading-snug font-poppins font-semibold text-left text-primary" 
+                         value={Interface.Contact.Phone}
+                         id="RingRing">
                     { Interface.Contact.Phone } 
-                </p>
+                </button>
             </div>
         </div>
     </div>

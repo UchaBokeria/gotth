@@ -1,5 +1,5 @@
 package terms
 
 type Terms struct {
-	Ver int `param:ver`
+	// Ver int `param:ver`
 }

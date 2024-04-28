@@ -8,7 +8,7 @@ import (
 )
 
 func index(ctx *controller.Context) error {
-	var Categories model.Categories
-	storage.DB.Find(&Categories)
+	var Categories []model.Categories
+	storage.DB.Preload("Icon").Find(&Categories)
 	return ctx.Html(view.Categories(Categories))
 }

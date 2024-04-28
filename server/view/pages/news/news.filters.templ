@@ -1,5 +1,37 @@
 package view
 
-templ NewsFilters() {
-    news filters
+import(
+    "strconv"
+    "main/server/model"
+)
+
+func active(Current string, Type string) struct{ bg, text string } {
+    if Current == Type { return struct{ bg, text string }{ bg: "bg-primary", text: "text-white" } }
+    return struct{ bg, text string }{ bg: "bg-[#eee]", text: "text-black" }
+}
+
+templ NewsFilters(Filters []model.News_types, Current string) {
+    <div class="w-full flex flex-wrap gap-5 justify-start pb-[30px]">
+        <div    class={"cursor-pointer flex items-center rounded-[20px] px-5 py-2.5 " + active(Current, "").bg}
+                hx-get="/news/"
+                hx-push-url="/news/" 
+                hx-target="#Content" hx-swap="innerHTML">
+
+            <p  class={"font-deja font-bold text-left text-xs " + active(Current, "").text}>
+                ყველა 
+            </p>
+        </div>
+
+        for _, Filter := range Filters {
+        <div    class={"cursor-pointer flex items-center rounded-[20px] px-5 py-2.5 " + active(Current, strconv.Itoa(int(Filter.ID))).bg}
+                hx-get={ "/news/?type=" +  strconv.Itoa(int(Filter.ID)) } 
+                hx-push-url={ "/news/?type=" +  strconv.Itoa(int(Filter.ID)) } 
+                hx-target="#Content" hx-swap="innerHTML">
+
+                <p class={"font-deja font-bold text-left text-xs " + active(Current, strconv.Itoa(int(Filter.ID))).text}>
+                    { Filter.Name }
+                </p>
+            </div>
+        }
+    </div>
 }
