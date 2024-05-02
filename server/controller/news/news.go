@@ -8,5 +8,5 @@ import (
 
 func Register(app *echo.Echo) {
 	app.GET("/news", controller.Register(index))
-	app.POST("/news/:id", controller.Register(detail))
+	app.GET("/news/:ID", controller.Register(detail))
 }

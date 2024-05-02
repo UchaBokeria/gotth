@@ -11,7 +11,7 @@ templ Faq(Faq []model.Faq) {
     </p>
     <div class="overflow-hidden rounded">
         for _, faq := range Faq {
-            <div class="accordion-section group outline-none pb-5" tabindex={ faq.Slug }>
+            <div class="transition shadow-md hover:shadow-lg accordion-section group outline-none pb-5" tabindex={ faq.Slug }>
                 <div class="ease group relative flex cursor-pointer items-center justify-between bg-gray-100 px-4 py-4 pr-10 text-black transition duration-200">
                     <div class="ease transition duration-500 group-focus:text-black"> { faq.Question } </div>
                     <div class="text-large flex h-8 w-8 transform items-center justify-center rounded-full border border-gray-700  group-focus:-rotate-180">

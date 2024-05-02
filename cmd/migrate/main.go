@@ -19,6 +19,7 @@ func main() {
 	storage.DB.Migrator().AutoMigrate(
 		&model.Cities{},
 		&model.Branches{},
+		&model.Branch_shifts{},
 
 		&model.Category_filters_option{},
 		&model.Category_filters{},

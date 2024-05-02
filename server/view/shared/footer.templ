@@ -20,7 +20,7 @@ var FooterLinks []LinksType = []LinksType{
     {
         Title: "გვერდები",
         Routes: []LinkType{
-            {Path: "/products/", Name: "პროდუქტი", Slug: "products"},
+            {Path: "/categories/", Name: "პროდუქტი", Slug: "categories"},
             {Path: "/news/", Name: "სიახლეები", Slug: "news"},
             {Path: "/faq/", Name: "დახმარება", Slug: "faq"},
             {Path: "/about/", Name: "ჩვენს შესახებ", Slug: "about"},
@@ -53,25 +53,29 @@ templ Footer(Interface model.Interface) {
 
                 <div class="flex justify-center items-start flex-grow-0 flex-shrink-0 w-[165px] gap-[15px]">
                     <div class="flex justify-center items-start flex-grow-0 flex-shrink-0 w-[30px] h-[23px]">
-                        <a class="cursor-pointer flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 h-[25px] w-[15px] relative overflow-hidden gap-2.5">
+                        <a class="cursor-pointer flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 h-[25px] w-[15px] relative overflow-hidden gap-2.5"
+                            href={ templ.SafeURL(Interface.SocialMedia[0].Url) } target="_blank">
                             @Facebook()
                         </a>
                     </div>
 
                     <div class="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 h-[23px] w-[30px]">
-                        <a class="cursor-pointer flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5">
+                        <a class="cursor-pointer flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5"
+                            href={ templ.SafeURL(Interface.SocialMedia[2].Url) } target="_blank">
                             @Twitter()
                         </a>
                     </div>
 
                     <div class="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 h-[23px] w-[30px] relative">
-                        <a class="cursor-pointer flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 h-6 w-[30px]">
+                        <a class="cursor-pointer flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 h-6 w-[30px]"
+                            href={ templ.SafeURL(Interface.SocialMedia[3].Url) } target="_blank">
                             @Youtube()
                         </a>
                     </div>
 
                     <div class="flex justify-center items-start flex-grow-0 flex-shrink-0 w-[25px] h-[30px] relative">
-                        <a class="cursor-pointer flex justify-center items-start flex-grow-0 flex-shrink-0 w-[23px] h-[30px] absolute left-[0.5px] ">
+                        <a class="cursor-pointer flex justify-center items-start flex-grow-0 flex-shrink-0 w-[23px] h-[30px] absolute left-[0.5px] "
+                            href={ templ.SafeURL(Interface.SocialMedia[1].Url) } target="_blank">
                             @Instagram()
                         </a>
                     </div>
@@ -85,10 +89,10 @@ templ Footer(Interface model.Interface) {
                         <p class="flex-grow-0 flex-shrink-0 w-[86px] text-lg font-bold text-left text-white"> { Link.Title } </p>
 
                         <div class="flex flex-col justify-end items-start flex-grow gap-[25px]">
-                            for _, nav := range Link.Routes {
+                            for _, Nav := range Link.Routes {
                                 <a  class="cursor-pointer flex-grow-0 flex-shrink-0 w-[86px] h-[20px] text-sm font-bold text-left text-white"
-                                    hx-get={ nav.Name } hx-push-url={ nav.Name }>
-                                    { nav.Name }
+                                    hx-get={ Nav.Path } hx-push-url={ Nav.Path } hx-swap="innerHTML" hx-target="#Content">
+                                    { Nav.Name }
                                 </a>
                             }
                         </div>
@@ -99,7 +103,8 @@ templ Footer(Interface model.Interface) {
                     <p class="flex-grow-0 flex-shrink-0 w-[86px] text-lg font-bold text-left text-white">კონტაქტი</p>
 
                     <div class="flex flex-col justify-start items-start flex-grow gap-[19px] ">
-                        <div class="cursor-pointer flex justify-start items-start flex-grow-0 flex-shrink-0 gap-2">
+                        <div class="cursor-pointer flex justify-start items-start flex-grow-0 flex-shrink-0 gap-2"
+                             onclick={Call(Interface.Contact.Phone)} >
                             <div class="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 w-6 relative overflow-hidden">
                                 @WhitePhone()
                             </div>
@@ -112,7 +117,8 @@ templ Footer(Interface model.Interface) {
                         </div>
 
                         <div class="cursor-pointer flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-[9px]">
-                            <a class="cursor-pointer flex flex-col justify-center items-center self-stretch flex-grow-0 flex-shrink-0 w-6 relative gap-2.5">
+                            <a  class="cursor-pointer flex flex-col justify-center items-center self-stretch flex-grow-0 flex-shrink-0 w-6 relative gap-2.5"
+                                href={templ.SafeURL("mailto:" + Interface.Contact.Email)}>
                                 @Email()
                             </a>
 
@@ -121,7 +127,7 @@ templ Footer(Interface model.Interface) {
 
                         <div class="cursor-pointer flex justify-start items-start flex-grow-0 flex-shrink-0 h-16 gap-2">
                             <a class="cursor-pointer flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-6 relative">
-                                @Location()
+                                @Location("white")
                             </a>
 
                             <a class="cursor-pointer text-white line-clamp-3 flex justify-start items-start flex-grow-0 flex-shrink-1 font-poppins text-bold text-bold">

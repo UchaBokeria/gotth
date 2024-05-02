@@ -7,7 +7,7 @@ import (
 	"main/server/model"
 )
 
-var seed = []model.News{
+var Seed = []model.News{
 	{
 		Views: 124,
 		Title: `YACCO ს გუნდმა მოიპოვა გამარჯვება 2024 წელს და გავიდა ევროპის ჩემპიონატზე`,
@@ -53,7 +53,7 @@ var seed = []model.News{
 	{
 		Views: 807,
 		Title: `YACCO ევროპის ჩემპიონატზე`,
-		Body: `<img src="assets/images/news/news-4.jpeg"`,
+		Body: `<img src="/assets/images/news/news-4.jpeg"`,
 		Public: true,
 		PublishedAt: time.Now(),
 		Url: "",
@@ -63,7 +63,7 @@ var seed = []model.News{
 	{
 		Views: 322,
 		Title: `YACCO ჩემპიონატზე`,
-		Body: `<img src="assets/images/news/news-5.png"`,
+		Body: `<img src="/assets/images/news/news-5.png"`,
 		Public: true,
 		PublishedAt: time.Now(),
 		Url: "",
@@ -73,7 +73,7 @@ var seed = []model.News{
 	{
 		Views: 78,
 		Title: `YACCO სპორტში`,
-		Body: `<img src="assets/images/news/news-6.jpeg"`,
+		Body: `<img src="/assets/images/news/news-6.jpeg"`,
 		Public: true,
 		PublishedAt: time.Now(),
 		Url: "",
@@ -86,7 +86,7 @@ var seed = []model.News{
 		Body: `<iframe width="560" height="315" src="https://www.youtube.com/embed/0LDDv3B-5uc?si=Qvfnx5azqGcRGtIC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>"`,
 		Public: true,
 		PublishedAt: time.Now(),
-		Url: "https://www.youtube.com/embed/0LDDv3B-5uc?si=Qvfnx5azqGcRGtIC",
+		Url: "",
 		ThumbnailID: 30,
 		TypeID: 2,
 	},
@@ -104,7 +104,7 @@ var seed = []model.News{
 		Views: 956,
 		Title: `YACCO მეტი ვიდეო`,
 		Body: `<video width="640" height="360" controls muted>
-			<source src="assets/videos/example.mp4" type="video/mp4">
+			<source src="/assets/videos/example.mp4" type="video/mp4">
 				თქვენი ბრაუზერი არ უჭერს მხარს ვიდეო ფორმატს, გთხოვთ სცადოთ სხვა ბრაუზერში
 			</video>`,
 		Public: true,
@@ -115,6 +115,9 @@ var seed = []model.News{
 	},
 }
 
+
 func Populate() {
-	for _, row := range seed { storage.DB.Create(&row) }
+	for _, row := range Seed { 
+		storage.DB.Create(&row) 
+	}
 }

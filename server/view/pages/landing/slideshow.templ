@@ -1,0 +1,25 @@
+package view
+
+import(
+    "main/server/model"
+)
+
+templ Slideshow(Interface model.Interface) {
+    <div class="w-[99vw] h-[100vh] top-[0] ml-[-150px] mt-[-40px]">
+        <div id="slide" class="carousel w-full h-full">
+            for _, Slide := range Interface.SlideShow {
+                <div class="carousel-slide relative hidden w-full h-full">
+                    <img src={ "/" + Slide.Pic.Path } alt="Slide 1" class="w-full object-cover h-full" />
+                    <div class="bg-[#333] absolute top-0 left-0 w-full h-full opacity-50" />
+
+                    <div class="carousel-caption absolute inset-0 flex flex-col gap-[30px] overflow-hidden w-[35%] left-[150px] top-[10vh] justify-start items-start text-center">
+                        <h1 class="cursor-pointer text-5xl font-bold text-white mb-4 flex w-full align-start justify-start text-left"> { Slide.Slogan } </h1>
+                        <h3 class="cursor-pointer text-3xl text-white mb-6 text-left overflow-hidden line-clamp-4 leading-[2.7rem]"> { Slide.Desc } </h3>
+                        <button class="cursor-pointer bg-secondary text-primary font-bold py-3 px-6 rounded-lg">გაიგე მეტი</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    @Carousel("#slide .carousel-slide")
+}

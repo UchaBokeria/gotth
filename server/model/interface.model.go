@@ -7,11 +7,12 @@ type Interface struct {
 	Ver  		int
 	Name 		string
 	Slug 		string
-	SlideShow	Interface_slideShow
-	Reasons		Interface_reasons
+	News        []News 					`gorm:"many2many:Interface_news_joins;constraint: OnUpdate:CASCADE, OnDelete:SET NULL;"`
+	SlideShow	[]Interface_slideShow
+	Reasons		[]Interface_reasons
 	Contact		Interface_contact
 	About		Interface_about
-	SocialMedia Social_media
+	SocialMedia []Social_media
 }
 
 type Interface_slideShow struct {
@@ -22,7 +23,7 @@ type Interface_slideShow struct {
 	Slogan      string
 	Desc        string
 	Url         string
-	Index       string
+	Index       int
 	TypeID      int
 	Type		File_types
 	PicID 		int

@@ -23,6 +23,9 @@ func main() {
 
 	files.Types()
 	files.Populate()
+	
+	news.Types()
+	news.Populate()
 
 	interfaces.Populate()
 	interfaces.SocialMedia()
@@ -33,11 +36,10 @@ func main() {
 	
 	categories.Populate()
 
-	news.Types()
-	news.Populate()
-
 	branches.Cities()
 	branches.Populate()
+	branches.Shifts()	
+
 
 	faq.Populate()
 }

@@ -8,7 +8,5 @@ import (
 
 func Register(app *echo.Echo) {
 	app.GET("/", controller.Register(index))
-
-	router := app.Group("/landing")
-	router.GET("/", controller.Register(index))
+	app.POST("/subscribe", controller.Register(subscribe))
 }

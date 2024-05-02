@@ -2,9 +2,7 @@ window.Clipboard = (function(window, document, navigator) {
     var textArea,
         copy;
 
-    function isOS() {
-        return navigator.userAgent.match(/ipad|iphone/i);
-    }
+    function isOS() {return navigator.userAgent.match(/ipad|iphone/i)}
 
     function createTextArea(text) {
         textArea = document.createElement('textArea');
@@ -36,8 +34,7 @@ window.Clipboard = (function(window, document, navigator) {
 
     function copyToClipboard() {
         let exec = document.execCommand('copy');
-        console.log("copy res", exec);
-        
+        console.log("copy res", exec);   
         document.body.removeChild(textArea);
         return exec
     }
@@ -47,14 +44,10 @@ window.Clipboard = (function(window, document, navigator) {
             createTextArea(textTocopy);
             selectText();
             copyToClipboard();
-        } catch (error) {
-            console.log("copy func err", error)
-        }
+        } catch (error) {console.log("copy func err", error)}
     };
     
-    return {
-        copy: copy
-    };
+    return {copy: copy};
 })(window, document, navigator)
 
 const CopyToClipboard = Clipboard['copy']

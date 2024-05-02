@@ -7,16 +7,14 @@ templ Layout() {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script src="/assets/scripts/utils.js"></script>
-        <script src="/assets/scripts/events.js"></script>
         <script src="/assets/scripts/reload.js"></script>
         <script src="/assets/scripts/htmx.min.js"></script>
         <link href="/assets/styles/style.css" rel="stylesheet" />
         <script src="https://cdn.tailwindcss.com"></script>
         <title>Gotth-core</title>
     </head>
-    <body>
+    <body class="overflow-x-hidden">
         {children...}
-        <script src="/assets/scripts/events.js"></script>
     </body>
     </html>
 }

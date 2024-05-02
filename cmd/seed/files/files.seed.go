@@ -7,10 +7,30 @@ import (
 
 var Seed = []model.Files{
 	{
-		Name:       "Example Image",
-		Original:   "example.jpg",
+		Name:       "Slide Image",
+		Original:   "slide-1.jpg",
 		Location:   "local",
-		Path:       "assets/images/example.jpg",
+		Path:       "assets/images/slide-1.jpg",
+		Size:       560, // 0.56 KB
+		Base64:     "",
+		Compressed: false,
+		TypeID:     3, // Image type ID
+	},
+	{
+		Name:       "Slide-2 Image",
+		Original:   "slide-2.jpg",
+		Location:   "local",
+		Path:       "assets/images/slide-2.jpg",
+		Size:       560, // 0.56 KB
+		Base64:     "",
+		Compressed: false,
+		TypeID:     3, // Image type ID
+	},
+	{
+		Name:       "Brothers Image",
+		Original:   "brothers.jpg",
+		Location:   "local",
+		Path:       "assets/images/brothers.jpg",
 		Size:       560, // 0.56 KB
 		Base64:     "",
 		Compressed: false,
@@ -47,80 +67,60 @@ var Seed = []model.Files{
 		TypeID:     3, // Image type ID
 	},
 	{
-		Name:       "Example Image",
-		Original:   "example.jpg",
+		Name:       "garantie Image",
+		Original:   "garantie.jpg",
 		Location:   "local",
-		Path:       "assets/images/example.jpg",
+		Path:       "assets/images/garantie.jpg",
 		Size:       560, // 0.56 KB
 		Base64:     "",
 		Compressed: false,
 		TypeID:     3, // Image type ID
 	},
 	{
-		Name:       "Example Image",
-		Original:   "example.jpg",
+		Name:       "mark Image",
+		Original:   "mark.jpg",
 		Location:   "local",
-		Path:       "assets/images/example.jpg",
+		Path:       "assets/images/mark.jpg",
 		Size:       560, // 0.56 KB
 		Base64:     "",
 		Compressed: false,
 		TypeID:     3, // Image type ID
 	},
 	{
-		Name:       "Example Image",
-		Original:   "example.jpg",
+		Name:       "mark Image",
+		Original:   "mark.jpg",
 		Location:   "local",
-		Path:       "assets/images/example.jpg",
+		Path:       "assets/images/mark.jpg",
 		Size:       560, // 0.56 KB
 		Base64:     "",
 		Compressed: false,
 		TypeID:     3, // Image type ID
 	},
 	{
-		Name:       "Example Image",
-		Original:   "example.jpg",
+		Name:       "mark Image",
+		Original:   "mark.jpg",
 		Location:   "local",
-		Path:       "assets/images/example.jpg",
+		Path:       "assets/images/mark.jpg",
 		Size:       560, // 0.56 KB
 		Base64:     "",
 		Compressed: false,
 		TypeID:     3, // Image type ID
 	},
 	{
-		Name:       "Example Image",
-		Original:   "example.jpg",
+		Name:       "mark Image",
+		Original:   "mark.jpg",
 		Location:   "local",
-		Path:       "assets/images/example.jpg",
+		Path:       "assets/images/mark.jpg",
 		Size:       560, // 0.56 KB
 		Base64:     "",
 		Compressed: false,
 		TypeID:     3, // Image type ID
 	},
 	{
-		Name:       "Example Image",
-		Original:   "example.jpg",
+		Name:       "mark Image",
+		Original:   "mark.jpg",
 		Location:   "local",
-		Path:       "assets/images/example.jpg",
-		Size:       560, // 0.56 KB
-		Base64:     "",
-		Compressed: false,
-		TypeID:     3, // Image type ID
-	},
-	{
-		Name:       "Example Image",
-		Original:   "example.jpg",
-		Location:   "local",
-		Path:       "assets/images/example.jpg",
-		Size:       560, // 0.56 KB
-		Base64:     "",
-		Compressed: false,
-		TypeID:     3, // Image type ID
-	},
-	{
-		Name:       "Example Image",
-		Original:   "example.jpg",
-		Location:   "local",
-		Path:       "assets/images/example.jpg",
+		Path:       "assets/images/mark.jpg",
 		Size:       560, // 0.56 KB
 		Base64:     "",
 		Compressed: false,

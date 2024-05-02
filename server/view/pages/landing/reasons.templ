@@ -1,0 +1,30 @@
+package view
+
+import(
+    "main/server/model"
+)
+
+templ Reasons(Interface model.Interface) {
+    <div class="w-full">
+        <div class="w-full font-nino font-bold text-4xl text-primary text-center py-[30px]">
+            ჩვენ გთავაზობთ
+        </div>
+        
+        <div class="w-full flex flex-wrap gap-[5%]">
+            for _, Reason := range Interface.Reasons {
+                <a  class="cursor-pointer transition shadow-md hover:shadow-lg w-[30%] rounded-lg flex flex-col justify-between gap-[20px] px-[3%] py-[30px] mb-[50px]"
+                    href={ templ.SafeURL(Reason.Url) } target="_blank">
+                    <div class="w-full flex justify-center"> 
+                        <img src={ "/" + Reason.Icon.Path } class="w-10"/>
+                    </div>
+                    <h1 class="w-full font-nino font-bold text-3xl flex justify-center text-center"> { Reason.Title } </h1>
+                    <div class="w-full flex h-[70px] line-clamp-2"> { Reason.Desc } </div>
+                </a>
+            }
+        </div>
+
+        <a class="flex cursor-pointer" href="https://shop.alfamotors.ge" target="_blank">
+            <img src="/assets/images/banner.svg" class="w-[100%]" />
+        </a>
+    </div>
+}

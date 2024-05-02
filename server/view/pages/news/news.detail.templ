@@ -1,5 +1,22 @@
 package view
 
-templ NewsDetails() {
-    news details
+import(
+    "main/server/model"
+)
+
+script Redirect(url string) {
+    location.replace(url)
+}
+
+templ NewsDetails(News model.News) {
+    if News.Url != "" { 
+        @Redirect(News.Url)
+    }
+    
+    <p class="text-3xl font-nino font-bold text-left pb-[30px]">
+        <span class="text-3xl font-bold text-left text-primary"> { News.Title } </span>
+    </p>
+    <p class="">
+        @templ.Raw(News.Body)
+    </p>
 }

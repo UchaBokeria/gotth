@@ -5,9 +5,9 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      poppins: ["Nino", "sans-serif"],
-      poppins: ["Deja", "sans-serif"],
-      poppins: ["Arial", "sans-serif"],
+      nino: ["Nino", "sans-serif"],
+      deja: ["Deja", "sans-serif"],
+      arial: ["Arial", "sans-serif"],
       poppins: ["Poppins", "sans-serif"],
     },
     container: {
