@@ -1,0 +1,23 @@
+/* Define the autoscroll animation */
+@keyframes autoscroll {
+    0% {
+      /* Start scrolling from the top */
+      transform: translateX(0);
+    }
+    30% {
+        /* Scroll quickly to bottom */
+        transform: translateX(-600px);
+    }
+    60% {
+        /* Pause at the bottom */
+        transform: translateX(-1200px);
+    }
+    90% {
+      /* Scroll to the bottom */
+        transform: translateX(-1700px);
+    }
+    100% {
+      /* Scroll to the bottom */
+        transform: translateX(0);
+    }
+}

@@ -1,0 +1,429 @@
+Automobile - 60
+    <automobile>
+        <choose_a_range>
+            yacco lube
+            galaxy compettion
+            collection lubes
+            yacco vx premium
+            yacco vx
+            yacco pro
+        </choose_a_range>
+
+        <2page>
+            synthetic 100%
+            mineral
+            synthetic
+            synthetic technology
+            semi synthetic
+        </2page>
+
+        <viscosity>
+            30
+            5W30
+            0W40
+            0W16
+            10W60
+            5W20
+            0W8
+            0W30
+            0W20
+            5W40
+            10W50
+            5W50
+            15W50
+            10W40
+            20W50
+            15W40
+            10W30
+        </viscosity>
+
+        <engine>
+            4-stoke
+            2-stoke
+        </engine>
+
+        <packaging>
+            60L barrel
+            208L barrel
+            2L can
+            1000L tank
+            1000L bulk
+            1L can
+            4L can
+            5L can
+            250ML small can
+            20L barrelrel
+            bag in box 20L
+        </packaging>
+    </automobile>
+
+Moto / quad / Karting - 45
+    <moto_quad_karting>
+        <choose_a_range>
+            4 stoke motorcycle lubes
+            2 stoke motorcycle lubes
+            scooter lubes
+            quad lubes
+            karting lubes
+            snowmobile lubes
+            motorcycles specific product
+            motorcyclesgearbox lubes
+            motorcycles fork lubes
+        </choose_a_range>
+
+        <2page>
+            synthetic 100%
+            mineral
+            synthetic
+            synthetic technology
+            semi synthetic
+        </2page>
+
+        <engine>
+            4-stoke
+            2-stoke
+        </engine>
+
+        <viscosity>
+            10W40
+            10W30
+            10W60
+            15W50
+            10W50
+            5W40
+            20W50
+            80W90
+            0W40
+        </viscosity>
+
+        <packaging>
+            1L  can
+            208L barrel
+            4L can
+            2L can
+            60L barrel
+            1000L bulk
+            400ML spray
+            5L can
+            125ML tube
+            500ML spray
+        </packaging>
+    </moto_quad_karting>
+
+Transport / Heavy equipment - 60
+    <transport_heavy_equipment>
+        <choose_a_range>
+            premium mineral lubes
+            hydraulic systems
+            automatic transmission lubes
+            gear boxes and beam axles
+            brake and suspension systems
+            cooling systems
+        </choose_a_range>
+
+        <2page>
+            synthetic 100%
+            mineral
+            synthetic
+            synthetic technology
+            semi synthetic
+        </2page>
+
+        <viscosity>
+            10
+            30
+            40
+            50
+            80W90
+            5W30
+            10W40
+            15W40
+            10W30
+            20W50
+        </viscosity>
+
+        <engine>
+            4stoke
+        </engine>
+
+        <packaging>
+            5L can
+            1000L tank
+            220K barrel
+            60L barrel
+            208L  barrel
+            tonnelet 20L
+            20Lbarel
+            2L can
+            1L can
+            500ML small can
+        </packaging>
+    </transport_heavy_equipment>
+
+
+farming - 30
+    <farming>
+        <choose_a_range>
+            multifunctional lubes
+            transmission hydraulic lubes
+            2-stoke farming equipment lubes
+            4-stoke farming equipment lubes
+            chalnsaw lubes
+            engine lubes
+        </choose_a_range>
+
+        <2page>
+            synthetic 100%
+            mineral
+            synthetic
+            synthetic technology
+            semi synthetic
+        </2page>
+
+        <viscosity>
+            10W30
+            15W40
+            10W40
+            VG150
+            VG220
+            VG320
+        </viscosity>
+
+        <engine>
+            4stoke
+            2stoke
+        </engine>
+
+        <packaging>
+            20L barrel
+            60L barrel
+            208L barrel
+            5L can
+            1000L tank
+            1000L bulk
+            2L can
+        </packaging>
+    </farming>
+
+Gearboxes / beam axles - 30
+    <gearboxes_bearm_axles>
+        <choose_a_range>
+            automatic transmission lubes
+            synthetic lubes
+            semi-synthetic lubes
+            mineral lubes
+            automatic transmission fluids
+            gearboxes lubes
+        </choose_a_range>
+
+        <2page>
+            synthetic 100%
+            mineral
+            synthetic
+            semi synthetic
+        </2page>
+
+        <viscosity>
+            90
+            220
+            320
+            75W
+            75W140
+            75W80
+            75W90
+            80W90
+            80W85
+        </viscosity>
+
+        <engine>
+            4-stoke
+        </engine>
+
+        <packaging>
+            2L can
+            60L barrel
+            1L can
+            208L barrel
+            20L barrel
+            5L can
+            1000L tank
+        </packaging>
+    </gearboxes_bearm_axles>
+
+Upkeep and cleaning - 60
+    <upkeep_and_cleaning>
+        <choose_a_range>
+            upkeep
+            protection
+            cleanser
+            grease
+        </choose_a_range>
+
+        <2page>
+        </2page>
+
+        <viscosity>
+        </viscosity>
+
+        <engine>
+        </engine>
+
+        <packaging>
+            500ML spray 6A
+            bldonnet 150ML
+            250ML small can
+            400G Multipack
+            50K gek
+            70 bucket
+            5L can
+            25K gek
+            100G tube
+            125ML spray
+            2.5L can
+            seau 4K
+            seau 9K
+            400ML spray
+            100ML tube
+            100ML small can
+            spray 500ML 12A
+            20L barrel
+            210L barrel
+            150ML spray
+            180K barrel
+            1K box
+            10K bucket
+            50K barrel
+            5K bucket
+            15K bucket
+            60L barrel
+            208L barrel
+            400 ML small can
+        </packaging>
+    </upkeep_and_cleaning>
+
+Sailing / Yachting - 45
+    <salling_yachiting>
+        <choose_a_range>
+            2-stoke engine lubes
+            gearboxes lubes
+            special products
+            transmission fludes
+            hydraulic  fludes
+            greases
+            4-stoke engine lubes
+        </choose_a_range>
+
+        <2page>
+            synthetic 100%
+            mineral
+            synthetic
+            semi synthetic
+        </2page>
+
+        <viscosity>
+            30
+            40
+            90
+            10W30
+            10W40
+            25W40
+            75W90
+            75W140
+            15W40
+            5W40
+            10W60
+        </viscosity>
+
+        <engine>
+            2-stoke
+            4-stoke
+        </engine>
+
+        <packaging>
+            5L can
+            1000L tank
+            220K barrel
+            2L can
+            1L can
+            60L barrel
+            208L barrel
+            200ML small can
+            20L barrel
+            250ML lube
+            1000L bulk
+            400G multipack
+            1K box
+            180K barrel
+            5K bucket
+            50K keg
+        </packaging>
+    </salling_yachiting>
+
+Light planes - 5
+    <light_planes>
+        <choose_a_range>
+        </choose_a_range>
+
+        <2page>
+            synthetic 100%
+            mineral
+            synthetic
+            semi synthetic
+        </2page>
+
+        <viscosity>
+            80
+            10W80
+        </viscosity>
+
+        <engine>
+            2-stoke
+            4-stoke
+        </engine>
+
+        <packaging>
+            2L can
+            1L can
+            60L barrel
+        </packaging>
+    </light_planes>
+
+Specialities - 30
+    <specialities>
+        <choose_a_range>
+            cooling fluids
+            synthetic brake Flud
+            hydralike Flud 
+            windshield washer
+            transmission lubes
+            metalworking fluds
+            coolant
+            gearboxes lubes 
+        </choose_a_range>
+
+        <2page>
+            mineral
+            synthetic
+            semi synthetic
+        </2page>
+
+        <viscosity>
+            220
+            320
+        </viscosity>
+
+        <engine>
+        </engine>
+
+        <packaging>
+            5L can
+            1000L tank
+            220K barrel
+            500ML small can
+            1L can
+            20L barrel
+            210L barrel
+            208L barrel
+            60L barrel
+        </packaging>
+    </specialitiels>

@@ -12,6 +12,7 @@ import (
 	"main/cmd/seed/files"
 	"main/cmd/seed/interfaces"
 	"main/cmd/seed/news"
+	"main/cmd/seed/products"
 	"main/server/common/storage"
 )
 
@@ -33,13 +34,17 @@ func main() {
 	interfaces.Reason()
 	interfaces.Contact()
 	interfaces.About()
-	
-	categories.Populate()
 
 	branches.Cities()
 	branches.Populate()
 	branches.Shifts()	
 
-
 	faq.Populate()
+
+	categories.Populate()
+
+	products.Approval()
+	products.Packaging()
+	products.Specification()
+	products.Populate()
 }

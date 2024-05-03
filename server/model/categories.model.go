@@ -5,6 +5,7 @@ import "gorm.io/gorm"
 type Categories struct {
 	gorm.Model
 	Name 				string
+	Slug                string
 	IconID 				int
 	Icon 				Files				`gorm:"constraint: OnUpdate:CASCADE, OnDelete:SET NULL;"`
 	Filters				[]Category_filters 	`gorm:"many2many:Category_filters_joins;constraint: OnUpdate:CASCADE, OnDelete:SET NULL;"`
