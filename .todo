@@ -1,26 +1,34 @@
-[] hover:shadow transition
-[] home > slider > ui / links / arrows
-[] home > reasons > title starting point
-[] home > location > copy
+[+] hover:shadow transition
+[] home > slider > change to css way
+[+] home > slider > ui / links / arrows
+[+] home > reasons > title starting point
+[+] home > location > copy
 [] home > news > text height bug
-[] footer > add branches in links
-[] footer > make contact links work
-[] footer > social media links position
-[] footer > summary must not be from about
-[] faq > toggling must work on button too
+[+] footer > add branches in links
+[+] footer > make contact links work
+[+] footer > social media links position
+[+] footer > summary must not be from about
+[+] faq > toggling must work on button too
 [] fonts
+
+[] animations
+
+[] loading
+[+] scroll to top on navigation problem
+[] add toast / maybe confetti too
+
 [] category > seeding
 [] products > seeding ?? parsing data from yacco
 [] products > filters
 [] products > list > infiniteScroll
 [] products > details
-[] chat
-[] loading
-[] scroll caching problem
-[] add notifys / maybe confetti too
+
+[] chat (ui, sockets, email strategy)
+
 [] admin > auth
-[] admin > table with import export crud
+[] admin > table with import export crud modal
 [] admin > ckeditor
+
 [] admin > dashboard > charts
 [] admin > categories
 [] admin > products
@@ -28,8 +36,8 @@
 [] admin > news
 [] admin > interface
 [] admin > chat
+
 [] code > add scripts with templ way
-[] home > slider > change to css way
 [] database > branch shifts anotherway
 [] setup drops for seed
 [] test echo middlewares

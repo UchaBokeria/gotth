@@ -17,57 +17,59 @@ type Interface struct {
 
 type Interface_slideShow struct {
 	gorm.Model
-	InterfaceID uint
-	Name 		string
-	Slug 		string
-	Slogan      string
-	Desc        string
-	Url         string
-	Index       int
-	TypeID      int
-	Type		File_types
-	PicID 		int
-	Pic 		Files
+	InterfaceID 	uint
+	Name 			string
+	Slug 			string
+	Slogan      	string
+	Desc        	string
+	Url         	string
+	Index       	int
+	TypeID      	int
+	Type			File_types
+	PicID 			int
+	Pic 			Files
 }
 
 type Interface_reasons struct {
 	gorm.Model
-	InterfaceID uint
-	Name 		string
-	Slug 		string
-	Title		string
-	Desc		string
-	Url			string
-	IconID 		int
-	Icon 		Files
+	InterfaceID 	uint
+	Name 			string
+	Slug 			string
+	Title			string
+	Desc			string
+	Url				string
+	IconID 			int
+	Icon 			Files
 }
 
 type Interface_contact struct {
 	gorm.Model
-	InterfaceID uint
-	Ver         int
-	Name 		string
-	Slug 		string
-	Phone       string
-	Email       string
-	Location    string
-	ShortDesc   string
+	InterfaceID 	uint
+	Ver         	int
+	Name 			string
+	Slug 			string
+	Phone       	string
+	Email       	string
+	Location    	string
+	ShortDesc   	string
+	LocationLink  	string
+	LocationIframe 	string
 }
 
 type Social_media struct {
 	gorm.Model
-	InterfaceID uint
-	Name 		string
-	Slug 		string
-	Url         string
-	IconID 		int
-	Icon 		Files
+	InterfaceID 	uint
+	Name 			string
+	Slug 			string
+	Url         	string
+	IconID 			int
+	Icon 			Files
 }
 
 type Interface_about struct {
 	gorm.Model
-	InterfaceID uint
-	Ver    		int
-	Body   		string
-	Terms  		string
+	InterfaceID 	uint
+	Ver    			int
+	Body   			string
+	Terms  			string
 }

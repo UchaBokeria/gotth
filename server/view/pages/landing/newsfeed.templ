@@ -9,10 +9,11 @@ templ NewsFeed(Interface model.Interface) {
     <div class="w-full h-[50vh] pb-[50px]">
         <div id="news" class="w-full h-full flex gap-[50px] snap-x snap-mandatory overflow-x-scroll no-scrollbar">
             for _, Slide := range Interface.News {
-                <div    class="cursor-pointer shadow-2xl snap-ml-40 snap-start shrink-0 w-[70%] auto-scroll flex gap-5"
+                <div    class="cursor-pointer w-[70%] shadower snap-ml-40 snap-start shrink-0 auto-scroll-catalog flex gap-5"
                         hx-get={ "/news/" + strconv.Itoa(int(Slide.ID)) } 
                         hx-push-url={ "/news/" + strconv.Itoa(int(Slide.ID)) } 
-                        hx-swap="innerHTML" hx-target="#Content">
+                        hx-swap="innerHTML scroll:top" hx-target="#Content">
+
                     <img src={ "/assets/images/news/" + Slide.Thumbnail.Path } alt="Slide 1" 
                          class="w-[50%] h-[426px] object-cover" />
                          

@@ -11,33 +11,35 @@ script ChangeMap(url string) {
 }
 
 templ Branches(Branches []model.Branches){
-    <p class="text-3xl font-nino font-bold text-left pb-[30px]">
-        <span class="text-3xl font-bold text-left text-primary">ფილიალები</span>
-        <span class="text-3xl font-bold text-left text-black"> </span>
-    </p>
+    <div class="">
+        <p class="text-3xl font-nino font-bold text-left">
+            <span class="text-3xl font-bold text-left text-primary">ფილიალები</span>
+            <span class="text-3xl font-bold text-left text-black"> </span>
+        </p>
 
-    <div class="w-full flex flex-col justify-between gap-[30px]">
-        <iframe id="branchMap" src={mapUrl} width="100%" height="450" style="border:0; outline:0;"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        
-        <div class="pt-[30px] flex w-full flex-wrap items-center justify-start gap-[16px]">
-            for _, Branch := range Branches {
-                <div class="transition shadow-md hover:shadow-lg  cursor-pointer flex h-[114px] w-[340px] flex-shrink-0 flex-grow-0 items-start justify-start gap-[76px] rounded-[10px] bg-[#f2f2f2] px-[25px] py-5"
-                     onclick={ChangeMap(Branch.Map)}>
-                    <div class="relative flex flex-shrink-0 flex-grow-0 flex-col items-start justify-start gap-[5px]">
-                        <p class="h-4 w-[61px] flex-shrink-0 flex-grow-0 text-left text-[13px] font-bold text-black"> { Branch.City.Name } </p>
-                        <p class="h-[15px] w-[69px] flex-shrink-0 flex-grow-0 text-left text-[13px] text-black"> { Branch.Region } </p>
-                    </div>
+        <div class="w-full flex flex-col justify-between gap-[30px] mt-[3vh]">
+            <iframe id="branchMap" src={mapUrl} width="100%" height="450" style="border:0; outline:0;"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            
+            <div class="pt-[30px] flex w-full flex-wrap items-center justify-start gap-[16px]">
+                for _, Branch := range Branches {
+                    <div class="shadower cursor-pointer flex h-[114px] w-[340px] flex-shrink-0 flex-grow-0 items-start justify-start gap-[76px] rounded-[10px] bg-[#f2f2f2] px-[25px] py-5"
+                        onclick={ChangeMap(Branch.Map)}>
+                        <div class="relative flex flex-shrink-0 flex-grow-0 flex-col items-start justify-start gap-[5px]">
+                            <p class="h-4 w-[61px] flex-shrink-0 flex-grow-0 text-left text-[13px] font-bold text-black"> { Branch.City.Name } </p>
+                            <p class="h-[15px] w-[69px] flex-shrink-0 flex-grow-0 text-left text-[13px] text-black"> { Branch.Region } </p>
+                        </div>
 
-                    <div class="relative flex flex-shrink-0 flex-grow-0 flex-col items-end justify-start gap-3 self-stretch">
-                        <p class="h-3 w-[111px] flex-shrink-0 flex-grow-0 text-left text-[13px] font-bold text-[#008772]"> { Branch.PhoneNumber } </p>
-                        for _, Shift := range Branch.Shifts {
-                            <p class="h-[17px] w-[161px] flex-shrink-0 flex-grow-0 text-left text-[13px] text-black">
-                                { Shift.Name }: { Shift.OpensAt.Format("15:04") } - { Shift.ClosesAt.Format("15:04") }
-                            </p>
-                        }
+                        <div class="relative flex flex-shrink-0 flex-grow-0 flex-col items-end justify-start gap-3 self-stretch">
+                            <p class="h-3 w-[111px] flex-shrink-0 flex-grow-0 text-left text-[13px] font-bold text-[#008772]"> { Branch.PhoneNumber } </p>
+                            for _, Shift := range Branch.Shifts {
+                                <p class="h-[17px] w-[161px] flex-shrink-0 flex-grow-0 text-left text-[13px] text-black">
+                                    { Shift.Name }: { Shift.OpensAt.Format("15:04") } - { Shift.ClosesAt.Format("15:04") }
+                                </p>
+                            }
+                        </div>
                     </div>
-                </div>
-            }
+                }
+            </div>
         </div>
     </div>
 }

@@ -10,7 +10,7 @@ var Seed = []model.Files{
 		Name:       "Slide Image",
 		Original:   "slide-1.jpg",
 		Location:   "local",
-		Path:       "assets/images/slide-1.jpg",
+		Path:       "assets/images/slide-1.webp",
 		Size:       560, // 0.56 KB
 		Base64:     "",
 		Compressed: false,
