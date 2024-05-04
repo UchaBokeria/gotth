@@ -1,14 +1,25 @@
 package view
 
 import(
+    "fmt"
     "main/server/model"
 )
 
+css Slider(len int, dur int) {
+    animation-name: { templ.SafeCSSProperty( fmt.Sprintf(" slider-%d", len) ) };
+    animation-duration: { templ.SafeCSSProperty( fmt.Sprintf(" %ds", len * dur) ) };
+    animation-fill-mode: backwards;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+}
+
 templ Slideshow(Interface model.Interface) {
     <div class="w-[99vw] h-[100vh] top-[0] ml-[-150px] mt-[-40px]">
-        <div id="slide" class="w-full h-full flex snap-x snap-mandatory overflow-x-scroll no-scrollbar">
+        <div class="relative w-full h-full flex snap-x snap-mandatory overflow-x-scroll no-scrollbar">
+
             for _, Slide := range Interface.SlideShow {
-                <div class="carousel-slide hidden relative w-full h-full snap-start shrink-0">
+                <div class={"relative w-[100%] h-full shrink-0", Slider(len(Interface.SlideShow), 7)}>
+
                     <img src={ "/" + Slide.Pic.Path } class="w-full object-cover h-full" />
                     <div class="absolute top-0 left-0 w-full h-full bg-black opacity-30" />
 
@@ -32,5 +43,4 @@ templ Slideshow(Interface model.Interface) {
             }
         </div>
     </div>
-    // @Carousel("#slide .carousel-slide")
 }

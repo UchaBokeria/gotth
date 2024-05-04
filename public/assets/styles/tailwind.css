@@ -11,6 +11,7 @@
     .no-scrollbar::-webkit-scrollbar {
         display: none;
     }
+
    /* Hide scrollbar for IE, Edge and Firefox */
     .no-scrollbar {
         -ms-overflow-style: none;  /* IE and Edge */
@@ -18,7 +19,7 @@
     }
 
     .auto-scroll-catalog {
-        animation: autoScrollCatalog 20s infinite;
+        animation: autoScrollCatalog 26s infinite;
     }
 
     .shadower {
