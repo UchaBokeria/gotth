@@ -32,8 +32,8 @@ templ Footer(Interface model.Interface) {
 
         <div class="flex justify-between items-center w-[100%] h-[360px] px-[150px] py-[40px] ">
             <div class="w-[45%] flex flex-col justify-between items-start flex-grow-0 flex-shrink-0 relative gap-[25px]">
-                <img    src="/assets/images/logo.png" hx-get={ "/" } hx-push-url={ "/" } hx-indicator=".Loading"
-                        class="cursor-pointer flex-grow-0 flex-shrink-0 w-[138px] h-[77px] object-cover" />
+                <img    src="/assets/images/logo.png" class="cursor-pointer flex-grow-0 flex-shrink-0 w-[138px] h-[77px] object-cover" 
+                        hx-get={ "/" } hx-push-url={ "/" } hx-indicator=".Loading" hx-swap="innerHTML show:window:top" hx-target="#Content" />
 
                 <a class="flex-grow-0 flex-shrink-0 h-[72px] w-[100%] leading-6 line-clamp-3 text-md font-arial text-white">
                     { Interface.Contact.ShortDesc }

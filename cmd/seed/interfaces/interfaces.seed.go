@@ -17,7 +17,7 @@ var Interfaces = []model.Interface{
 func Populate() {
 	for _, row := range Interfaces { 
 		storage.DB.Create(&row)
-			
+
 		storage.DB.
 			Model(&row).
 			Association("News").
