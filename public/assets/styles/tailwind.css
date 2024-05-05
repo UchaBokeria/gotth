@@ -7,6 +7,10 @@
 @import url('animate.compat.css');
 
 @layer utilities {
+    .htmx-request  {
+        display: flex !important;
+    }
+
     /* Hide scrollbar for Chrome, Safari and Opera */
     .no-scrollbar::-webkit-scrollbar {
         display: none;
@@ -29,5 +33,14 @@
     
     .shadower:hover {
         box-shadow: rgba(13, 38, 76, 0.19) 0px 9px 20px;
+    }
+
+    .shadow-mondegreen:hover {
+        box-shadow: 5px 5px #008772, 
+                    10px 10px #0087724d, 
+                    15px 15px #00877233, 
+                    20px 20px #0087721a, 
+                    25px 25px #0087720d;
+        transition: all 1s;
     }
 }

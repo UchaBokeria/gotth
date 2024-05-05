@@ -7,9 +7,9 @@ import(
 
 templ News(News []model.News, Filters []model.News_types, Current string) {
     <div class="w-full">
-        <p class="text-3xl font-nino font-bold text-left">
-            <span class="text-3xl font-bold text-left text-primary">სიახლეები</span>
-            <span class="text-3xl font-bold text-left text-black"> </span>
+        <p class="w-full">
+            <span class="text-3xl font-nino font-bold text-primary">სიახლეები</span>
+            <span class="text-3xl font-nino font-bold text-primary"> </span>
         </p>
 
         @NewsFilters(Filters, Current)
@@ -19,13 +19,13 @@ templ News(News []model.News, Filters []model.News_types, Current string) {
                 <div class="cursor-pointer flex flex-shrink-0 flex-grow-0 items-start justify-start gap-[67px] pb-[45px] pt-[7px]"
                         hx-get={ "/news/" + strconv.Itoa(int(item.ID)) } 
                         hx-push-url={ "/news/" + strconv.Itoa(int(item.ID)) } 
-                        hx-swap="innerHTML scroll:top" hx-target="#Content">
+                        hx-swap="innerHTML show:window:top" hx-target="#Content">
                     <div class="shadower relative flex w-[300px] flex-shrink-0 flex-grow-0 flex-col items-center justify-center gap-2 overflow-hidden rounded-xl border border-[#e8e8ea] bg-white p-4">
                         <img src={ "/assets/images/news/" + item.Thumbnail.Path } class="h-60 w-[360px] flex-shrink-0 flex-grow-0 rounded-md object-cover" />
 
                         <div class="flex flex-shrink-0 flex-grow-0 flex-col items-start justify-start gap-5 self-stretch p-2">
                             <div class="relative flex flex-shrink-0 flex-grow-0 flex-col items-start justify-start gap-4 self-stretch">
-                                <p class="line-clamp-2 w-[287px] h-[50px] flex-shrink-0 flex-grow-0 self-stretch text-left text-base font-bold text-[#181a2a]">
+                                <p class="line-clamp-2 w-full h-[50px] flex-shrink-0 flex-grow-0 self-stretch font-nino font-bold text-black">
                                     { item.Title }
                                 </p>
                             </div>

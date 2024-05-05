@@ -13,10 +13,10 @@ templ NewsDetails(News model.News) {
         @Redirect(News.Url)
     }
     
-    <p class="text-3xl font-nino font-bold text-left mb-[2vh]">
-        <span class="text-3xl font-bold text-left text-primary"> { News.Title } </span>
+    <p class="w-full mb-[2vh]">
+        <span class="text-3xl font-nino font-bold text-black"> { News.Title } </span>
     </p>
-    <p class="w-full">
+    <p class="w-full font-arial">
         @templ.Raw(News.Body)
     </p>
 }

@@ -4,39 +4,27 @@ import(
     "main/server/model"
 )
 
-type Links struct {
-    Name string
-    Slug string
-    Path string
-}
-
-var Routes = []Links{
-    { Path: "/categories", Name: "პროდუქტი", Slug: "categories" },
-    { Path: "/branches", Name: "ლოკაციები", Slug: "branches" },
-    { Path: "/news", Name: "სიახლეები", Slug: "news" },
-    { Path: "/faq", Name: "დახმარება", Slug: "faq" },
-    { Path: "/about", Name: "ჩვენს შესახებ", Slug: "about" },
-}
-
 templ Header(Interface model.Interface) {
-    <div class="w-[100%] flex justify-start items-center px-[150px] py-[15px] bg-primary">
-        <img    class="cursor-pointer w-[104.26px] h-[60px] object-cover" 
-                hx-get={ "/" } hx-push-url={ "/" } hx-swap="innerHTML scroll:top" hx-target="#Content"
-                src="/assets/images/logo.png" />
+    <div class="w-[100%] flex justify-start relative z-[999] items-center px-[150px] py-[15px] bg-primary">
+        <img src="/assets/images/logo.png" class="cursor-pointer w-[104.26px] h-[60px] object-cover" hx-indicator=".Loading"
+             hx-get={ "/" } hx-push-url={ "/" } hx-swap="innerHTML show:window:top" hx-target="#Content"/>
 
-        <div class="flex justify-start items-center flex-grow gap-[50px] px-[50px]">
+        <div class="flex justify-start items-center flex-grow gap-[40px] px-[40px]">
             for _, Nav := range Routes {
-                <a  class="font-deja cursor-pointer text-sm font-bold text-left text-white"
-                    hx-get={ Nav.Path } hx-push-url={ Nav.Path } hx-swap="innerHTML scroll:top" hx-target="#Content">
+                <a  class="cursor-pointer font-nino text-md text-white"
+                    hx-get={ Nav.Path } hx-push-url={ Nav.Path } hx-indicator=".Loading"
+                    hx-swap="innerHTML show:window:top" hx-target="#Content">
                     { Nav.Name }
                 </a> 
             }
         </div>
 
-        <div onclick={Call(Interface.Contact.Phone)} class="rubberBand shadower rounded-lg cursor-pointer flex flex-col justify-center items-center flex-grow-0 flex-shrink-0">
-            <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 h-[39px] relative gap-[11px] px-[20px] pt-[15px] pb-3.5 rounded-lg bg-secondary">
+        <div class="animated bounceInRight group rounded-lg cursor-pointer flex flex-col justify-center items-center flex-grow-0 flex-shrink-0"
+             onclick={Call(Interface.Contact.Phone)} >
+            <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 h-[39px] gap-[11px] px-[20px] pt-[15px] pb-3.5 rounded-lg bg-secondary">
                 @Phone()
-                <button  class="flex mt-[0.5%] text-xs leading-snug font-poppins font-semibold text-left text-primary" 
+
+                <button  class="flex mt-[0.5%] text-xs leading-snug font-poppins font-bold text-black" 
                          value={Interface.Contact.Phone}
                          id="RingRing">
                     { Interface.Contact.Phone } 

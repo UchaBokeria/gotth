@@ -1,0 +1,17 @@
+package view
+
+type Links struct {
+    Name string
+    Slug string
+    Path string
+}
+
+var Routes = []Links{
+    { Path: "/categories", Name: "პროდუქტი", Slug: "categories" },
+    { Path: "/branches", Name: "ლოკაციები", Slug: "branches" },
+    { Path: "/news", Name: "სიახლეები", Slug: "news" },
+    { Path: "/faq", Name: "დახმარება", Slug: "faq" },
+    { Path: "/about", Name: "ჩვენს შესახებ", Slug: "about" },
+}
+
+templ ___Routes() {}

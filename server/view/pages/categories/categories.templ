@@ -7,17 +7,17 @@ import(
 
 templ Categories(Categories []model.Categories) {
     <div class="w-full">
-        <p class="text-3xl font-nino font-bold text-left pb-[4vh]">
-            <span class="text-3xl font-bold text-left text-primary">მოძებნე</span>
-            <span class="text-3xl font-bold text-left text-black"> კატეგორიით</span>
+        <p class="w-full pb-[4vh]">
+            <span class="text-3xl font-nino font-bold text-primary">მოძებნე</span>
+            <span class="text-3xl font-nino font-bold text-primary"> კატეგორიით</span>
         </p>
 
-        <div class="max-w-[100%] w-auto h-[auto] flex flex-wrap border-l-2 border-t-[2px]">
+        <div class="animated fadeIn max-w-[100%] w-auto h-[auto] flex flex-wrap border-l-2 border-t-[2px] ">
             for _, Category := range Categories {
                 <div class="cursor-pointer overflow-hidden w-1/5 h-auto px-[20px] flex gap-[5%] flex-col align-between justify-center border-r-[2px] border-b-[2px]" 
                         hx-get={"/products?category=" + strconv.Itoa(int(Category.ID))} 
                         hx-push-url={"/products?category=" + strconv.Itoa(int(Category.ID))} 
-                        hx-swap="innerHTML scroll:top" hx-target="#Content">
+                        hx-swap="innerHTML show:window:top" hx-target="#Content">
                     <div class="w-[100%] h-[80%] py-5 px-2">
                         <img class="h-[100%] w-[100%]" src={ "assets/images/categories/" + Category.Icon.Path } />
                     </div>
@@ -26,7 +26,7 @@ templ Categories(Categories []model.Categories) {
             }
         </div>
 
-        <a class="flex cursor-pointer mt-[6vh]" href="https://shop.alfamotors.ge" target="_blank">
+        <a class="flex cursor-pointer mt-[10vh] mb-[6vh]" href="https://shop.alfamotors.ge" target="_blank">
             <img src="/assets/images/banner.svg" class="w-[100%]" />
         </a>
     </div>

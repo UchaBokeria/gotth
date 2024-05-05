@@ -1,26 +1,30 @@
 package view
 
 import(
+    "strconv"
     "main/server/model"
 )
 
 templ Faq(Faq []model.Faq) {
     <div class="w-full">
         <p class="text-3xl font-nino font-bold text-left">
-            <span class="text-3xl font-bold text-left text-primary">ხშირად დასმული</span>
-            <span class="text-3xl font-bold text-left text-black"> შეკითხვები</span>
+            <span class="text-3xl font-bold text-primary">ხშირად დასმული</span>
+            <span class="text-3xl font-bold text-black"> შეკითხვები</span>
         </p>
 
-        <div class="overflow-hidden rounded my-[3vh]">
+        <div class="my-[3vh]">
             for _, faq := range Faq {
-                <div class="accordion-section group outline-none pb-5" tabindex={ faq.Slug }>
-                    <div class="ease group relative flex cursor-pointer items-center justify-between bg-gray-100 px-4 py-4 pr-10 text-black transition duration-200">
-                        <div class="ease transition duration-500 group-focus:text-black"> { faq.Question } </div>
-                        <div class="text-large flex h-8 w-8 transform items-center justify-center rounded-full border border-gray-700  group-focus:-rotate-180">
+                <div class="group pb-5" tabindex={ faq.Slug }>
+                    <label class="cursor-pointer relative flex items-center justify-between bg-gray-100 px-4 py-4 pr-10 text-black"
+                        for={ "FaqQuestion-" + strconv.Itoa(int(faq.ID)) }>
+                        <div> { faq.Question } </div>
+                        <div class="text-large flex h-8 w-8 transform items-center justify-center rounded-full border border-gray-700 group-focus:-rotate-180">
                             @DownToggleArrow()
                         </div>
-                    </div>
-                    <div class="ease max-h-0 overflow-hidden bg-primary px-4 duration-500 group-focus:max-h-screen">
+                    </label>
+
+                    <input type="checkbox" id={ "FaqQuestion-" + strconv.Itoa(int(faq.ID)) } class="hidden peer" />
+                    <div class="ease overflow-hidden bg-primary px-4 transition duration-500 max-h-0 peer-checked:max-h-[500px]">
                         <p class="py-7 text-justify text-white"> { faq.Answer } </p>
                     </div>
                 </div>

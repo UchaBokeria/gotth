@@ -24,18 +24,18 @@ templ Slideshow(Interface model.Interface) {
                     <div class="absolute top-0 left-0 w-full h-full bg-black opacity-30" />
 
                     <div class="carousel-caption w-[35%] overflow-hidden absolute inset-0 left-[150px] top-[15%] flex flex-col gap-[20px] justify-start items-start text-center">
-                        <h1 class="bg-clip-text cursor-pointer text-5xl font-bold text-white mb-4 flex w-full align-start justify-start text-left"
-                            hx-get={ Slide.Url } hx-push-url={ Slide.Url } hx-swap="innerHTML scroll:top" hx-target="#Content">
+                        <h1 class="animated bounceIn bg-clip-text cursor-pointer text-5xl font-nino font-bold text-white mb-4 flex w-full align-start justify-start text-left"
+                            hx-get={ Slide.Url } hx-push-url={ Slide.Url } hx-swap="innerHTML show:window:top" hx-target="#Content">
                             { Slide.Slogan }
                         </h1>
 
-                        <h3 class="cursor-pointer text-3xl text-white mb-6 text-left overflow-hidden line-clamp-4 leading-[2.7rem]"
-                            hx-get={ Slide.Url } hx-push-url={ Slide.Url } hx-swap="innerHTML scroll:top" hx-target="#Content">
+                        <h3 class="animated bounceIn cursor-pointer text-2xl text-white font-deja mb-6 text-left overflow-hidden line-clamp-4 leading-[2.2rem]"
+                            hx-get={ Slide.Url } hx-push-url={ Slide.Url } hx-swap="innerHTML show:window:top" hx-target="#Content">
                             { Slide.Desc }
                         </h3>
 
-                        <a  class="shadow-[0_8px_30px_rgb(0,0,0,0.12)] cursor-pointer bg-secondary text-black font-nino font-bold py-2.5 pt-4 px-6 rounded-lg"
-                            hx-get={ Slide.Url } hx-push-url={ Slide.Url } hx-swap="innerHTML scroll:top" hx-target="#Content">
+                        <a  class="animated bounceInLeft shadow-[0_8px_30px_rgb(0,0,0,0.12)] cursor-pointer bg-secondary text-black font-nino font-bold py-2.5 pt-4 px-6 rounded-lg"
+                            hx-get={ Slide.Url } hx-push-url={ Slide.Url } hx-swap="innerHTML show:window:top" hx-target="#Content">
                             გაიგე მეტი
                         </a>
                     </div>

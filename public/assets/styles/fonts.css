@@ -13,7 +13,16 @@
         url('../fonts/bpg-nino-mtavruli-bold-master/bpg-nino-mtavruli-bold-webfont.woff') format('woff'),
         url('../fonts/bpg-nino-mtavruli-bold-master/bpg-nino-mtavruli-bold-webfont.ttf') format('truetype');
   font-style: normal;
-  font-weight: 700;
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: 'Deja';
+  src:  url('../fonts/dejavu-sans-master/dejavu-sans-webfont.woff2') format('woff2'),
+        url('../fonts/dejavu-sans-master/dejavu-sans-webfont.woff') format('woff'),
+        url('../fonts/dejavu-sans-master/dejavu-sans-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
@@ -23,13 +32,14 @@
         url('../fonts/dejavu-sans-bold-webfont/dejavu-sans-bold-webfont.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-weight: 700;
 }
 
 @font-face {
   font-family: 'Arial';
-  src:  url('../fonts/bpg-arial-webfont/bpg-arial-webfont.woff2') format('woff2'),
-        url('../fonts/bpg-arial-webfont/bpg-arial-webfont.woff') format('woff'),
-        url('../fonts/bpg-arial-webfont/bpg-arial-webfont.ttf') format('truetype');
+  src:  url('../fonts/bpg-arial-master/bpg-arial-webfont.woff2') format('woff2'),
+        url('../fonts/bpg-arial-master/bpg-arial-webfont.woff') format('woff'),
+        url('../fonts/bpg-arial-master/bpg-arial-webfont.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }

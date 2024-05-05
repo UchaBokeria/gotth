@@ -9,13 +9,13 @@
 [+] footer > social media links position
 [+] footer > summary must not be from about
 [+] faq > toggling must work on button too
-[] fonts
+[+] fonts
 
-[] animations
+[+] animations
 
-[] loading
+[+] loading
 [+] scroll to top on navigation problem
-[] add toast / maybe confetti too
+[+] add toast / maybe confetti too
 
 [] category > seeding
 [] products > seeding ?? parsing data from yacco

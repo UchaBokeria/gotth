@@ -7,14 +7,14 @@ import(
 var mapUrl string = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5010.052328334119!2d44.863821367343206!3d41.699044984963244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40440d96fddef847%3A0xb243526aef974d8!2sAlfa%20Motors!5e0!3m2!1sen!2sge!4v1714675951710!5m2!1sen!2sge"
 
 script ChangeMap(url string) {
-    document.querySelector("#branchMap").src = url
+    target.src = url
 }
 
-templ Branches(Branches []model.Branches){
-    <div class="">
-        <p class="text-3xl font-nino font-bold text-left">
-            <span class="text-3xl font-bold text-left text-primary">ფილიალები</span>
-            <span class="text-3xl font-bold text-left text-black"> </span>
+templ Branches(Branches []model.Branches) {
+    <div class="w-full">
+        <p class="w-full">
+            <span class="text-3xl font-nino font-bold text-primary">ფილიალები</span>
+            <span class="text-3xl font-nino font-bold text-primary"> </span>
         </p>
 
         <div class="w-full flex flex-col justify-between gap-[30px] mt-[3vh]">
@@ -25,14 +25,14 @@ templ Branches(Branches []model.Branches){
                     <div class="shadower cursor-pointer flex h-[114px] w-[340px] flex-shrink-0 flex-grow-0 items-start justify-start gap-[76px] rounded-[10px] bg-[#f2f2f2] px-[25px] py-5"
                         onclick={ChangeMap(Branch.Map)}>
                         <div class="relative flex flex-shrink-0 flex-grow-0 flex-col items-start justify-start gap-[5px]">
-                            <p class="h-4 w-[61px] flex-shrink-0 flex-grow-0 text-left text-[13px] font-bold text-black"> { Branch.City.Name } </p>
-                            <p class="h-[15px] w-[69px] flex-shrink-0 flex-grow-0 text-left text-[13px] text-black"> { Branch.Region } </p>
+                            <p class="h-4 w-[61px] flex-shrink-0 flex-grow-0 text-left text-[13px] font-deja font-bold text-black"> { Branch.City.Name } </p>
+                            <p class="h-[15px] w-[69px] flex-shrink-0 flex-grow-0 text-left text-[13px] font-nino text-black"> { Branch.Region } </p>
                         </div>
 
                         <div class="relative flex flex-shrink-0 flex-grow-0 flex-col items-end justify-start gap-3 self-stretch">
-                            <p class="h-3 w-[111px] flex-shrink-0 flex-grow-0 text-left text-[13px] font-bold text-[#008772]"> { Branch.PhoneNumber } </p>
+                            <p class="h-4 w-[111px] flex-shrink-0 flex-grow-0 text-left text-[13px] font-bold text-[#008772]"> { Branch.PhoneNumber } </p>
                             for _, Shift := range Branch.Shifts {
-                                <p class="h-[17px] w-[161px] flex-shrink-0 flex-grow-0 text-left text-[13px] text-black">
+                                <p class="h-[17px] w-full flex-shrink-0 flex-grow-0 text-left text-[13px] text-black font-arial">
                                     { Shift.Name }: { Shift.OpensAt.Format("15:04") } - { Shift.ClosesAt.Format("15:04") }
                                 </p>
                             }
