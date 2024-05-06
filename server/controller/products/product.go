@@ -8,5 +8,6 @@ import (
 
 func Register(app *echo.Echo) {
 	app.GET("/products", controller.Register(index))
+	app.GET("/products/list", controller.Register(list))
 	app.GET("/products/:id", controller.Register(detail))
 }

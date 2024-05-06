@@ -1,8 +1,8 @@
 package files
 
 import (
-	"main/server/model"
 	"main/server/common/storage"
+	"main/server/model"
 )
 
 var Seed = []model.Files{
@@ -145,7 +145,8 @@ var Seed = []model.Files{
 		Base64:     "",
 		Compressed: true,
 		TypeID:     7, // Video type ID
-	},{
+	},
+	{
 		Name:       "Category image",
 		Original:   "category-1.png",
 		Location:   "local",
@@ -324,6 +325,126 @@ var Seed = []model.Files{
 		Base64:     "",
 		Compressed: false,
 		TypeID:     2, // Image type ID
+	},
+	{
+		Name:       "docYacco",
+		Original:   "docYacco.pdf",
+		Location:   "local",
+		Path:       "/uploads/docYacco.pdf",
+		Size:       560, // 0.56 KB
+		Base64:     "",
+		Compressed: false,
+		TypeID:     8, // Image type ID
+	},
+	{
+		Name:       "my-project-(1)-1-1",
+		Original:   "my-project-(1)-1-1",
+		Location:   "local",
+		Path:       "/assets/images/products/my-project-(1)-1-1.png",
+		Size:       560, // 0.56 KB
+		Base64:     "",
+		Compressed: false,
+		TypeID:     4, // Image type ID
+	},
+	{
+		Name:       "my-project-(1)-1-2",
+		Original:   "my-project-(1)-1-2",
+		Location:   "local",
+		Path:       "/assets/images/products/my-project-(1)-1-2.png",
+		Size:       560, // 0.56 KB
+		Base64:     "",
+		Compressed: false,
+		TypeID:     4, // Image type ID
+	},
+	{
+		Name:       "my-project-(1)-1-3",
+		Original:   "my-project-(1)-1-3",
+		Location:   "local",
+		Path:       "/assets/images/products/my-project-(1)-1-3.png",
+		Size:       560, // 0.56 KB
+		Base64:     "",
+		Compressed: false,
+		TypeID:     4, // Image type ID
+	},
+	{
+		Name:       "my-project-(1)-1-4",
+		Original:   "my-project-(1)-1-4",
+		Location:   "local",
+		Path:       "/assets/images/products/my-project-(1)-1-4.png",
+		Size:       560, // 0.56 KB
+		Base64:     "",
+		Compressed: false,
+		TypeID:     4, // Image type ID
+	},
+	{
+		Name:       "my-project-(1)-1-5",
+		Original:   "my-project-(1)-1-5",
+		Location:   "local",
+		Path:       "/assets/images/products/my-project-(1)-1-5.png",
+		Size:       560, // 0.56 KB
+		Base64:     "",
+		Compressed: false,
+		TypeID:     4, // Image type ID
+	},
+	{
+		Name:       "my-project-(1)-1-6",
+		Original:   "my-project-(1)-1-6",
+		Location:   "local",
+		Path:       "/assets/images/products/my-project-(1)-1-6.png",
+		Size:       560, // 0.56 KB
+		Base64:     "",
+		Compressed: false,
+		TypeID:     4, // Image type ID
+	},
+	{
+		Name:       "my-project-(1)-1-7",
+		Original:   "my-project-(1)-1-7",
+		Location:   "local",
+		Path:       "/assets/images/products/my-project-(1)-1-7.png",
+		Size:       560, // 0.56 KB
+		Base64:     "",
+		Compressed: false,
+		TypeID:     4, // Image type ID
+	},
+	{
+		Name:       "my-project-(1)-1-8",
+		Original:   "my-project-(1)-1-8",
+		Location:   "local",
+		Path:       "/assets/images/products/my-project-(1)-1-8.png",
+		Size:       560, // 0.56 KB
+		Base64:     "",
+		Compressed: false,
+		TypeID:     4, // Image type ID
+	},
+	{
+		Name:       "my-project-(1)-1-9",
+		Original:   "my-project-(1)-1-9",
+		Location:   "local",
+		Path:       "/assets/images/products/my-project-(1)-1-9.png",
+		Size:       560, // 0.56 KB
+		Base64:     "",
+		Compressed: false,
+		TypeID:     4, // Image type ID
+	},
+	{
+		Name:       "my-project-(1)-1-10",
+		Original:   "my-project-(1)-1-10",
+		Location:   "local",
+		Path:       "/assets/images/products/my-project-(1)-1-10.png",
+		Size:       560, // 0.56 KB
+		Base64:     "",
+		Compressed: false,
+		TypeID:     4, // Image type ID
+	},
+	{
+		Name:       "my-project-(1)-1-11",
+		Original:   "my-project-(1)-1-11",
+		Location:   "local",
+		Path:       "/assets/images/products/my-project-(1)-1-11.png",
+		Size:       560, // 0.56 KB
+		Base64:     "",
+		Compressed: false,
+		TypeID:     4, // Image type ID
 	},
 } 
 

@@ -1,8 +1,27 @@
 package view
 
-templ Products() {
-    <p class="w-full pb-[30px]">
-        <span class="text-3xl font-nino font-bold text-primary">მოძებნე</span>
-        <span class="text-3xl font-nino font-bold text-primary"> პროდუქტი</span>
-    </p>
+import(
+    "strconv"
+    "main/server/model"
+)
+
+templ Products(Page string, CategoryID string, Products []model.Products) {
+    for _, Product := range Products {
+        <div class="cursor-pointer w-[300px] flex flex-col justify-between gap-3 py-4 px-5 shadower rounded-lg"
+            hx-get={ "/products/" + strconv.Itoa(int(Product.ID)) } hx-swap="innerHTML show:window:top"
+            hx-push-url={ "/products/" + strconv.Itoa(int(Product.ID)) } hx-target="#Content" hx-indicator=".Loading">
+
+            <img src={ Product.Thumbnail.Path } class="w-full h-[300px] object-fit" />
+
+            <p class="w-full font-deja font-bold text-gray-[#333]"> { Product.Name } </p>
+
+            <p class="w-full font-arial line-clamp-3 text-gray-600"> { Product.Description } </p>
+
+            <button class="w-full text-right text-primary font-nino font-bold"> გაიგე მეტი </button>
+        </div>
+    }
+    <div
+         hx-get={"/products/list/?category=" + CategoryID + "&page=" + Page}
+         hx-trigger="intersect once" hx-swap="beforeend swap:0.6s" hx-target="#ProductContent">
+    </div>
 }

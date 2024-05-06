@@ -22,7 +22,10 @@ func index(ctx *controller.Context) error {
 	}
 
 	storage.DB.Find(&Types)
-	storage.DB.Where(Where).Preload("Thumbnail").Find(&News)
+	storage.DB.
+		Where(Where).
+		Preload("Thumbnail").
+		Find(&News)
 
 	return ctx.Html(view.News(News, Types, ctx.QueryParam("type")))
 }

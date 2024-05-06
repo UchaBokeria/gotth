@@ -1,0 +1,63 @@
+package view
+
+import(
+    "strconv"
+    "main/server/model"
+)
+
+templ ProductFilters(Filters []model.Category_filters, Categories []model.Categories) {
+    <div class=" w-full flex flex-wrap gap-5 py-[2vh]">
+        <div class="relative flex flex-col gap-2 w-[250px] z-[55]">
+            <label  class="cursor-pointer bg-[#eee] w-full flex justify-between items-center px-5 py-2 rounded-xl"
+                    for={ "ProdFilterID-Category_$_$_" }>
+                <p class="font-poppins"> კატეგორია </p>
+
+                <div class="w-8">
+                    @DownToggleArrow()
+                </div>
+            </label>
+
+            <input type="checkbox" id={ "ProdFilterID-Category_$_$_" } class="peer hidden" />
+            <div class="absolute z-[53] top-[55px] w-full group bg-[#eee] rounded-xl flex flex-col overflow-hidden max-h-[0] peer-checked:max-h-[30vh] peer-checked:py-2 peer-checked:overflow-y-auto">
+                for _, Category := range Categories {
+                    <div class="w-full flex jutify-start items-center">
+                        <input  type="checkbox" id={ "ProdFilter-Category-" + strconv.Itoa(int(Category.ID)) } class="peer hidden" />
+                        <label  class="cursor-pointer py-2 px-5 h-full w-full peer-checked:bg-[#008772] peer-checked:text-white hover:text-white hover:bg-[#008772]"
+                                for={ "ProdFilter-Category-" + strconv.Itoa(int(Category.ID)) }
+                                hx-get={ "/products/?category=" +  strconv.Itoa(int(Category.ID)) }
+                                hx-swap="innerHTML show:window:top" hx-indicator=".Loading"
+                                hx-push-url={ "/products/?category=" +  strconv.Itoa(int(Category.ID)) } hx-target="#Content">
+                                { Category.Name }
+                        </label>
+                    </div>
+                }
+            </div>
+        </div>
+
+        for _, Filter := range Filters {
+            <div class="relative flex flex-col gap-2">
+                <label  class="cursor-pointer bg-[#eee] w-full flex justify-between items-center px-5 py-2 rounded-xl"
+                        for={ "ProdFilterID-" + Filter.Slug }>
+                    <p class="font-poppins"> { Filter.Name } </p>
+
+                    <div class="w-8">
+                        @DownToggleArrow()
+                    </div>
+                </label>
+
+                <input type="checkbox" id={ "ProdFilterID-" + Filter.Slug } class="peer hidden" />
+                <div class="absolute top-[55px] w-full group bg-[#eee] rounded-xl flex flex-col overflow-hidden max-h-[0] peer-checked:max-h-[30vh] peer-checked:py-2 peer-checked:overflow-y-auto">
+                    for _, Option := range Filter.Options {
+                        <div class="w-full flex jutify-start items-center">
+                            <input  type="checkbox" id={ "ProdFilter-" + strconv.Itoa(int(Filter.ID)) + "-" + strconv.Itoa(int(Option.ID)) } class="peer hidden" />
+                            <label  class="cursor-pointer py-2 px-5 h-full w-full peer-checked:bg-[#008772] peer-checked:text-white hover:text-white hover:bg-[#008772]"
+                                    for={ "ProdFilter-" + strconv.Itoa(int(Filter.ID)) + "-" + strconv.Itoa(int(Option.ID)) }>
+                                    { Option.Name }
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+        } 
+    </div>
+}

@@ -22,6 +22,16 @@
         scrollbar-width: none;  /* Firefox */
     }
 
+    .no-scrollbar-x {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+
+    .no-scrollbar-y {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+
     .auto-scroll-catalog {
         animation: autoScrollCatalog 26s infinite;
     }
@@ -43,4 +53,5 @@
                     25px 25px #0087720d;
         transition: all 1s;
     }
+
 }

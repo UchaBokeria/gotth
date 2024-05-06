@@ -12,14 +12,16 @@
 //   - HTML Rendering: The Html method renders templ components and returns them as HTML,
 //     supporting both full page rendering and fragment rendering for htmx requests.
 //   - htmx Request Detection: The IsHtmx method checks if a request is made via htmx by examining the "Hx-Request" header.
-//
 package controller
 
 import (
+	"strconv"
+
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
 
 	"main/build/view"
+	"main/server/common/globals"
 	"main/server/model"
 )
 
@@ -127,4 +129,36 @@ func (ctx *Context) Html(component templ.Component) error {
 //   - This method can be used to conditionally render content or handle logic based on the type of request.
 func (ctx *Context) IsHtmx() bool {
 	return ctx.Request().Header.Get("Hx-Request") == "true"
+}
+
+type QueryPageParameter struct {
+	Page		string		`query:"page"`
+	PageSize	string		`query:"pageSize"`
+}
+
+func (ctx *Context) Page() int {
+	var Query QueryPageParameter
+
+	if ctx.QueryParam("page") == "" { 
+		Query.Page = "1" 
+	} else {
+		ctx.Bind(&Query)
+	}
+
+	page, _ := strconv.Atoi(Query.Page)
+	if page <= 0 { page = 1 }
+	return page
+}
+
+func (ctx *Context) PageSize() int {
+	var Query QueryPageParameter
+	if ctx.QueryParam("pageSize") == "" { Query.PageSize = "-1" }
+	
+	ctx.Bind(&Query)
+	pageSize, _ := strconv.Atoi(Query.PageSize)
+
+	if pageSize <= 0 || pageSize > globals.Env.PageMaxSize {
+		pageSize = globals.Env.PageMaxSize
+	}
+	return pageSize
 }

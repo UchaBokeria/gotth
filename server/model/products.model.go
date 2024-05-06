@@ -7,13 +7,15 @@ type Products struct {
 	Name 				string
 	Slug 				string
 	Description 		string
+	CategoryID          int
+	Category            Categories         `gorm:"foreignKey:CategoryID"`
 	TechnicalSheetID	int
 	TechnicalSheet 		Files
 	ThumbnailID 		int
 	Thumbnail 			Files
-	Packing         	Product_packaging
-	Approvals			Product_approvals
-	Specifications  	Product_specifications
+	Packing         	[]Product_packaging
+	Approvals			[]Product_approvals
+	Specifications  	[]Product_specifications
 }
 
 type Product_packaging struct {

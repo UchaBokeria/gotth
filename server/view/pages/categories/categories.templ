@@ -15,8 +15,8 @@ templ Categories(Categories []model.Categories) {
         <div class="animated fadeIn max-w-[100%] w-auto h-[auto] flex flex-wrap border-l-2 border-t-[2px] ">
             for _, Category := range Categories {
                 <div class="cursor-pointer overflow-hidden w-1/5 h-auto px-[20px] flex gap-[5%] flex-col align-between justify-center border-r-[2px] border-b-[2px]" 
-                        hx-get={"/products?category=" + strconv.Itoa(int(Category.ID))} 
-                        hx-push-url={"/products?category=" + strconv.Itoa(int(Category.ID))} 
+                        hx-get={"/products/?category=" + strconv.Itoa(int(Category.ID))} 
+                        hx-push-url={"/products/?category=" + strconv.Itoa(int(Category.ID))} 
                         hx-swap="innerHTML show:window:top" hx-target="#Content">
                     <div class="w-[100%] h-[80%] py-5 px-2">
                         <img class="h-[100%] w-[100%]" src={ "assets/images/categories/" + Category.Icon.Path } />
