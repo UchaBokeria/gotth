@@ -1,8 +1,26 @@
 package view
 
-templ ProductDetail() {
+import(
+    "main/server/model"
+)
+
+templ ProductDetail(Product model.Products) {
     <p class="w-full pb-[30px]">
         <span class="text-3xl font-nino font-bold text-primary">დეტალური გვერდი</span>
         <span class="text-3xl font-nino font-bold text-primary"> </span>
+
+        <div class="w-full">
+            <div class="w-full">
+            header { Product.Name }
+            </div>
+
+            <div class="w-full">
+            content
+            </div>
+
+            <div class="w-full">
+            similars
+            </div>
+        </div>
     </p>
 }

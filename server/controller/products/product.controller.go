@@ -52,5 +52,18 @@ func list(ctx *controller.Context) error {
 }
 
 func detail(ctx *controller.Context) error {
-	return ctx.Html(view.ProductDetail())
+	var Filters ProductDetail
+	var Product model.Products
+
+	ctx.Bind(&Filters)
+	ID, _ := strconv.Atoi(Filters.ID)
+
+	storage.DB.Preload("TechnicalSheet").
+			   Preload("Thumbnail").
+			   Preload("Packing").
+			   Preload("Approvals").
+			   Preload("Specifications").
+			   Find(&Product, ID)
+
+	return ctx.Html(view.ProductDetail(Product))
 }

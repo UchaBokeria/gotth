@@ -13,7 +13,7 @@ templ ProductLayout(Category model.Categories, Categories []model.Categories) {
         </p>
 
         <div class="w-full relative">
-            @ProductFilters(Category.Filters, Categories)
+            @ProductFilters(Category, Categories)
         </div>
 
         <div class="w-full flex flex-wrap gap-5 gap-y-[4vh] py-[2vh]" id="ProductContent"
