@@ -7,6 +7,8 @@ node_modules
 
 .vscode
 .env
+*_templ.txt
+*_templ.go
 
 # Binaries for programs and plugins
 *.exe
@@ -21,3 +23,4 @@ node_modules
 
 # Go workspace file
 go.work
+routes.json

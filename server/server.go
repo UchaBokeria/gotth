@@ -1,6 +1,7 @@
 package server
 
 import (
+	"encoding/json"
 	"os"
 
 	"github.com/labstack/echo-contrib/echoprometheus"
@@ -8,6 +9,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 
 	"main/server/common/controller"
+	"main/server/common/globals"
 	"main/server/common/storage"
 )
 
@@ -31,7 +33,10 @@ func Run() {
 
 	app.Use(controller.Initialize())
 	storage.Connect(storage.Default())
-
+	
 	ServerRouters(app)
-	app.Logger.Fatal(app.Start(os.Getenv("Port")))
+	data, _ := json.MarshalIndent(app.Routes(), "", "  ")
+	os.WriteFile("routes.json", data, 0644)
+
+	app.Logger.Fatal(app.Start(globals.Env.Port))
 }

@@ -1,19 +1,13 @@
 package main
 
 import (
-	"log"
-	"path/filepath"
-
-	"github.com/joho/godotenv"
-
+	"main/server/common/globals"
 	"main/server/common/storage"
 	"main/server/model"
 )
 
 func main() {
-	err := godotenv.Load(filepath.Join("./", ".env"))
-	if err != nil { log.Fatal(err) }
-
+	globals.SetupEnvironmentVariables()
 	storage.Connect(storage.Default())
 	
 	storage.DB.Migrator().AutoMigrate(
@@ -49,5 +43,7 @@ func main() {
 		&model.Product_specifications{},
 		&model.Product_approvals{},
 		&model.Product_packaging{},
+
+		&model.Users{},
 	)
 }

@@ -1,11 +1,6 @@
 package main
 
 import (
-	"log"
-	"path/filepath"
-
-	"github.com/joho/godotenv"
-
 	"main/cmd/seed/branches"
 	"main/cmd/seed/categories"
 	"main/cmd/seed/faq"
@@ -13,13 +8,13 @@ import (
 	"main/cmd/seed/interfaces"
 	"main/cmd/seed/news"
 	"main/cmd/seed/products"
+	"main/cmd/seed/users"
+	"main/server/common/globals"
 	"main/server/common/storage"
 )
 
 func main() {
-	err := godotenv.Load(filepath.Join("./", ".env"))
-	if err != nil { log.Fatal(err) }
-
+	globals.SetupEnvironmentVariables()
 	storage.Connect(storage.Default())
 
 	files.Types()
@@ -44,4 +39,6 @@ func main() {
 	categories.Populate()
 
 	products.Populate()
+
+	users.Populate()
 }

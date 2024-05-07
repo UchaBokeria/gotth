@@ -85,6 +85,15 @@ func Register(handlerFunc func(*Context) error) echo.HandlerFunc {
     return func(c echo.Context) error { return handlerFunc(c.(*Context)) }
 }
 
+func (ctx *Context) IsAdmin() bool {
+	if ctx.Get("ISADMIN") == nil { return false }
+	return ctx.Get("ISADMIN").(bool)
+}
+
+func (ctx *Context) Admin() model.Users {
+	return ctx.Get("ADMIN").(model.Users)
+}
+
 // Html renders the given templ component and returns it as HTML.
 // If the request is made via htmx, it returns the component as a fragment.
 // Otherwise, it embeds the component within the layout of the base HTML.
@@ -109,9 +118,17 @@ func Register(handlerFunc func(*Context) error) echo.HandlerFunc {
 func (ctx *Context) Html(component templ.Component) error {
 	if ctx.IsHtmx() { return component.Render(ctx.Request().Context(), ctx.Response()) }
 
-	Interface := ctx.Get("Interface").(model.Interface)
-	Base := view.Pages(Interface, component)
-	return Base.Render(ctx.Request().Context(), ctx.Response())
+	if(ctx.IsAdmin()) {
+		Base := view.Admin(component)
+		return Base.Render(ctx.Request().Context(), ctx.Response())
+	} else {
+		Base := view.Pages(ctx.Get("Interface").(model.Interface), component)
+		return Base.Render(ctx.Request().Context(), ctx.Response())
+	}
+}
+
+func (ctx *Context) Renders(component templ.Component) error {
+	return component.Render(ctx.Request().Context(), ctx.Response()) 
 }
 
 // IsHtmx checks if the request is made via htmx (Hypertext Markup eXtension).

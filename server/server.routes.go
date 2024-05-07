@@ -4,6 +4,7 @@ import (
 	"github.com/labstack/echo/v4"
 
 	"main/server/controller/about"
+	"main/server/controller/admin"
 	"main/server/controller/branches"
 	"main/server/controller/categories"
 	"main/server/controller/faq"
@@ -15,8 +16,9 @@ import (
 )
 
 func ServerRouters(app *echo.Echo) {
-	app.Use(middleware.Interface())
+	admin.Register(app)
 
+	app.Use(middleware.Interface())
 	landing.Register(app)
 	categories.Register(app)
 	products.Register(app)
