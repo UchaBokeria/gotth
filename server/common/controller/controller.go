@@ -15,7 +15,9 @@
 package controller
 
 import (
+	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
@@ -90,8 +92,8 @@ func (ctx *Context) IsAdmin() bool {
 	return ctx.Get("ISADMIN").(bool)
 }
 
-func (ctx *Context) Admin() model.Users {
-	return ctx.Get("ADMIN").(model.Users)
+func (ctx *Context) User() model.Users {
+	return ctx.Get("USER").(model.Users)
 }
 
 // Html renders the given templ component and returns it as HTML.
@@ -116,19 +118,28 @@ func (ctx *Context) Admin() model.Users {
 //   - If the request is not made via htmx, the component is rendered within the layout of the base HTML.
 //   - Make sure to handle any errors returned by this method appropriately.
 func (ctx *Context) Html(component templ.Component) error {
-	if ctx.IsHtmx() { return component.Render(ctx.Request().Context(), ctx.Response()) }
-
-	if(ctx.IsAdmin()) {
-		Base := view.Admin(component)
-		return Base.Render(ctx.Request().Context(), ctx.Response())
-	} else {
-		Base := view.Pages(ctx.Get("Interface").(model.Interface), component)
-		return Base.Render(ctx.Request().Context(), ctx.Response())
-	}
+	return ctx.HtmlWithStatus(http.StatusOK, component)
 }
 
-func (ctx *Context) Renders(component templ.Component) error {
-	return component.Render(ctx.Request().Context(), ctx.Response()) 
+func (ctx *Context) HtmlWithStatus(code int, component templ.Component) error {
+	if ctx.IsHtmx() { return component.Render(ctx.Request().Context(), ctx.Response()) }
+
+	var Base templ.Component
+	if(ctx.IsAdmin()) {
+		Base = view.Admin(component)
+	} else {
+		Base = view.Pages(ctx.Get("Interface").(model.Interface), component)
+	}
+
+	ctx.Response().Header().Set(echo.HeaderContentType, echo.MIMETextHTML)
+	ctx.Response().Writer.WriteHeader(code)
+	return Base.Render(ctx.Request().Context(), ctx.Response().Writer)
+}
+
+func (ctx *Context) Renders(code int, component templ.Component) error {
+	ctx.Response().Header().Set(echo.HeaderContentType, echo.MIMETextHTML)
+	ctx.Response().Writer.WriteHeader(code)
+	return component.Render(ctx.Request().Context(), ctx.Response().Writer)
 }
 
 // IsHtmx checks if the request is made via htmx (Hypertext Markup eXtension).
@@ -145,7 +156,27 @@ func (ctx *Context) Renders(component templ.Component) error {
 //   - It examines the "Hx-Request" header to determine if the request is an htmx request.
 //   - This method can be used to conditionally render content or handle logic based on the type of request.
 func (ctx *Context) IsHtmx() bool {
-	return ctx.Request().Header.Get("Hx-Request") == "true"
+	return ctx.Request().Header.Get("Hx-Request") == "true" && ctx.Request().Header.Get("hx-fullPage") != "true"
+}
+
+type Cookie struct {
+	Key string
+	Value string
+	Expires time.Time
+}
+
+func (ctx *Context) WriteCookie(data Cookie) {
+	cookie := new(http.Cookie)
+	cookie.Name = data.Key
+	cookie.Value = data.Value
+	cookie.Expires = data.Expires
+	ctx.SetCookie(cookie)
+}
+
+func (ctx *Context) ReadCookie(Key string) Cookie {
+	cookie, err := ctx.Cookie(Key)
+	if err != nil { cookie = &http.Cookie{ Name: "", Value: "", Expires: time.Now() } }
+	return Cookie{ Key: cookie.Name, Value: cookie.Value, Expires: cookie.Expires }
 }
 
 type QueryPageParameter struct {
