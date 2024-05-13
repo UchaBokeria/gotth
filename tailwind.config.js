@@ -20,6 +20,9 @@ module.exports = {
       },
     },
     extend: {
+      screens: {
+        'mobile': '1319px',
+      },
       colors: {
         primary: "#008772",
         secondary: "#FFF200",

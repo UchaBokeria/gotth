@@ -14,7 +14,7 @@ templ Categories(Categories []model.Categories) {
 
         <div class="animated fadeIn max-w-[100%] w-auto h-[auto] flex flex-wrap border-l-2 border-t-[2px] ">
             for _, Category := range Categories {
-                <div class="cursor-pointer overflow-hidden w-1/5 h-auto px-[20px] flex gap-[5%] flex-col align-between justify-center border-r-[2px] border-b-[2px]" 
+                <div class="cursor-pointer overflow-hidden w-1/5 h-auto px-[20px] flex gap-[5%] flex-col align-between justify-center border-r-[2px] border-b-[2px] max-md:w-full" 
                         hx-get={"/products/?category=" + strconv.Itoa(int(Category.ID))} 
                         hx-push-url={"/products/?category=" + strconv.Itoa(int(Category.ID))} 
                         hx-swap="innerHTML show:window:top" hx-target="#Content">
@@ -27,7 +27,7 @@ templ Categories(Categories []model.Categories) {
         </div>
 
         <a class="flex cursor-pointer mt-[10vh] mb-[6vh]" href="https://shop.alfamotors.ge" target="_blank">
-            <img src="/assets/images/banner.svg" class="w-[100%]" />
+            <img src="/assets/images/banner.svg" class="w-[100%] max-md:hidden" />
         </a>
     </div>
 }

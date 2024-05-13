@@ -5,31 +5,58 @@ import(
 )
 
 templ Header(Interface model.Interface) {
-    <div class="w-[100%] flex justify-start relative z-[999] items-center px-[150px] py-[15px] bg-primary">
-        <img src="/assets/images/logo.png" class="cursor-pointer w-[104.26px] h-[60px] object-cover" hx-indicator=".Loading"
-             hx-get={ "/" } hx-push-url={ "/" } hx-swap="innerHTML show:window:top" hx-target="#Content"/>
+    <div class="w-[100%] flex justify-start z-[999] items-center px-[150px] py-[15px] bg-primary max-md:justify-center">
+        <img src="/assets/images/logo.png" class="cursor-pointer w-[104.26px] h-[60px] object-cover max-md:z-[99999991]"
+             hx-indicator=".Loading" hx-get={ "/" } hx-push-url={ "/" } hx-swap="innerHTML show:window:top" hx-target="#Content"/>
 
-        <div class="flex justify-start items-center flex-grow gap-[40px] px-[40px]">
+
+        <label class="hidden absolute right-5 cursor-pointer max-md:flex"
+                for="menu">
+            @Burger()
+        </label>
+
+        <input class="hidden peer" type="checkbox" id="menu" />
+        <div class="flex justify-start items-center flex-grow gap-[40px] px-[40px] max-md:hidden peer-checked:flex peer-checked:flex-col max-md:py-40 peer-checked:fixed peer-checked:top-0 peer-checked:left-0 peer-checked:w-full peer-checked:h-full peer-checked:bg-[#008772] peer-checked:z-[9999999] ">                
+            <div class="animated bounceInRight group rounded-lg cursor-pointer flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 hidden max-md:flex"
+                    onclick={Call(Interface.Contact.Phone)} >
+                <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 h-[39px] gap-[11px] px-[20px] pt-[15px] pb-3.5 rounded-lg bg-secondary">
+                    @Phone()
+
+                    <button  class="RingRing flex mt-[0.5%] text-xs leading-snug font-poppins font-bold text-black" 
+                                value={Interface.Contact.Phone}>
+                        { Interface.Contact.Phone } 
+                    </button>
+                </div>
+            </div>
             for _, Nav := range Routes {
-                <a  class="cursor-pointer font-nino text-md text-white"
+                <a  class="cursor-pointer font-nino text-md text-white max-md:hidden"
                     hx-get={ Nav.Path } hx-push-url={ Nav.Path } hx-indicator=".Loading"
                     hx-swap="innerHTML show:window:top" hx-target="#Content">
                     { Nav.Name }
-                </a> 
+                </a>
+                <label  class="cursor-pointer font-nino text-md text-white hidden max-md:block animated bounceIn"
+                    hx-get={ Nav.Path } hx-push-url={ Nav.Path } hx-indicator=".Loading" for="menu"
+                    hx-swap="innerHTML show:window:top" hx-target="#Content">
+                    { Nav.Name }
+                </label>
             }
+            <label class="animated bounceInLeft hidden cursor-pointer max-md:flex"
+                    for="menu">
+                @Close()
+            </label>
         </div>
 
-        <div class="animated bounceInRight group rounded-lg cursor-pointer flex flex-col justify-center items-center flex-grow-0 flex-shrink-0"
+        <div class="animated bounceInRight group rounded-lg cursor-pointer flex flex-col justify-center items-center flex-grow-0 flex-shrink-0  max-md:hidden"
              onclick={Call(Interface.Contact.Phone)} >
             <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 h-[39px] gap-[11px] px-[20px] pt-[15px] pb-3.5 rounded-lg bg-secondary">
                 @Phone()
 
                 <button  class="flex mt-[0.5%] text-xs leading-snug font-poppins font-bold text-black" 
-                         value={Interface.Contact.Phone}
-                         id="RingRing">
+                         value={Interface.Contact.Phone}>
                     { Interface.Contact.Phone } 
                 </button>
             </div>
         </div>
+        
     </div>
 }

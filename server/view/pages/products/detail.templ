@@ -21,14 +21,14 @@ templ ProductDetail(Product model.Products) {
             </p>
         </div>
 
-        <div class="w-full py-5">
+        <div class="w-full py-5 flex flex-col gap-5 justify-between">
             <div class="w-full flex">
-                <div class="w-[30%] bg-[#fff] flex justify-center items-center">
-                    <img src={ Product.Thumbnail.Path } class="" />
+                <div class="pt-8 w-[30%] bg-[#fff] flex justify-center items-start ">
+                    <img src={ Product.Thumbnail.Path } class="object-fit " />
                 </div>
 
-                <div class="w-[70%] bg-[#eee] flex flex-col">
-                    <p class="w-full font-nino font-bold">
+                <div class="w-[70%] flex flex-col p-7 gap-3 rounded-[8px]">
+                    <p class="w-full font-deja font-bold text-2xl">
                         { Product.Name }
                     </p>
 
@@ -37,10 +37,78 @@ templ ProductDetail(Product model.Products) {
                     </p>
                 </div>
             </div>
-        </div>
 
-        <div class="w-full py-5">
-            
+            <div class="w-full flex">
+                <div class="w-[30%] pt-8 bg-[#fff] flex justify-start items-center flex-col gap-5">
+                    <a  class="w-full flex gap-5 justify-start items-center "
+                        href={templ.SafeURL(Product.TechnicalSheet.Path )} target="_blank">
+                        <span class=""> ‣ </span>
+                        <p class="font-deja"> უსაფრთხოების მონაცემთა დოკუმენტი </p> 
+                    </a>
+                    <a  class="w-full flex gap-5 justify-start items-center"
+                        href={templ.SafeURL(Product.TechnicalSheet.Path )} target="_blank">
+                        <span class=""> ‣ </span>
+                        <p class="font-deja"> მონაცემთა ფურცელი </p> 
+                    </a>
+
+                    <div class="w-full flex flex-col gap-2">
+                        <a  class="w-full flex gap-5 justify-start items-center">
+                            <span class=""> ‣ </span>
+                            <p class="font-deja"> სპეციფიკაცია </p> 
+                        </a>
+                        for _, specs := range Product.Specifications {
+                            <div class="pl-8 w-full flex justify-start items-start gap-2">
+                                <span class=""> • </span> 
+                                <p class=""> {specs.Name} </p>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="w-full flex flex-col gap-2">
+                        <a  class="w-full flex gap-5 justify-start items-center">
+                            <span class=""> ‣ </span>
+                            <p class="font-deja"> დამტკიცებები </p> 
+                        </a>
+                        for _, approvals := range Product.Approvals {
+                            <div class="pl-8 w-full flex justify-start items-start gap-2">
+                                <span class=""> • </span> 
+                                <p class=""> {approvals.Name} </p>
+                            </div>
+                        }
+                    </div>
+
+                    <table class="w-full  border-separate  border-spacing-2">
+                        <thead>
+                            <tr class="font-bold text-1xl">
+                                <td> პროდუქტი </td>
+                                <td> მითითება </td>
+                                <td> კონდიცირება </td>
+                                <td> მუყაო </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            for _, packing := range Product.Packing {
+                                <tr>
+                                    <td class="font-deja"> { packing.Name } </td>
+                                    <td> { packing.Reference } </td>
+                                    <td> { packing.Conditioning } </td>
+                                    <td> { packing.Cardboard } </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="w-[70%] flex flex-col p-7 gap-3 rounded-[8px]">
+                    <p class="w-full font-deja font-bold text-2xl">
+                        აღწერა
+                    </p>
+
+                    <p class="w-full">
+                        { Product.Description }
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 }

@@ -7,5 +7,5 @@ import (
 )
 
 func Register(app *echo.Group) {
-	app.GET("/branches", controller.Register(index))
+	app.GET("/branch", controller.Register(index))
 }

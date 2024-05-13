@@ -7,6 +7,7 @@ import (
 	"main/server/controller/admin"
 	"main/server/controller/branches"
 	"main/server/controller/categories"
+	"main/server/controller/chat"
 	"main/server/controller/faq"
 	"main/server/controller/landing"
 	"main/server/controller/news"
@@ -27,4 +28,5 @@ func ServerRouters(app *echo.Echo) {
 	faq.Register(app)
 	about.Register(app)
 	terms.Register(app)
+	chat.Register(app)
 }

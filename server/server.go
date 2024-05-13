@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/labstack/echo-contrib/echoprometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
@@ -28,8 +27,8 @@ func Run() {
 	// app.Use(middleware.RequestID())
 	// app.Use(middleware.Recover())
 	// app.Use(middleware.Logger())
-	app.Use(echoprometheus.NewMiddleware("yacco"))
-	app.GET("/metrics", echoprometheus.NewHandler())
+	// app.Use(echoprometheus.NewMiddleware("yacco"))
+	// app.GET("/metrics", echoprometheus.NewHandler())
 
 	app.Use(controller.Initialize())
 	storage.Connect(storage.Default())
@@ -37,6 +36,7 @@ func Run() {
 	ServerRouters(app)
 	data, _ := json.MarshalIndent(app.Routes(), "", "  ")
 	os.WriteFile("routes.json", data, 0644)
+	
 
 	app.Logger.Fatal(app.Start(globals.Env.Port))
 }

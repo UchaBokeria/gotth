@@ -19,6 +19,8 @@ type EnvVarsType struct {
 	DB_PASS			string
 	DB_NAME			string
 	DB_SSLMODE		string
+
+	SENDGRID_API_KEY string
 }
 
 var Env EnvVarsType
@@ -40,5 +42,6 @@ func SetupEnvironmentVariables() {
 		DB_PASS: os.Getenv("DB_PASS"),
 		DB_NAME: os.Getenv("DB_NAME"),
 		DB_SSLMODE: os.Getenv("DB_SSLMODE"),
+		SENDGRID_API_KEY: os.Getenv("SENDGRID_API_KEY"),
 	}
 }

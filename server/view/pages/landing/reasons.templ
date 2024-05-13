@@ -5,14 +5,14 @@ import(
 )
 
 templ Reasons(Interface model.Interface) {
-    <div class="w-full flex flex-col gap-[2vh] my-[1]">
+    <div class="w-full flex flex-col gap-[2vh] my-[1] max-md:flex-wrap">
         <div class="w-full flex items-center justify-center font-nino font-bold text-4xl text-primary py-[30px]">
             ჩვენ გთავაზობთ
         </div>
         
         <div class="w-full flex flex-wrap gap-[5%]">
             for _, Reason := range Interface.Reasons {
-                <a  class="shadow-mondegreen cursor-pointer shadower w-[30%] rounded-lg flex flex-col justify-start gap-[20px] px-[3%] py-[30px] mb-[50px]"
+                <a  class="shadow-mondegreen cursor-pointer shadower w-[30%] rounded-lg flex flex-col justify-start gap-[20px] px-[3%] py-[30px] mb-[50px] max-md:w-[100%]"
                     href={ templ.SafeURL(Reason.Url) } target="_blank">
 
                     <div class="w-full flex justify-center"> 

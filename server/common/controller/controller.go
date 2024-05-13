@@ -142,6 +142,11 @@ func (ctx *Context) Renders(code int, component templ.Component) error {
 	return component.Render(ctx.Request().Context(), ctx.Response().Writer)
 }
 
+func (ctx *Context) RenderPlain(component templ.Component) string {
+	// component.Render(context.Background(), os.)
+	return ""
+}
+
 // IsHtmx checks if the request is made via htmx (Hypertext Markup eXtension).
 // It examines the request headers and returns true if the "Hx-Request" header is set to "true".
 //

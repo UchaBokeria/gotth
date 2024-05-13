@@ -18,7 +18,7 @@ templ ProductFilters(Category model.Categories, Categories []model.Categories) {
             </label>
 
             <input type="checkbox" id={ "ProdFilterID-Category_$_$_" } class="peer hidden" />
-            <div class="absolute z-[53] top-[55px] w-full group bg-[#eee] rounded-xl flex flex-col overflow-hidden max-h-[0] peer-checked:max-h-[30vh] peer-checked:py-2 peer-checked:overflow-y-auto">
+            <div class="absolute z-[57] top-[55px] w-full group bg-[#eee] rounded-xl flex flex-col overflow-hidden max-h-[0] peer-checked:max-h-[30vh] peer-checked:py-2 peer-checked:overflow-y-auto">
                 for _, Categorie := range Categories {
                     <div class="w-full flex jutify-start items-center">
                         <input  type="checkbox" id={ "ProdFilter-Category-" + strconv.Itoa(int(Categorie.ID)) } 
@@ -38,7 +38,7 @@ templ ProductFilters(Category model.Categories, Categories []model.Categories) {
 
         for _, Filter := range Category.Filters {
             <div class="relative flex flex-col gap-2">
-                <label  class="cursor-pointer bg-[#eee] w-full flex justify-between items-center px-5 py-2 rounded-xl"
+                <label  class="cursor-pointer bg-[#eee] w-full flex justify-between items-center px-5 py-2 rounded-xl relative  z-[53]"
                         for={ "ProdFilterID-" + Filter.Slug }>
                     <p class="font-poppins"> { Filter.Name } </p>
 
@@ -48,7 +48,7 @@ templ ProductFilters(Category model.Categories, Categories []model.Categories) {
                 </label>
 
                 <input type="checkbox" id={ "ProdFilterID-" + Filter.Slug } class="peer hidden" />
-                <div class="absolute top-[55px] w-full group bg-[#eee] rounded-xl flex flex-col overflow-hidden max-h-[0] peer-checked:max-h-[30vh] peer-checked:py-2 peer-checked:overflow-y-auto">
+                <div class="absolute top-[55px] z-[55] w-full group bg-[#eee] rounded-xl flex flex-col overflow-hidden max-h-[0] peer-checked:max-h-[30vh] peer-checked:py-2 peer-checked:overflow-y-auto">
                     for _, Option := range Filter.Options {
                         <div class="w-full flex jutify-start items-center">
                             <input  type="checkbox" id={ "ProdFilter-" + strconv.Itoa(int(Filter.ID)) + "-" + strconv.Itoa(int(Option.ID)) } class="peer hidden" />

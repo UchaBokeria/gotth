@@ -15,7 +15,6 @@
 
 [+] loading
 [+] scroll to top on navigation problem
-[] add toast / maybe confetti too
 
 [+] category > seeding
 [+] products > seeding ?? parsing data from yacco
@@ -23,11 +22,11 @@
 [+] products > list > infiniteScroll
 [] products > details
 
-[] chat (ui, sockets, email strategy)
+[+] chat (ui, sockets, email strategy)
 
 [] responsive
 
-[] admin > auth
+[+] admin > auth
 [] admin > table with import export crud modal
 [] admin > ckeditor
 
@@ -39,6 +38,9 @@
 [] admin > interface
 [] admin > chat
 
+[] add toast / maybe confetti too
+
+[] Clear refactor code
 [] code > add scripts with templ way
 [] database > branch shifts anotherway
 [] setup drops for seed

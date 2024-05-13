@@ -1,12 +1,16 @@
 package landing
 
 import (
+	"log"
+	"net/http"
+
 	"gorm.io/gorm"
 
 	"main/build/view"
 	"main/server/common/controller"
 	"main/server/common/storage"
 	"main/server/model"
+	mailer "main/server/service/mail"
 )
 
 func index(ctx *controller.Context) error {
@@ -25,5 +29,14 @@ func index(ctx *controller.Context) error {
 }
 
 func subscribe(ctx *controller.Context) error {
-	return ctx.Html(view.Terms(""))
+	Result, _ := mailer.Send(mailer.Config{
+		To: "ucha2bokeria@gmail.com",
+		Subject: "New Subsribe",
+		Body: ctx.RenderPlain(view.SubscribeMail()),
+	})
+
+	if Result {
+		log.Print("Sent")
+	}
+	return ctx.String(http.StatusOK, "მადლობა გამოწერისთვის")
 }

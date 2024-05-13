@@ -18,7 +18,7 @@ templ Faq(Faq []model.Faq) {
                     <label class="cursor-pointer relative flex items-center justify-between bg-gray-100 px-4 py-4 pr-10 text-black"
                         for={ "FaqQuestion-" + strconv.Itoa(int(faq.ID)) }>
                         <div> { faq.Question } </div>
-                        <div class="text-large flex h-8 w-8 transform items-center justify-center rounded-full border border-gray-700 group-focus:-rotate-180">
+                        <div class="text-large flex h-8 w-8 transform items-center justify-center rounded-full border border-gray-700 group-focus:-rotate-180 max-md:border-0 max-md:w-5 max-md:text-3xl">
                             @DownToggleArrow()
                         </div>
                     </label>

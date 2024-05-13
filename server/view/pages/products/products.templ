@@ -7,11 +7,11 @@ import(
 
 templ Products(Page string, CategoryID string, Products []model.Products) {
     for _, Product := range Products {
-        <div class="cursor-pointer w-[300px] flex flex-col justify-between gap-3 py-4 px-5 shadower rounded-lg"
+        <div class="cursor-pointer w-[300px] flex flex-col justify-between gap-3 py-4 px-5 shadower rounded-lg max-md:w-full max-md:justify-center"
             hx-get={ "/products/" + strconv.Itoa(int(Product.ID)) } hx-swap="innerHTML show:window:top"
             hx-push-url={ "/products/" + strconv.Itoa(int(Product.ID)) } hx-target="#Content" hx-indicator=".Loading">
 
-            <img src={ Product.Thumbnail.Path } class="w-full h-[300px] object-fit" />
+            <img src={ Product.Thumbnail.Path } class="w-full h-[300px] object-fit max-md:h-half max-md:w-half" />
 
             <p class="w-full font-deja font-bold text-gray-[#333]"> { Product.Name } </p>
 

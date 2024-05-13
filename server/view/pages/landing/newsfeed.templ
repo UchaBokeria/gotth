@@ -18,7 +18,7 @@ templ NewsFeed(Interface model.Interface) {
                          class="w-[50%] h-[426px] object-cover" />
                          
                     <div class="flex-col gap-[30px] overflow-hidden w-half justify-start items-start">
-                        <h1 class="text-2xl font-nino font-bold text-black mb-4 flex w-full align-start justify-start text-left"> { Slide.Title } </h1>
+                        <h1 class="text-2xl font-nino font-bold text-black mb-4 flex w-full align-start justify-start text-left max-md:overflow-hidden max-md:line-clamp-2"> { Slide.Title } </h1>
                         <h3 class="text-black font-arial mb-6 text-left overflow-hidden line-clamp-[7]"> @templ.Raw(Slide.Body) </h3>
                     </div>
                 </div>

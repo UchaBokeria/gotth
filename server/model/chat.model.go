@@ -6,9 +6,9 @@ type Chat struct {
 	gorm.Model
 	Fullname 		string
 	Email 			string
-	TypeID 			*int
+	TypeID 			int
 	Type  			Chat_type 	`gorm:"constraint: OnUpdate:CASCADE, OnDelete:SET NULL;"`
-	ChatStatusID 	*int
+	ChatStatusID 	int
 	ChatStatus  	Chat_status `gorm:"constraint: OnUpdate:CASCADE, OnDelete:SET NULL;"`
 }
 
@@ -26,11 +26,11 @@ type Chat_status struct {
 
 type Chat_letters struct {
 	gorm.Model
-	ChatID 			*uint
+	ChatID 			uint
 	Chat 			Chat 		`gorm:"constraint: OnUpdate:CASCADE, OnDelete:SET NULL;"`
 	Body 			string
 	From 			string
 	To   			string
-	LetterStatusID 	*int
+	LetterStatusID 	int
 	LetterStatus  	Chat_status `gorm:"constraint: OnUpdate:CASCADE, OnDelete:SET NULL;"`
 }

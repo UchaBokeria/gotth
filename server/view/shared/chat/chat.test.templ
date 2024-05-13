@@ -1,0 +1,42 @@
+package view
+
+script ChatTestScript() {
+    document.querySelector("#Start").addEventListener("click", ev => {
+        const ChatWs = new WebSocket('ws://localhost:3000/chat/new/?fullname=TestUser&email=ucha1bokeria@gmail.com')
+
+        document.querySelector("#Chatsender").addEventListener("click", ev => {
+            ChatWs.send(document.getElementById('text').value)
+            var messagesDiv = document.getElementById('messages');
+            var msgDiv = document.createElement('div');
+            msgDiv.innerHTML = '<strong>User</strong><br>' + document.getElementById('text').value;
+            messagesDiv.appendChild(msgDiv);
+        })
+
+        ChatWs.onopen = function () {
+            ChatWs.send(document.getElementById('text').value)
+        }
+
+        ChatWs.onmessage = function (event) {
+            var messagesDiv = document.getElementById('messages');
+            var msgDiv = document.createElement('div');
+            msgDiv.innerHTML = '<strong>Admin</strong><br>' + event.data;
+            messagesDiv.appendChild(msgDiv);
+        }
+
+        ChatWs.onclose = function(event) {
+            console.log("WebSocket connection closed.");
+        }
+    })
+}
+
+templ ChatTest() {
+    <div>
+        <h1>Chat Room</h1>
+        <div id="messages"></div>
+        <input type="text" id="username" placeholder="Your username" />
+        <input type="text" id="text" placeholder="Type a message" />
+        <button id="Chatsender">Send</button>
+        <button id="Start">Start</button>
+        @ChatTestScript()
+    </div>
+}
