@@ -1,12 +1,15 @@
 package storage
 
 import (
+	"database/sql"
 	"fmt"
 	"log"
 	"main/server/common/controller"
 	"main/server/common/globals"
 	"os"
 	"time"
+
+	_ "github.com/lib/pq"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -36,13 +39,22 @@ func Default() *Config {
 }
 
 func Connect(config *Config) {
-	dsn := fmt.Sprintf(
-		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
-		config.Host, config.Port, config.User, config.Password, config.DBName, config.SSLMode,
-	)
+	connStr := "postgresql://yacco_owner:Ov9nAT1lNftb@ep-shy-paper-a2e1ldcp.eu-central-1.aws.neon.tech/yacco?sslmode=require"
+	dbs, err := sql.Open("postgres", connStr)
+	// dsn := fmt.Sprintf(
+	// 	"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
+	// 	config.Host, config.Port, config.User, config.Password, config.DBName, config.SSLMode,
+	// )
+
+
+	if err != nil {
+		// handle errors
+		fmt.Println("Database connection error", err)
+	}
 
 	db, err := gorm.Open(postgres.New(postgres.Config{
-		DSN: dsn,
+		// DSN: dsn,
+		Conn: dbs,
 		PreferSimpleProtocol: true,
 		// DisableForeignKeyConstraintWhenMigrating: true,
 	}), &gorm.Config{

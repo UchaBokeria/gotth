@@ -2,7 +2,6 @@
 bin
 tmp
 dist
-build
 node_modules
 
 .vscode
