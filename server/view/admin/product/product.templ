@@ -1,5 +1,75 @@
 package view
 
-templ Product() {
-    
+import(
+    "main/server/model"
+    "strconv"
+)
+
+func ProductConfig(Products []model.Products) TableConfig {
+    ProductTable := TableDefConfig
+    ProductTable.Name = "Product-Table"
+    ProductTable.Tools.Actions.Import = true
+    ProductTable.Tools.Actions.Export = false
+    ProductTable.Tools.Actions.Create = true
+    ProductTable.Body.Templ = ProductBody(Products)
+    ProductTable.Head.Templ = ProductHeader(Products)
+    ProductTable.Modal.Content = CreateProduct
+    return ProductTable
+}
+
+templ ProductHeader(Products []model.Products) {
+    <tr class="text-white">
+        <td class="py-4 px-6">სურათი</td>
+        <td class="py-4 px-6">სახელი</td>
+        <td class="py-4 px-6">აღწერა</td>
+        <td class="py-4 px-6"></td>
+    </tr>
+}
+
+templ ProductBody(Products []model.Products) {
+    for _, Prod := range Products{
+        <tr class="group py-4 px-6 focus-within:bg-[#fff] focus:text-black select-none" tabindex={strconv.Itoa(int(Prod.ID))}>
+            <td class="py-4 px-6">
+                <img src={ Prod.Thumbnail.Path } class="object-fit h-[5vw]" />
+            </td>
+            <td class="py-4 px-6">
+                <p class=""> { Prod.Name } </p>
+            </td>
+            <td class="py-4 px-6">
+                <p class="line-clamp-2"> { Prod.Description } </p>
+            </td>
+            <td class="py-4 px-6">
+                <p class="cursor-pointer p-2"
+                    hx-delete={"/admin/Prod/" + strconv.Itoa(int(Prod.ID))}
+                    hx-swap="outerHTML"
+                    hx-target={"tr[tabindex='" + strconv.Itoa(int(Prod.ID)) + "']"}> 
+                    @DeleteIcon() 
+                </p>
+            </td>
+        </tr>
+    }
+}
+
+templ CreateProduct(config TableConfig, x any) {
+    <div class="w-full flex flex-col gap-8">
+        <div class="w-full gap-10">
+            <label class=""> ლოგო </label>
+            <input  class=""
+                    placeholder="აირჩიე ლოგო"
+                    type="file"
+                    name="name" />
+        </div>
+
+        <div class="w-full gap-5">
+            <label class=""> დასახელება </label>
+            <input  class=""
+                    placeholder="დასახელება"
+                    type="text"
+                    name="name" />
+        </div>
+    </div>
+}
+
+templ Product(Products []model.Products) {
+    @Table(ProductConfig(Products))
 }

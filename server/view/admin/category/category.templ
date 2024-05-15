@@ -1,5 +1,71 @@
 package view
 
-templ Category() {
-    @Table(TableDefConfig)
+import(
+    "main/server/model"
+    "strconv"
+)
+
+func CategoryConfig(Categories []model.Categories) TableConfig {
+    CategoryTable := TableDefConfig
+    CategoryTable.Name = "Category-Table"
+    CategoryTable.Tools.Actions.Import = false
+    CategoryTable.Tools.Actions.Export = false
+    CategoryTable.Tools.Actions.Create = true
+    CategoryTable.Body.Templ = CategoryBody(Categories)
+    CategoryTable.Head.Templ = CategoryHeader(Categories)
+    CategoryTable.Modal.Content = CreateCategory
+    return CategoryTable
+}
+
+templ CategoryHeader(Categories []model.Categories) {
+    <tr class="text-white">
+        <td class="py-4 px-6">სურათი</td>
+        <td class="py-4 px-6">სახელი</td>
+        <td class="py-4 px-6"></td>
+    </tr>
+}
+
+templ CategoryBody(Categories []model.Categories) {
+    for _, Category := range Categories{
+        <tr class="group py-4 px-6 focus-within:bg-[#fff] focus:text-black select-none" tabindex={strconv.Itoa(int(Category.ID))}>
+            <td class="py-4 px-6">
+                <img src={ "/assets/images/categories/" + Category.Icon.Path } class="object-fit h-[5vw]" />
+            </td>
+            <td class="py-4 px-6">
+                <p class=""> { Category.Name } </p>
+            </td>
+            <td class="py-4 px-6">
+                <p class="cursor-pointer p-2"
+                    hx-delete={"/admin/category/" + strconv.Itoa(int(Category.ID))}
+                    hx-swap="outerHTML"
+                    hx-target={"tr[tabindex='" + strconv.Itoa(int(Category.ID)) + "']"}> 
+                    @DeleteIcon() 
+                </p>
+            </td>
+        </tr>
+    }
+}
+
+templ CreateCategory(config TableConfig, x any) {
+    <div class="w-full flex flex-col gap-8">
+        <div class="w-full gap-10">
+            <label class=""> ლოგო </label>
+            <input  class=""
+                    placeholder="აირჩიე ლოგო"
+                    type="file"
+                    name="name" />
+        </div>
+
+        <div class="w-full gap-5">
+            <label class=""> დასახელება </label>
+            <input  class=""
+                    placeholder="დასახელება"
+                    type="text"
+                    name="name" />
+        </div>
+    </div>
+}
+
+templ Category(Categories []model.Categories) {
+    @Table(CategoryConfig(Categories))
 }

@@ -16,13 +16,14 @@ type Config struct {
 
 func Send(config Config) (bool, error) {
 	to := mail.NewEmail("yacco", config.To)
-	from := mail.NewEmail("yacco", "info@yacco.ge")
+	from := mail.NewEmail("yacco", "ucha1bokeria@gmail.com")
 	message := mail.NewSingleEmail(from, config.Subject, to, "", config.Body)
 	client := sendgrid.NewSendClient(globals.Env.SENDGRID_API_KEY)
 	_, err := client.Send(message)
 
+	// log.Println(err, config)
 	if err != nil {
-		log.Println(err)
+		log.Println(err, config)
 		return false, err
 	} else {
 		return true, nil

@@ -2,7 +2,6 @@ package landing
 
 import (
 	"log"
-	"net/http"
 
 	"gorm.io/gorm"
 
@@ -32,11 +31,11 @@ func subscribe(ctx *controller.Context) error {
 	Result, _ := mailer.Send(mailer.Config{
 		To: "ucha2bokeria@gmail.com",
 		Subject: "New Subsribe",
-		Body: ctx.RenderPlain(view.SubscribeMail()),
+		Body: "მადლობა გამოწერისთვის, იხილეთ სიახლეები ჩვენს ვებ გვერდზე და მიიღეთ ექსკლუზიური სიახლეები ელ ფოსტის საშუალებით",
 	})
 
 	if Result {
 		log.Print("Sent")
 	}
-	return ctx.String(http.StatusOK, "მადლობა გამოწერისთვის")
+	return ctx.Html(view.Subscribe())
 }

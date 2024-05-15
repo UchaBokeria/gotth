@@ -9,7 +9,7 @@ import (
 func Register(app *echo.Group) {
 	Category := app.Group("/category")
 	Category.GET("", controller.Register(index))
-	Category.POST("", controller.Register(create))
-	Category.PUT("", controller.Register(update))
-	Category.DELETE("", controller.Register(remove))
+	// Category.POST("", controller.Register(create))
+	// Category.PUT("", controller.Register(update))
+	// Category.DELETE("", controller.Register(remove))
 }
