@@ -9,12 +9,12 @@ reload:
 
 .PHONY: prod
 prod:
-	templ generate && make templ-clean && go build -o build/app ./cmd/app && ./build/app
+	make templ tailwind && go build -o build/app ./cmd/app && ./build/app
 
 .PHONY: build
 build:
 	make templ tailwind vet staticcheck test
-	go build -ldflags "-X main.Environment=production" -o ./bin/app ./cmd/app/main.go
+	go build -o ./bin/app ./cmd/app/main.go
 
 
 
