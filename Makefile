@@ -17,7 +17,6 @@ build:
 	make templ tailwind vet staticcheck test
 	go build -o ./bin/app ./cmd/app/main.go
 
-
 .PHONY: migrate
 migrate:
 	go run ./cmd/migrate/main.go
