@@ -1,17 +1,9 @@
 package admin
 
-import (
-	"main/build/view"
-	"main/server/common/controller"
-	"net/http"
+// func index(ctx *controller.Context) error {
+// 	return ctx.Html(view.Admin(templ.NopComponent))
+// }
 
-	"github.com/a-h/templ"
-)
-
-func index(ctx *controller.Context) error {
-	return ctx.Html(view.Admin(templ.NopComponent))
-}
-
-func upload(ctx *controller.Context) error {
-	return ctx.String(http.StatusOK, "")
-}
+// func upload(ctx *controller.Context) error {
+// 	return ctx.String(http.StatusOK, "")
+// }

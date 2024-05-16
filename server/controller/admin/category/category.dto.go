@@ -1,6 +1,6 @@
 package category
 
-type createDto struct {
-	Name string
-	IconID string
-}
+// type createDto struct {
+// 	Name string
+// 	IconID string
+// }
