@@ -26,7 +26,6 @@ seed:
 	go run ./cmd/seed/main.go
 
 
-
 .PHONY: tailwind
 tailwind:
 	npx tailwindcss -i ./public/assets/styles/tailwind.css -o ./public/assets/styles/style.css
