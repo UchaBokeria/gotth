@@ -3,11 +3,13 @@ package view
 import(
     "main/server/model"
     "strconv"
+    "strings"
 )
 
 func ProductConfig(Products []model.Products) TableConfig {
     ProductTable := TableDefConfig
     ProductTable.Name = "Product-Table"
+    ProductTable.Tools.Title = "პროდუქტი"
     ProductTable.Tools.Actions.Import = true
     ProductTable.Tools.Actions.Export = false
     ProductTable.Tools.Actions.Create = true
@@ -30,7 +32,7 @@ templ ProductBody(Products []model.Products) {
     for _, Prod := range Products{
         <tr class="group py-4 px-6 focus-within:bg-[#fff] focus:text-black select-none" tabindex={strconv.Itoa(int(Prod.ID))}>
             <td class="py-4 px-6">
-                <img src={ Prod.Thumbnail.Path } class="object-fit h-[5vw]" />
+                <img src={ strings.ReplaceAll(Prod.Thumbnail.Path, "./public", "") } class="object-fit h-[5vw]" />
             </td>
             <td class="py-4 px-6">
                 <p class=""> { Prod.Name } </p>

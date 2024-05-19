@@ -1,14 +1,20 @@
 package view
 
+type EndpointType struct {
+    Create string
+    Update string
+    Delete string
+}
+
 type TableConfigModal struct {
-    Endpoint    string
+    Endpoints   *EndpointType
     Head        func(config TableConfig, x any) templ.Component
     Content     func(config TableConfig, x any) templ.Component
     Footer      func(config TableConfig, x any) templ.Component
 }
 
 var TableModalDefault TableConfigModal = TableConfigModal{
-    Endpoint:    "/x/x",
+    Endpoints:   &EndpointType{ Create: "/x/create", Update: "/x/update/1", Delete: "/x/1" },
     Head:        TableModalHeadDefault,
     Content:     TableModalContentDefault,
     Footer:      TableModalFooterDefault,
@@ -16,7 +22,7 @@ var TableModalDefault TableConfigModal = TableConfigModal{
 
 templ TableModalHeadDefault(config TableConfig, x any) {
         // <p> { strconv.Itoa(int(x.ID)) } </p>
-        <p class=""> { config.Tools.Title } </p>
+        <p class="font-bold"> { config.Tools.Title } </p>
 }
 
 templ TableModalContentDefault(config TableConfig, x any) {
@@ -40,35 +46,37 @@ templ TableModalFooterDefault(config TableConfig, x any) {
 }
 
 templ TableModal(config TableConfig) {
-    <input class="hidden peer" type="checkbox" id={"Table-Modal-" + config.Name} />
-    <div class="Table-modal hidden peer-checked:block">
-        <div class="modal-overlay w-[100vw] fixed top-0 left-0 h-[100vh] z-[99999] bg-black opacity-30"></div>
-        <form   class="modal-window w-[80vw] fixed top-[10vh] left-[10vw] h-[80vh] z-[999999] bg-[#eee] rounded-[8px] flex flex-col justify-start items-start gap-8 py-8 px-20"
-                hx-post={config.Modal.Endpoint}
-                hx-trigger="submit"
-                hx-ext='json-enc'>
-            <div class="modal-header">
-                @config.Modal.Head(config, nil)
-            </div>
+    <div  id={config.Name + "-modal-ID"}>
+        <input class="hidden peer" type="checkbox" id={"Table-Modal-" + config.Name} />
+        <div class="Table-modal hidden peer-checked:block">
+            <div class="modal-overlay w-[100vw] fixed top-0 left-0 h-[100vh] z-[99999] bg-black opacity-30"></div>
+            <form   class="modal-window w-[80vw] fixed top-[10vh] left-[10vw] h-[80vh] z-[999999] bg-[#eee] rounded-[8px] flex flex-col justify-start items-start gap-8 py-8 px-20"
+                    hx-post={config.Modal.Endpoints.Create}
+                    hx-trigger="submit"
+                    hx-ext='json-enc'>
+                <div class="modal-header">
+                    @config.Modal.Head(config, nil)
+                </div>
 
-            <div class="modal-content grow">
-                @config.Modal.Content(config, nil)
-            </div>
+                <div class="modal-content grow">
+                    @config.Modal.Content(config, nil)
+                </div>
 
 
-            <div class="w-full flex gap-5">
-                @config.Modal.Footer(config, nil)
-            </div>
-        </form>
+                <div class="w-full flex gap-5">
+                    @config.Modal.Footer(config, nil)
+                </div>
+            </form>
+        </div>
     </div>
 }
 
 templ TableUpdateModal(config TableConfig, x any) {
-    <input class="hidden peer" type="checkbox" id={"Table-Modal-" + config.Name} />
+    <input class="hidden peer" type="checkbox" />
     <div class="Table-modal hidden peer-checked:block">
         <div class="modal-overlay w-[100vw] fixed top-0 left-0 h-[100vh] z-[99999] bg-black opacity-30"></div>
         <form   class="modal-window w-[80vw] fixed top-[10vh] left-[10vw] h-[80vh] z-[999999] bg-[#eee] rounded-[8px] flex flex-col justify-start items-start gap-8 py-8 px-20"
-                hx-put={config.Modal.Endpoint}
+                hx-put={config.Modal.Endpoints.Update}
                 hx-trigger="submit"
                 hx-ext='json-enc'>
             <div class="modal-header">

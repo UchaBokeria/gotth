@@ -1,5 +1,333 @@
 package view
 
+script Cke() {
+    ClassicEditor
+        .create( document.querySelector( '#aboutUsEditor' ), {
+            // Editor configuration.
+        } )
+        .then( editor => {
+            window.editor = editor;
+        } )
+        .catch(e => {
+            console.log(e)
+        });
+    ClassicEditor
+        .create( document.querySelector( '#TermsEditor' ), {
+            // Editor configuration.
+        } )
+        .then( editor => {
+            window.editor = editor;
+        } )
+        .catch(e => {
+            console.log(e)
+        });
+}
+
 templ Setting() {
-    
+    <script type="text/javascript" src="/assets/scripts/ckeditor/build/ckeditor.js"></script>
+    <div class="w-full flex flex-wrap gap-[5%] justify-start items-start">
+
+        <div class="bg-[#eee] w-[65%] p-5 rounded-[8px] flex flex-col gap-5">
+            <p class="w-full font-bold font-arial text-xl">საკონტაქტო</p>
+
+            <div class="flex flex-col gap-2 w-[100%]">
+                <p class="w-full font-arial">ელფოსტა</p>
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="email" />
+            </div>
+            <div class="flex flex-col gap-2 w-[100%]">
+                <p class="w-full font-arial">მობილური</p>
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="phone" />
+            </div>
+            <div class="flex flex-col gap-2 w-[100%]">
+                <p class="w-full font-arial">მისამართი</p>
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="location" />
+            </div>
+            <div class="flex flex-col gap-2 w-[100%]">
+                <p class="w-full font-arial">მისამართის ლინკი</p>
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="locationLink" />
+            </div>
+            <div class="flex flex-col gap-2 w-[100%]">
+                <p class="w-full font-arial">მისამართის აიფრეიმი</p>
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="locationIframe" />
+            </div>
+            <div class="flex flex-col gap-2 w-[100%]">
+                <button type="submit" class="bg-primary text-white rounded-[8px] px-3 py-2">შენახვა</button>
+            </div>
+        </div>
+        
+        <div class="bg-[#eee] w-[30%] p-5 rounded-[8px] flex flex-col gap-5">
+            <p class="w-full font-bold font-arial text-xl">სოციალური ქსელები</p>
+
+            <div class="flex flex-col gap-2 w-[100%]">
+                <p class="w-full font-arial">Facebook</p>
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="Facebook" />
+            </div>
+            <div class="flex flex-col gap-2 w-[100%]">
+                <p class="w-full font-arial">Twitter</p>
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="Twitter" />
+            </div>
+            <div class="flex flex-col gap-2 w-[100%]">
+                <p class="w-full font-arial">Instagram</p>
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="Instagram" />
+            </div>
+            <div class="flex flex-col gap-2 w-[100%]">
+                <p class="w-full font-arial">Youtube</p>
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="Youtube" />
+            </div>
+            <div class="flex flex-col gap-2 w-[100%]">
+                <button type="submit" class="bg-primary text-white rounded-[8px] px-3 py-2">შენახვა</button>
+            </div>
+        </div>
+        
+
+        @SlideshowSetting()
+        
+        <div class="w-[100%] py-5 rounded-[8px] flex flex-col gap-5">
+            <p class="w-full font-bold font-arial text-xl">ჩვენ გთავაზობთ</p>
+            
+            <div class="flex flex-wrap w-full gap-5">
+                <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
+                    <div class="w-full flex flex-col gap-2">
+                        <p class="w-full font-arial">სათაური</p>
+                        <input class="hidden" id="reasoner-logo-1" type="file" />
+                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_1" placeholder="სათაური 1" />
+                    </div>
+
+                    <div class="w-full flex flex-col gap-2">
+                        <p class="w-full font-arial">ტექსტი</p>
+                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_1" placeholder="ტექსტი 1" />
+                    </div>
+                    
+                    <label for="reasoner-logo-1" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
+                        @ImportIcon()
+                        <p class="">ლოგო</p>
+                    </label>
+                </div>
+                <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
+                    <div class="w-full flex flex-col gap-2">
+                        <p class="w-full font-arial">სათაური</p>
+                        <input class="hidden" id="reasoner-logo-2" type="file" />
+                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_2" placeholder="სათაური 2" />
+                    </div>
+
+                    <div class="w-full flex flex-col gap-2">
+                        <p class="w-full font-arial">ტექსტი</p>
+                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_2" placeholder="ტექსტი 2" />
+                    </div>
+                    
+                    <label for="reasoner-logo-2" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
+                        @ImportIcon()
+                        <p class="">ლოგო</p>
+                    </label>
+                </div>
+                <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
+                    <div class="w-full flex flex-col gap-2">
+                        <p class="w-full font-arial">სათაური</p>
+                        <input class="hidden" id="reasoner-logo-3" type="file" />
+                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_3" placeholder="სათაური 3" />
+                    </div>
+
+                    <div class="w-full flex flex-col gap-2">
+                        <p class="w-full font-arial">ტექსტი</p>
+                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_3" placeholder="ტექსტი 3" />
+                    </div>
+                    
+                    <label for="reasoner-logo-3" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
+                        @ImportIcon()
+                        <p class="">ლოგო</p>
+                    </label>
+                </div>
+                <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
+                    <div class="w-full flex flex-col gap-2">
+                        <p class="w-full font-arial">სათაური</p>
+                        <input class="hidden" id="reasoner-logo-4" type="file" />
+                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_4" placeholder="სათაური 4" />
+                    </div>
+
+                    <div class="w-full flex flex-col gap-2">
+                        <p class="w-full font-arial">ტექსტი</p>
+                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_4" placeholder="ტექსტი 4" />
+                    </div>
+                    
+                    <label for="reasoner-logo-4" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
+                        @ImportIcon()
+                        <p class="">ლოგო</p>
+                    </label>
+                </div>
+                <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
+                    <div class="w-full flex flex-col gap-2">
+                        <p class="w-full font-arial">სათაური</p>
+                        <input class="hidden" id="reasoner-logo-5" type="file" />
+                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_5" placeholder="სათაური 5" />
+                    </div>
+
+                    <div class="w-full flex flex-col gap-2">
+                        <p class="w-full font-arial">ტექსტი</p>
+                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_5" placeholder="ტექსტი 5" />
+                    </div>
+                    
+                    <label for="reasoner-logo-5" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
+                        @ImportIcon()
+                        <p class="">ლოგო</p>
+                    </label>
+                </div>
+                <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
+                    <div class="w-full flex flex-col gap-2">
+                        <p class="w-full font-arial">სათაური</p>
+                        <input class="hidden" id="reasoner-logo-6" type="file" />
+                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_6" placeholder="სათაური 6" />
+                    </div>
+
+                    <div class="w-full flex flex-col gap-2">
+                        <p class="w-full font-arial">ტექსტი</p>
+                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_6" placeholder="ტექსტი 6" />
+                    </div>
+                    
+                    <label for="reasoner-logo-6" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
+                        @ImportIcon()
+                        <p class="">ლოგო</p>
+                    </label>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-2 w-[100%]">
+                <button type="submit" class="bg-primary text-white rounded-[8px] px-3 py-2">შენახვა</button>
+            </div>
+        </div>
+
+        @Faqs()
+
+        <div class="bg-[#eee] w-[100%] mt-10 p-5 rounded-[8px] flex flex-col gap-5 flex-grow-1">
+            <p class="w-full font-bold font-arial text-xl">ჩვენს შესახებ (მოკლე აღწერა)</p>
+
+            <div class="w-full min-h-[70vh] overflow-scroll no-scrollbar">
+                <div class="w-full h-full overflow-scroll " id="aboutUsEditor"></div>
+            </div>
+            <div class="flex flex-col gap-2 w-[100%]">
+                <button type="submit" class="bg-primary text-white rounded-[8px] px-3 py-2">შენახვა</button>
+            </div>
+        </div>
+
+        <div class="bg-[#eee] w-[100%] mt-10 p-5 rounded-[8px] flex flex-col gap-5 flex-grow-1">
+            <p class="w-full font-bold font-arial text-xl">წესები და პირობები</p>
+
+            <div class="w-full min-h-[70vh] overflow-scroll no-scrollbar">
+                <div class="w-full h-full overflow-scroll " id="TermsEditor"></div>
+            </div>
+            <div class="flex flex-col gap-2 w-[100%]">
+                <button type="submit" class="bg-primary text-white rounded-[8px] px-3 py-2">შენახვა</button>
+            </div>
+        </div>
+    </div>
+    @Cke()
+}
+
+templ SlideshowSetting() {
+    <div class="w-[100%] py-5 rounded-[8px] flex flex-col gap-5">
+        <p class="w-full font-bold font-arial text-xl">კარუსელი</p>
+        
+        <div class="flex flex-wrap w-full gap-5">
+            <div class="flex flex-col gap-7 w-[20%] p-7 bg-[#eee] rounded-[8px]">
+                <input class="hidden" id="reasoner-logo-1" type="file" />
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_1" placeholder="სათაური 1" />
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_1" placeholder="ტექსტი 1" />
+                <label for="reasoner-logo-1" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
+                    @ImportIcon()
+                    <p class="">ლოგო</p>
+                </label>
+            </div>
+            <div class="flex flex-col gap-7 w-[20%] p-7 bg-[#eee] rounded-[8px]">
+                <input class="hidden" id="reasoner-logo-2" type="file" />
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_2" placeholder="სათაური 2" />
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_2" placeholder="ტექსტი 2" />
+                <label for="reasoner-logo-2" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
+                    @ImportIcon()
+                    <p class="">ლოგო</p>
+                </label>
+            </div>
+            <div class="flex flex-col gap-7 w-[20%] p-7 bg-[#eee] rounded-[8px]">
+                <input class="hidden" id="reasoner-logo-3" type="file" />
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_3" placeholder="სათაური 3" />
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_3" placeholder="ტექსტი 3" />
+                <label for="reasoner-logo-3" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
+                    @ImportIcon()
+                    <p class="">ლოგო</p>
+                </label>
+            </div>
+            <div class="flex flex-col gap-7 w-[20%] p-7 bg-[#eee] rounded-[8px]">
+                <input class="hidden" id="reasoner-logo-4" type="file" />
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_4" placeholder="სათაური 4" />
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_4" placeholder="ტექსტი 4" />
+                <label for="reasoner-logo-4" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
+                    @ImportIcon()
+                    <p class="">ლოგო</p>
+                </label>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-2 w-[100%]">
+            <button type="submit" class="bg-primary text-white rounded-[8px] px-3 py-2">შენახვა</button>
+        </div>
+    </div>
+}
+
+templ Faqs() {
+    <div class="w-[100%] py-5 rounded-[8px] flex flex-col gap-5">
+        <p class="w-full font-bold font-arial text-xl">შეკითხვები და პასუხები</p>
+        
+        <div class="flex flex-wrap w-full gap-5">
+            <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
+                <div class="w-full flex flex-col gap-2">
+                    <p class="w-full font-arial"> შეკითხვა </p>
+                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="question" placeholder="შეკითხვა 1" />
+                </div>
+                <div class="w-full flex flex-col gap-2">
+                    <p class="w-full font-arial">პასუხი</p>
+                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="answer" placeholder="პასუხი 1" />
+                </div>
+                <button class="w-full flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
+                    შენახვა
+                </button>
+            </div>
+            <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
+                <div class="w-full flex flex-col gap-2">
+                    <p class="w-full font-arial"> შეკითხვა </p>
+                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="question" placeholder="შეკითხვა 2" />
+                </div>
+                <div class="w-full flex flex-col gap-2">
+                    <p class="w-full font-arial">პასუხი</p>
+                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="answer" placeholder="პასუხი 2" />
+                </div>
+                <button class="w-full flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
+                    შენახვა
+                </button>
+            </div>
+            <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
+                <div class="w-full flex flex-col gap-2">
+                    <p class="w-full font-arial"> შეკითხვა </p>
+                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="question" placeholder="შეკითხვა 3" />
+                </div>
+                <div class="w-full flex flex-col gap-2">
+                    <p class="w-full font-arial">პასუხი</p>
+                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="answer" placeholder="პასუხი 3" />
+                </div>
+                <button class="w-full flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
+                    შენახვა
+                </button>
+            </div>
+            <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
+                <div class="w-full flex flex-col gap-2">
+                    <p class="w-full font-arial"> შეკითხვა </p>
+                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="question" placeholder="შეკითხვა 4" />
+                </div>
+                <div class="w-full flex flex-col gap-2">
+                    <p class="w-full font-arial">პასუხი</p>
+                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="answer" placeholder="პასუხი 4" />
+                </div>
+                <button class="w-full flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
+                    შენახვა
+                </button>
+            </div>
+        </div>
+    </div>
 }

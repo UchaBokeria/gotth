@@ -27,7 +27,9 @@ templ CategoryHeader(Categories []model.Categories) {
 
 templ CategoryBody(Categories []model.Categories) {
     for _, Category := range Categories{
-        <tr class="group py-4 px-6 focus-within:bg-[#fff] focus:text-black select-none" tabindex={strconv.Itoa(int(Category.ID))}>
+        <tr hx-get={"/admin/category/" + strconv.Itoa(int(Category.ID))}
+            hx-trigger="dblclick" hx-target={"#Category-Table-modal-ID"} hx-swap="innerHTML"
+            class="group py-4 px-6 focus-within:bg-[#fff] focus:text-black select-none" tabindex={strconv.Itoa(int(Category.ID))}>
             <td class="py-4 px-6">
                 <img src={ "/assets/images/categories/" + Category.Icon.Path } class="object-fit h-[5vw]" />
             </td>
@@ -44,26 +46,6 @@ templ CategoryBody(Categories []model.Categories) {
             </td>
         </tr>
     }
-}
-
-templ CreateCategory(config TableConfig, x any) {
-    <div class="w-full flex flex-col gap-8">
-        <div class="w-full gap-10">
-            <label class=""> ლოგო </label>
-            <input  class=""
-                    placeholder="აირჩიე ლოგო"
-                    type="file"
-                    name="name" />
-        </div>
-
-        <div class="w-full gap-5">
-            <label class=""> დასახელება </label>
-            <input  class=""
-                    placeholder="დასახელება"
-                    type="text"
-                    name="name" />
-        </div>
-    </div>
 }
 
 templ Category(Categories []model.Categories) {
