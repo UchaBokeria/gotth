@@ -1,0 +1,26 @@
+package view
+
+import(
+    "main/server/model"
+)
+
+templ SocialMediaer(SocialMedia []model.Social_media) {
+    <form   class="bg-[#f5f5f5] w-[30%] p-5 rounded-[8px] flex flex-col gap-5"
+            hx-post="/admin/setting/socials"
+            hx-swap="outerHTML"
+            hx-trigger="submit"
+            hx-ext='json-enc'>
+        <p class="w-full font-bold font-arial text-xl">სოციალური ქსელები</p>
+
+        for _, Social := range SocialMedia{
+            <div class="flex flex-col gap-2 w-[100%]">
+                <p class="w-full font-arial">Facebook</p>
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name={ Social.Name } value={ Social.Url } />
+            </div>
+        }
+
+        <div class="flex flex-col gap-2 w-[100%]">
+            <button type="submit" class="bg-primary text-white rounded-[8px] px-3 py-2">შენახვა</button>
+        </div>
+    </form>
+}

@@ -5,6 +5,10 @@ import (
 	"main/server/model"
 )
 
+func GetPointedInt(num int) *int {
+	return &num
+}
+
 var Slideshows = []model.Interface_slideShow{
 	{
 		InterfaceID: 	1,
@@ -14,7 +18,7 @@ var Slideshows = []model.Interface_slideShow{
 		Desc:   		"YACCO ბრენდმა უმაღლეი შედეგი დადო ! 1930-იანი წლების დასაწყისში Yacco-მ განიცადა მთელი რიგი იმედგაცრუებები თავის მთავარ მომხმარებლებთან, სერიოზული ფინანსური სირთულეების ფონზე: შეწყდა ხელშეკრულებები ამილკართან, დონეტთან და ვოისინთან.",
 		Url:    		"/categories/",
 		TypeID: 		1,
-		PicID:  		2,
+		PicID:  		GetPointedInt(2),
 		Index:  		2,
 	},
 	{
@@ -25,7 +29,7 @@ var Slideshows = []model.Interface_slideShow{
 		Desc:   		"უმაღლესი ხარისხის ზეთი საქართველოში, კომპანია მთელი ძალისხმევის კონცენტრირებას ახდენს საპოხი მასალების მიწოდებაზე, ხოლო დამხმარე საქმიანობა ძალიან სწრაფად მცირდება",
 		Url:    		"/products?categories=1",
 		TypeID: 		1,
-		PicID:  		1,
+		PicID:  		GetPointedInt(1),
 		Index:  		1,
 	},
 	{
@@ -36,7 +40,7 @@ var Slideshows = []model.Interface_slideShow{
 		Desc:   		"ლეგენდარული ზეთის ბრენდის სახელის პირველი ნაბიჯები, Hispano-ს დირექტორებს სურთ შექმნან შვილობილი კომპანია, რომელიც განკუთვნილია ჩარხების წარმოებისთვის და ხელსაწყოების და საპოხი ზეთების განაწილებისთვის",
 		Url:    		"/about",
 		TypeID: 		1,
-		PicID:  		3,
+		PicID:  		GetPointedInt(3),
 		Index:  		3,
 	},
 }

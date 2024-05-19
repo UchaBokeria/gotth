@@ -25,6 +25,7 @@ templ ProductHeader(Products []model.Products) {
         <td class="py-4 px-6">სახელი</td>
         <td class="py-4 px-6">აღწერა</td>
         <td class="py-4 px-6"></td>
+        <td class="py-4 px-6"></td>
     </tr>
 }
 
@@ -46,6 +47,14 @@ templ ProductBody(Products []model.Products) {
                     hx-swap="outerHTML"
                     hx-target={"tr[tabindex='" + strconv.Itoa(int(Prod.ID)) + "']"}> 
                     @DeleteIcon() 
+                </p>
+            </td>
+            <td class="py-4 px-6">
+                <p class="cursor-pointer p-2"
+                    hx-patch={"/admin/Prod/" + strconv.Itoa(int(Prod.ID))}
+                    hx-swap="outerHTML"
+                    hx-target={"tr[tabindex='" + strconv.Itoa(int(Prod.ID)) + "']"}> 
+                    @ClosedEyeIcon() 
                 </p>
             </td>
         </tr>

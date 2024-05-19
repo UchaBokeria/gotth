@@ -20,7 +20,7 @@ templ Slideshow(Interface model.Interface) {
             for _, Slide := range Interface.SlideShow {
                 <div class={"relative w-[100%] h-full shrink-0", Slider(len(Interface.SlideShow), 7)}>
 
-                    <img src={ "/" + Slide.Pic.Path } class="w-full object-cover h-full" />
+                    <img src={ Slide.Pic.Path } class="w-full object-cover h-full" />
                     <div class="absolute top-0 left-0 w-full h-full bg-black opacity-30" />
 
                     <div class="carousel-caption w-[35%] overflow-hidden absolute inset-0 left-[150px] top-[15%] flex flex-col gap-[20px] justify-start items-start text-center max-md:left-[50px] max-md:w-[80%]">

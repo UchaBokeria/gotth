@@ -13,7 +13,7 @@ var Reasons = []model.Interface_reasons{
 		Title:  		"გარანტია",
 		Desc:   		"იხილეთ Yacco - ს გარანტია ზეთებზე და დარწმუნდი ხარისხში. დამატებითი შეკითხვების ინფორმაციისთვის დაგვიკავშირდით",
 		Url:    		"https://yaccogaranties.com/accueil_yacco.php",
-		IconID: 		7,
+		IconID: 		GetPointedInt(7),
 	},
 	{
 		InterfaceID: 	1,
@@ -22,7 +22,7 @@ var Reasons = []model.Interface_reasons{
 		Title:  		"სად ვიშოვოთ",
 		Desc:   		"იხილეთ სად შეგიძლიათ იშოვოთ Yacco პროდუქცია თქვენს ახლოს. დამატებითი შეკითხვების ინფორმაციისთვის დაგვიკავშირდით",
 		Url:    		"/branches/",
-		IconID: 		8,
+		IconID: 		GetPointedInt(8),
 	},
 	{
 		InterfaceID: 	1,
@@ -31,7 +31,7 @@ var Reasons = []model.Interface_reasons{
 		Title:  		"გაიგე მეტი",
 		Desc:   		"გაიგე მეტი კომპანიის ისტორიაზე და ჩვენს მიღწევებზე. დამატებითი შეკითხვების ინფორმაციისთვის დაგვიკავშირდით",
 		Url:    		"/about/",
-		IconID: 		9,
+		IconID: 		GetPointedInt(9),
 	},
 	{
 		InterfaceID: 	1,
@@ -40,7 +40,7 @@ var Reasons = []model.Interface_reasons{
 		Title:  		"ხშირად დასმული შეკითხვები",
 		Desc:   		"იხილეთ მეტი ინფორმაცია და ხშირად დასმული შეკითხვები. დამატებითი შეკითხვების ინფორმაციისთვის დაგვიკავშირდით",
 		Url:    		"/faq/",
-		IconID: 		10,
+		IconID: 		GetPointedInt(10),
 	},
 	{
 		InterfaceID: 	1,
@@ -49,7 +49,7 @@ var Reasons = []model.Interface_reasons{
 		Title:  		"სიახლეები",
 		Desc:   		"იხილეთ სიახლეები ვიდეო ფოტო და ბლოგ სახით. დამატებითი შეკითხვების ინფორმაციისთვის დაგვიკავშირდით",
 		Url:    		"/news/",
-		IconID: 		11,
+		IconID: 		GetPointedInt(11),
 	},
 	{
 		InterfaceID: 	1,
@@ -58,7 +58,7 @@ var Reasons = []model.Interface_reasons{
 		Title:  		"წესები და პირობები",
 		Desc:   		"იხილეთ წესები და პირობები, დამატებითი შეკითხვების ინფორმაციისთვის დაგვიკავშირდით",
 		Url:    		"/terms",
-		IconID: 		12,
+		IconID: 		GetPointedInt(12),
 	},
 }
 

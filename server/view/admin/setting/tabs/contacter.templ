@@ -1,0 +1,39 @@
+package view
+
+import(
+    "main/server/model"
+)
+
+templ Contacter(Contact model.Interface_contact) {
+    <form   class="bg-[#f5f5f5] w-[65%] p-5 rounded-[8px] flex flex-col gap-5"
+                hx-post="/admin/setting/contacts"
+                hx-swap="outerHTML"
+                hx-trigger="submit"
+                hx-ext='json-enc'>
+            <p class="w-full font-bold font-arial text-xl">საკონტაქტო</p>
+
+            <div class="flex flex-col gap-2 w-[100%]">
+                <p class="w-full font-arial">ელფოსტა</p>
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="email" value={ Contact.Email } />
+            </div>
+            <div class="flex flex-col gap-2 w-[100%]">
+                <p class="w-full font-arial">მობილური</p>
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="phone" value={ Contact.Phone } />
+            </div>
+            <div class="flex flex-col gap-2 w-[100%]">
+                <p class="w-full font-arial">მისამართი</p>
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="location" value={ Contact.Location } />
+            </div>
+            <div class="flex flex-col gap-2 w-[100%]">
+                <p class="w-full font-arial">მისამართის ლინკი</p>
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="locationLink" value={ Contact.LocationLink } />
+            </div>
+            <div class="flex flex-col gap-2 w-[100%]">
+                <p class="w-full font-arial">მისამართის აიფრეიმი</p>
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="locationIframe" value={ Contact.LocationIframe } />
+            </div>
+            <div class="flex flex-col gap-2 w-[100%]">
+                <button type="submit" class="bg-primary text-white rounded-[8px] px-3 py-2">შენახვა</button>
+            </div>
+        </form>
+}

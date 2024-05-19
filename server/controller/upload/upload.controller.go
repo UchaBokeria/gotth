@@ -7,14 +7,13 @@ import (
 	"log"
 	"main/server/common/controller"
 	"main/server/common/globals"
+	uploader "main/server/common/helpers"
 	"main/server/common/storage"
 	"main/server/model"
-	"mime/multipart"
 	"net/http"
 	"os"
 )
 
-type UploadResponse struct { ID int; Message string; Success bool } 
 
 func FileUpload(ctx *controller.Context) error {
 	// var About model.Interface_about
@@ -30,7 +29,7 @@ func FileUpload(ctx *controller.Context) error {
 	if err != nil {
 		return ctx.JSON(
 			http.StatusBadRequest, 
-			&UploadResponse{ ID: -1, Message: "Error retrieving file from form data", Success: false },
+			&uploader.UploadResponse{ ID: -1, Message: "Error retrieving file from form data", Success: false },
 		)
 	}
 
@@ -39,7 +38,7 @@ func FileUpload(ctx *controller.Context) error {
 	if err != nil {
 		return ctx.JSON(
 			http.StatusBadRequest, 
-			&UploadResponse{ ID: -1, Message: "Error opening received file", Success: false },
+			&uploader.UploadResponse{ ID: -1, Message: "Error opening received file", Success: false },
 		)
 	}
 	defer src.Close()
@@ -49,13 +48,13 @@ func FileUpload(ctx *controller.Context) error {
 	if _, err := io.Copy(hash, src); err != nil {
 		return ctx.JSON(
 			http.StatusBadRequest, 
-			&UploadResponse{ ID: -1, Message: "Error calculating hash", Success: false },
+			&uploader.UploadResponse{ ID: -1, Message: "Error calculating hash", Success: false },
 		)
 	}
 
 	// Reset src to the beginning to read again
 	src.Seek(0, 0)
-	extension := GetFileExtension(file)
+	extension := uploader.GetFileExtension(file)
 	hashName := hex.EncodeToString(hash.Sum(nil))
 
 	// Create a new file on the server to store the uploaded file
@@ -63,7 +62,7 @@ func FileUpload(ctx *controller.Context) error {
 	if err != nil {
 		return ctx.JSON(
 			http.StatusBadRequest, 
-			&UploadResponse{ ID: -1, Message: "Error creating file on server", Success: false },
+			&uploader.UploadResponse{ ID: -1, Message: "Error creating file on server", Success: false },
 		)
 	}
 	defer dst.Close()
@@ -72,14 +71,14 @@ func FileUpload(ctx *controller.Context) error {
 	if _, err = io.Copy(dst, src); err != nil {
 		return ctx.JSON(
 			http.StatusBadRequest, 
-			&UploadResponse{ ID: -1, Message: "Error copying file to destination", Success: false },
+			&uploader.UploadResponse{ ID: -1, Message: "Error copying file to destination", Success: false },
 		)
 	}
 
 	if len(extension) < 2 {
 		return ctx.JSON(
 			http.StatusBadRequest, 
-			&UploadResponse{ ID: -1, Message: "File type " + extension + " has a problem", Success: false },
+			&uploader.UploadResponse{ ID: -1, Message: "File type " + extension + " has a problem", Success: false },
 		)
 	}
 
@@ -90,7 +89,7 @@ func FileUpload(ctx *controller.Context) error {
 		log.Print(result)
 		return ctx.JSON(
 			http.StatusBadRequest, 
-			&UploadResponse{ ID: -1, Message: "Server can't accept " + extension + " type files", Success: false },
+			&uploader.UploadResponse{ ID: -1, Message: "Server can't accept " + extension + " type files", Success: false },
 		)
 	}
 
@@ -110,29 +109,12 @@ func FileUpload(ctx *controller.Context) error {
 		log.Print(Result)
 		return ctx.JSON(
 			http.StatusNotAcceptable, 
-			&UploadResponse{ ID: -1, Message: "File uploaded but was not saved in database", Success: false },
+			&uploader.UploadResponse{ ID: -1, Message: "File uploaded but was not saved in database", Success: false },
 		)
 	}
 
 	return ctx.JSON(
 		http.StatusOK, 
-		&UploadResponse{ ID: int(File.ID), Message: "Successfully uploaded", Success: true },
+		&uploader.UploadResponse{ ID: int(File.ID), Message: "Successfully uploaded", Success: true },
 	)
-}
-
-func GetFileExtension(file *multipart.FileHeader) string {
-	header, err := file.Open()
-	if err != nil {
-		return ""
-	}
-	defer header.Close()
-
-	extension := ""
-	for i := len(file.Filename) - 1; i >= 0; i-- {
-		if file.Filename[i] == '.' {
-			extension = file.Filename[i:]
-			break
-		}
-	}
-	return extension
 }

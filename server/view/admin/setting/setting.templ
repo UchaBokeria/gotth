@@ -1,333 +1,118 @@
 package view
 
-script Cke() {
-    ClassicEditor
-        .create( document.querySelector( '#aboutUsEditor' ), {
-            // Editor configuration.
-        } )
-        .then( editor => {
-            window.editor = editor;
-        } )
-        .catch(e => {
-            console.log(e)
-        });
-    ClassicEditor
-        .create( document.querySelector( '#TermsEditor' ), {
-            // Editor configuration.
-        } )
-        .then( editor => {
-            window.editor = editor;
-        } )
-        .catch(e => {
-            console.log(e)
-        });
+import(
+    "main/server/model"
+)
+
+script Cke(Interface model.Interface) {
+    ClassicEditor.create(
+        document.querySelector( '#aboutUsEditor' ), 
+        window.ckeConfig
+    ).then(editor => {
+        editor.setData(Interface.About.Body);
+    }).catch(e => console.log("ckeditor ->", e))
+
+    ClassicEditor.create(
+        document.querySelector( '#TermsEditor' ), 
+        window.ckeConfig
+    ).then(editor => {
+        editor.setData(Interface.About.Terms);
+    }).catch(e => console.log("ckeditor ->", e))
 }
 
-templ Setting() {
+templ Setting(Interface model.Interface, Faqs []model.Faq, Newz []model.News) {
+    @CkeEditorConfig()
+    <style>
+        .tab:nth-of-type(1):checked ~ .tab-content:nth-of-type(1),
+        .tab:nth-of-type(2):checked ~ .tab-content:nth-of-type(2),
+        .tab:nth-of-type(3):checked ~ .tab-content:nth-of-type(3),
+        .tab:nth-of-type(4):checked ~ .tab-content:nth-of-type(4),
+        .tab:nth-of-type(5):checked ~ .tab-content:nth-of-type(5),
+        .tab:nth-of-type(6):checked ~ .tab-content:nth-of-type(6),
+        .tab:nth-of-type(7):checked ~ .tab-content:nth-of-type(7) {
+            display: flex;
+        }
+        .ck-editor__editable[role="textbox"] {
+            /* Editing area */
+            min-height: 700px;
+        }
+        .ck-content .image {
+            /* Block images */
+            max-width: 80%;
+            margin: 20px auto;
+        }
+        .ck-editor__editable_inline {
+            min-height: 600px;
+        }
+    </style>
     <script type="text/javascript" src="/assets/scripts/ckeditor/build/ckeditor.js"></script>
-    <div class="w-full flex flex-wrap gap-[5%] justify-start items-start">
+    <div class="w-full flex flex-wrap gap-[5%] justify-between items-start">
+        <div class="mb-10 w-full h-12 bg-primary text-white flex flex-wrap gap-2 justify-start items-center rounded-[8px]">
+            <input type="radio" id="Contacter" name="setting_tabs" value="Contacter" class="hidden tab"  />
+            <label  for="Contacter"
+                    class="cursor-pointer h-full px-5 flex items-center hover:bg-[#FFF200] hover:text-black">
+                <p class="w-full">კონტაქტი</p>
+            </label>
 
-        <div class="bg-[#eee] w-[65%] p-5 rounded-[8px] flex flex-col gap-5">
-            <p class="w-full font-bold font-arial text-xl">საკონტაქტო</p>
+            <input type="radio" id="SocialMediaer" name="setting_tabs" value="SocialMediaer" class="hidden tab" />
+            <label  for="SocialMediaer"
+                    class="cursor-pointer h-full px-5 flex items-center hover:bg-[#FFF200] hover:text-black">
+                <p class="w-full">სლაიდერი</p>
+            </label>
 
-            <div class="flex flex-col gap-2 w-[100%]">
-                <p class="w-full font-arial">ელფოსტა</p>
-                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="email" />
-            </div>
-            <div class="flex flex-col gap-2 w-[100%]">
-                <p class="w-full font-arial">მობილური</p>
-                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="phone" />
-            </div>
-            <div class="flex flex-col gap-2 w-[100%]">
-                <p class="w-full font-arial">მისამართი</p>
-                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="location" />
-            </div>
-            <div class="flex flex-col gap-2 w-[100%]">
-                <p class="w-full font-arial">მისამართის ლინკი</p>
-                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="locationLink" />
-            </div>
-            <div class="flex flex-col gap-2 w-[100%]">
-                <p class="w-full font-arial">მისამართის აიფრეიმი</p>
-                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="locationIframe" />
-            </div>
-            <div class="flex flex-col gap-2 w-[100%]">
-                <button type="submit" class="bg-primary text-white rounded-[8px] px-3 py-2">შენახვა</button>
-            </div>
-        </div>
-        
-        <div class="bg-[#eee] w-[30%] p-5 rounded-[8px] flex flex-col gap-5">
-            <p class="w-full font-bold font-arial text-xl">სოციალური ქსელები</p>
+            <input type="radio" id="Slideshower" name="setting_tabs" value="Slideshower" class="hidden tab" />
+            <label  for="Slideshower"
+                    class="cursor-pointer h-full px-5 flex items-center hover:bg-[#FFF200] hover:text-black">
+                <p class="w-full">მიზეზები</p>
+            </label>
 
-            <div class="flex flex-col gap-2 w-[100%]">
-                <p class="w-full font-arial">Facebook</p>
-                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="Facebook" />
-            </div>
-            <div class="flex flex-col gap-2 w-[100%]">
-                <p class="w-full font-arial">Twitter</p>
-                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="Twitter" />
-            </div>
-            <div class="flex flex-col gap-2 w-[100%]">
-                <p class="w-full font-arial">Instagram</p>
-                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="Instagram" />
-            </div>
-            <div class="flex flex-col gap-2 w-[100%]">
-                <p class="w-full font-arial">Youtube</p>
-                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="Youtube" />
-            </div>
-            <div class="flex flex-col gap-2 w-[100%]">
-                <button type="submit" class="bg-primary text-white rounded-[8px] px-3 py-2">შენახვა</button>
-            </div>
-        </div>
-        
+            <input type="radio" id="Reasoners" name="setting_tabs" value="Reasoners" class="hidden tab" />
+            <label  for="Reasoners"
+                    class="cursor-pointer h-full px-5 flex items-center hover:bg-[#FFF200] hover:text-black">
+                <p class="w-full">კითხვარი</p>
+            </label>
 
-        @SlideshowSetting()
-        
-        <div class="w-[100%] py-5 rounded-[8px] flex flex-col gap-5">
-            <p class="w-full font-bold font-arial text-xl">ჩვენ გთავაზობთ</p>
-            
-            <div class="flex flex-wrap w-full gap-5">
-                <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
-                    <div class="w-full flex flex-col gap-2">
-                        <p class="w-full font-arial">სათაური</p>
-                        <input class="hidden" id="reasoner-logo-1" type="file" />
-                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_1" placeholder="სათაური 1" />
-                    </div>
+            <input type="radio" id="Newser" name="setting_tabs" value="Newser" class="hidden tab" />
+            <label  for="Newser"
+                    class="cursor-pointer h-full px-5 flex items-center hover:bg-[#FFF200] hover:text-black">
+                <p class="w-full">სიახლეები</p>
+            </label>
 
-                    <div class="w-full flex flex-col gap-2">
-                        <p class="w-full font-arial">ტექსტი</p>
-                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_1" placeholder="ტექსტი 1" />
-                    </div>
-                    
-                    <label for="reasoner-logo-1" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
-                        @ImportIcon()
-                        <p class="">ლოგო</p>
-                    </label>
-                </div>
-                <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
-                    <div class="w-full flex flex-col gap-2">
-                        <p class="w-full font-arial">სათაური</p>
-                        <input class="hidden" id="reasoner-logo-2" type="file" />
-                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_2" placeholder="სათაური 2" />
-                    </div>
+            <input type="radio" id="Abouter" name="setting_tabs" value="Abouter" class="hidden tab" checked/>
+            <label  for="Abouter"
+                    class="cursor-pointer h-full px-5 flex items-center hover:bg-[#FFF200] hover:text-black">
+                <p class="w-full">ჩვენს შესახებ</p>
+            </label>
 
-                    <div class="w-full flex flex-col gap-2">
-                        <p class="w-full font-arial">ტექსტი</p>
-                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_2" placeholder="ტექსტი 2" />
-                    </div>
-                    
-                    <label for="reasoner-logo-2" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
-                        @ImportIcon()
-                        <p class="">ლოგო</p>
-                    </label>
-                </div>
-                <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
-                    <div class="w-full flex flex-col gap-2">
-                        <p class="w-full font-arial">სათაური</p>
-                        <input class="hidden" id="reasoner-logo-3" type="file" />
-                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_3" placeholder="სათაური 3" />
-                    </div>
+            <input type="radio" id="Termer" name="setting_tabs" value="Termer" class="hidden tab" />
+            <label  for="Termer"
+                    class="cursor-pointer h-full px-5 flex items-center hover:bg-[#FFF200] hover:text-black">
+                <p class="w-full">წესები და პირობები</p>
+            </label>
 
-                    <div class="w-full flex flex-col gap-2">
-                        <p class="w-full font-arial">ტექსტი</p>
-                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_3" placeholder="ტექსტი 3" />
-                    </div>
-                    
-                    <label for="reasoner-logo-3" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
-                        @ImportIcon()
-                        <p class="">ლოგო</p>
-                    </label>
-                </div>
-                <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
-                    <div class="w-full flex flex-col gap-2">
-                        <p class="w-full font-arial">სათაური</p>
-                        <input class="hidden" id="reasoner-logo-4" type="file" />
-                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_4" placeholder="სათაური 4" />
-                    </div>
-
-                    <div class="w-full flex flex-col gap-2">
-                        <p class="w-full font-arial">ტექსტი</p>
-                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_4" placeholder="ტექსტი 4" />
-                    </div>
-                    
-                    <label for="reasoner-logo-4" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
-                        @ImportIcon()
-                        <p class="">ლოგო</p>
-                    </label>
-                </div>
-                <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
-                    <div class="w-full flex flex-col gap-2">
-                        <p class="w-full font-arial">სათაური</p>
-                        <input class="hidden" id="reasoner-logo-5" type="file" />
-                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_5" placeholder="სათაური 5" />
-                    </div>
-
-                    <div class="w-full flex flex-col gap-2">
-                        <p class="w-full font-arial">ტექსტი</p>
-                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_5" placeholder="ტექსტი 5" />
-                    </div>
-                    
-                    <label for="reasoner-logo-5" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
-                        @ImportIcon()
-                        <p class="">ლოგო</p>
-                    </label>
-                </div>
-                <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
-                    <div class="w-full flex flex-col gap-2">
-                        <p class="w-full font-arial">სათაური</p>
-                        <input class="hidden" id="reasoner-logo-6" type="file" />
-                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_6" placeholder="სათაური 6" />
-                    </div>
-
-                    <div class="w-full flex flex-col gap-2">
-                        <p class="w-full font-arial">ტექსტი</p>
-                        <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_6" placeholder="ტექსტი 6" />
-                    </div>
-                    
-                    <label for="reasoner-logo-6" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
-                        @ImportIcon()
-                        <p class="">ლოგო</p>
-                    </label>
-                </div>
-            </div>
-
-            <div class="flex flex-col gap-2 w-[100%]">
-                <button type="submit" class="bg-primary text-white rounded-[8px] px-3 py-2">შენახვა</button>
-            </div>
-        </div>
-
-        @Faqs()
-
-        <div class="bg-[#eee] w-[100%] mt-10 p-5 rounded-[8px] flex flex-col gap-5 flex-grow-1">
-            <p class="w-full font-bold font-arial text-xl">ჩვენს შესახებ (მოკლე აღწერა)</p>
-
-            <div class="w-full min-h-[70vh] overflow-scroll no-scrollbar">
-                <div class="w-full h-full overflow-scroll " id="aboutUsEditor"></div>
-            </div>
-            <div class="flex flex-col gap-2 w-[100%]">
-                <button type="submit" class="bg-primary text-white rounded-[8px] px-3 py-2">შენახვა</button>
-            </div>
-        </div>
-
-        <div class="bg-[#eee] w-[100%] mt-10 p-5 rounded-[8px] flex flex-col gap-5 flex-grow-1">
-            <p class="w-full font-bold font-arial text-xl">წესები და პირობები</p>
-
-            <div class="w-full min-h-[70vh] overflow-scroll no-scrollbar">
-                <div class="w-full h-full overflow-scroll " id="TermsEditor"></div>
-            </div>
-            <div class="flex flex-col gap-2 w-[100%]">
-                <button type="submit" class="bg-primary text-white rounded-[8px] px-3 py-2">შენახვა</button>
-            </div>
+            <span class="tab-content hidden w-full flex flex-wrap gap-[5%] justify-between items-start text-black mt-7">
+                @Contacter(Interface.Contact)    
+                @SocialMediaer(Interface.SocialMedia)
+            </span>
+            <span class="tab-content hidden w-full flex flex-wrap gap-[5%] justify-between items-start text-black mt-7">        
+                @Slideshower(Interface.SlideShow)
+            </span>
+            <span class="tab-content hidden w-full flex flex-wrap gap-[5%] justify-between items-start text-black mt-7">        
+                @Reasoners(Interface.Reasons)
+            </span>
+            <span class="tab-content hidden w-full flex flex-wrap gap-[5%] justify-between items-start text-black mt-7">        
+                @Faqers(Faqs)
+            </span>
+            <span class="tab-content hidden w-full flex flex-wrap gap-[5%] justify-between items-start text-black mt-7">        
+                @Newser(Newz)
+            </span>
+            <span class="tab-content hidden w-full flex flex-wrap gap-[5%] justify-between items-start text-black mt-7">
+                @Abouter(Interface.About)
+            </span>
+            <span class="tab-content hidden w-full flex flex-wrap gap-[5%] justify-between items-start text-black mt-7">        
+                @Termer(Interface.About)
+            </span>
         </div>
     </div>
-    @Cke()
-}
-
-templ SlideshowSetting() {
-    <div class="w-[100%] py-5 rounded-[8px] flex flex-col gap-5">
-        <p class="w-full font-bold font-arial text-xl">კარუსელი</p>
-        
-        <div class="flex flex-wrap w-full gap-5">
-            <div class="flex flex-col gap-7 w-[20%] p-7 bg-[#eee] rounded-[8px]">
-                <input class="hidden" id="reasoner-logo-1" type="file" />
-                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_1" placeholder="სათაური 1" />
-                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_1" placeholder="ტექსტი 1" />
-                <label for="reasoner-logo-1" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
-                    @ImportIcon()
-                    <p class="">ლოგო</p>
-                </label>
-            </div>
-            <div class="flex flex-col gap-7 w-[20%] p-7 bg-[#eee] rounded-[8px]">
-                <input class="hidden" id="reasoner-logo-2" type="file" />
-                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_2" placeholder="სათაური 2" />
-                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_2" placeholder="ტექსტი 2" />
-                <label for="reasoner-logo-2" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
-                    @ImportIcon()
-                    <p class="">ლოგო</p>
-                </label>
-            </div>
-            <div class="flex flex-col gap-7 w-[20%] p-7 bg-[#eee] rounded-[8px]">
-                <input class="hidden" id="reasoner-logo-3" type="file" />
-                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_3" placeholder="სათაური 3" />
-                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_3" placeholder="ტექსტი 3" />
-                <label for="reasoner-logo-3" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
-                    @ImportIcon()
-                    <p class="">ლოგო</p>
-                </label>
-            </div>
-            <div class="flex flex-col gap-7 w-[20%] p-7 bg-[#eee] rounded-[8px]">
-                <input class="hidden" id="reasoner-logo-4" type="file" />
-                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_title_4" placeholder="სათაური 4" />
-                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="reason_4" placeholder="ტექსტი 4" />
-                <label for="reasoner-logo-4" class="flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
-                    @ImportIcon()
-                    <p class="">ლოგო</p>
-                </label>
-            </div>
-        </div>
-
-        <div class="flex flex-col gap-2 w-[100%]">
-            <button type="submit" class="bg-primary text-white rounded-[8px] px-3 py-2">შენახვა</button>
-        </div>
-    </div>
-}
-
-templ Faqs() {
-    <div class="w-[100%] py-5 rounded-[8px] flex flex-col gap-5">
-        <p class="w-full font-bold font-arial text-xl">შეკითხვები და პასუხები</p>
-        
-        <div class="flex flex-wrap w-full gap-5">
-            <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
-                <div class="w-full flex flex-col gap-2">
-                    <p class="w-full font-arial"> შეკითხვა </p>
-                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="question" placeholder="შეკითხვა 1" />
-                </div>
-                <div class="w-full flex flex-col gap-2">
-                    <p class="w-full font-arial">პასუხი</p>
-                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="answer" placeholder="პასუხი 1" />
-                </div>
-                <button class="w-full flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
-                    შენახვა
-                </button>
-            </div>
-            <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
-                <div class="w-full flex flex-col gap-2">
-                    <p class="w-full font-arial"> შეკითხვა </p>
-                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="question" placeholder="შეკითხვა 2" />
-                </div>
-                <div class="w-full flex flex-col gap-2">
-                    <p class="w-full font-arial">პასუხი</p>
-                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="answer" placeholder="პასუხი 2" />
-                </div>
-                <button class="w-full flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
-                    შენახვა
-                </button>
-            </div>
-            <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
-                <div class="w-full flex flex-col gap-2">
-                    <p class="w-full font-arial"> შეკითხვა </p>
-                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="question" placeholder="შეკითხვა 3" />
-                </div>
-                <div class="w-full flex flex-col gap-2">
-                    <p class="w-full font-arial">პასუხი</p>
-                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="answer" placeholder="პასუხი 3" />
-                </div>
-                <button class="w-full flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
-                    შენახვა
-                </button>
-            </div>
-            <div class="flex flex-col gap-5 w-[20%] p-7 bg-[#eee] rounded-[8px]">
-                <div class="w-full flex flex-col gap-2">
-                    <p class="w-full font-arial"> შეკითხვა </p>
-                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="question" placeholder="შეკითხვა 4" />
-                </div>
-                <div class="w-full flex flex-col gap-2">
-                    <p class="w-full font-arial">პასუხი</p>
-                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="answer" placeholder="პასუხი 4" />
-                </div>
-                <button class="w-full flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
-                    შენახვა
-                </button>
-            </div>
-        </div>
-    </div>
+    @Cke(Interface)
 }

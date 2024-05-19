@@ -19,10 +19,10 @@ func index(ctx *controller.Context) error {
 	Preload("Contact").
 	Preload("News.Thumbnail").
 	Preload("Reasons.Icon").
-		Preload("SlideShow", func(db *gorm.DB) *gorm.DB {
-			return db.Order("interface_slide_shows.index ASC").Preload("Pic")
-		}).
-		Last(&Interface)
+	Preload("SlideShow", func(db *gorm.DB) *gorm.DB {
+		return db.Order("interface_slide_shows.index ASC").Preload("Pic")
+	}).
+	Last(&Interface)
 
 	return ctx.Html(view.Landing(Interface))
 }

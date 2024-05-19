@@ -26,8 +26,8 @@ type Interface_slideShow struct {
 	Index       	int
 	TypeID      	int
 	Type			File_types
-	PicID 			int
-	Pic 			Files
+	PicID 			*int
+	Pic 			Files 			`gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;foreignKey:PicID"`
 }
 
 type Interface_reasons struct {
@@ -38,8 +38,8 @@ type Interface_reasons struct {
 	Title			string
 	Desc			string
 	Url				string
-	IconID 			int
-	Icon 			Files
+	IconID 			*int
+	Icon 			Files 			`gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;foreignKey:IconID"`
 }
 
 type Interface_contact struct {
