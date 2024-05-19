@@ -25,6 +25,11 @@ migrate:
 seed:
 	go run ./cmd/seed/main.go
 
+.PHONY: parser-products
+parser-products:
+	go run ./cmd/parser/main.go
+
+
 
 .PHONY: tailwind
 tailwind:

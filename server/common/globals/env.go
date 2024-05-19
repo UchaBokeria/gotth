@@ -12,6 +12,7 @@ import (
 type EnvVarsType struct {
 	Port 			string
 	GOENV			string
+	Uploads         string
 	PageMaxSize     int
 	DB_HOST         string
 	DB_PORT			string
@@ -35,6 +36,7 @@ func SetupEnvironmentVariables() {
 	Env = EnvVarsType{
 		Port: os.Getenv("Port"),
 		GOENV: os.Getenv("GOENV"),
+		Uploads: os.Getenv("Uploads"),
 		PageMaxSize: PageMaxSize,
 		DB_HOST: os.Getenv("DB_HOST"),
 		DB_PORT: os.Getenv("DB_PORT"),

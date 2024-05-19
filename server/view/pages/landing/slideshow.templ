@@ -14,8 +14,8 @@ css Slider(len int, dur int) {
 }
 
 templ Slideshow(Interface model.Interface) {
-    <div class="w-[99vw] h-[100vh] top-[0] ml-[-150px] mt-[-40px] max-md:ml-[-50px]">
-        <div class="relative w-full h-full flex snap-x snap-mandatory overflow-x-scroll no-scrollbar">
+    <div class="w-[99vw] h-[100vh] top-[0] ml-[-150px] mt-[-40px] max-md:ml-[-50px] max-md:overflow-hidden">
+        <div class="relative w-full h-full flex snap-x snap-mandatory overflow-x-scroll no-scrollbar ">
 
             for _, Slide := range Interface.SlideShow {
                 <div class={"relative w-[100%] h-full shrink-0", Slider(len(Interface.SlideShow), 7)}>

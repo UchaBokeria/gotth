@@ -40,10 +40,10 @@ func list(ctx *controller.Context) error {
 
 	storage.DB.Scopes(storage.Paginate(ctx)).
 			   Where(&model.Products{CategoryID: CategoryID}).
-			   Preload("TechnicalSheet").
 			   Preload("Thumbnail").
 			   Preload("Packing").
 			   Preload("Approvals").
+			   Preload("Properties").
 			   Preload("Specifications").
 			   Find(&Products)
 
@@ -58,10 +58,10 @@ func detail(ctx *controller.Context) error {
 	ctx.Bind(&Filters)
 	ID, _ := strconv.Atoi(Filters.ID)
 
-	storage.DB.Preload("TechnicalSheet").
-			   Preload("Thumbnail").
+	storage.DB.Preload("Thumbnail").
 			   Preload("Packing").
 			   Preload("Approvals").
+			   Preload("Properties").
 			   Preload("Specifications").
 			   Find(&Product, ID)
 

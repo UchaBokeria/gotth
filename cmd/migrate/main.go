@@ -41,6 +41,7 @@ func main() {
 
 		&model.Products{},
 		&model.Product_specifications{},
+		&model.Product_properties{},
 		&model.Product_approvals{},
 		&model.Product_packaging{},
 

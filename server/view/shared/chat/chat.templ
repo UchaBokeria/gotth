@@ -88,6 +88,7 @@ templ ChatMessages(email string, fullname string, message string) {
                 <input class="flex h-10 w-full rounded-md border border-[#e5e7eb] px-3 py-2 text-sm text-[#030712] placeholder-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#9ca3af] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" 
                        placeholder="შეიყვანეთ ტექსტი" name="message" id="IchatMess" />
                 <button type="submit" id="sendBut_Chat"
+                        onclick='document.querySelector("#C_SENDING_CENTER").style = "display: none";'
                         class="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-[#f9fafb] hover:bg-[#111827E6] disabled:pointer-events-none disabled:opacity-50">გაგზავნა</button>
                 @clearSendInput()
             </form>
@@ -120,6 +121,7 @@ templ Chat() {
         <label  class="shadow-[0_3px_10px_rgb(0,0,0,0.2)] fixed bottom-[50px] right-[50px] inline-flex h-16 w-16 cursor-pointer items-center justify-center rounded-full  bg-none p-0 text-sm font-medium normal-case leading-5 hover:text-gray-900" 
                 type="button" aria-haspopup="dialog" aria-expanded="false" data-state="closed"
                 for="ChatToggle">
+            @ChatMax()
             @ChatMin()
         </label>
 

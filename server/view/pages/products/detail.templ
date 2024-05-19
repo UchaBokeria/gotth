@@ -2,6 +2,8 @@ package view
 
 import(
     "main/server/model"
+    "strings"
+    "html"
 )
 
 templ ProductDetail(Product model.Products) {
@@ -24,7 +26,7 @@ templ ProductDetail(Product model.Products) {
         <div class="w-full py-5 flex flex-col gap-5 justify-between">
             <div class="w-full flex">
                 <div class="pt-8 w-[30%] bg-[#fff] flex justify-center items-start ">
-                    <img src={ Product.Thumbnail.Path } class="object-fit " />
+                    <img src={ strings.ReplaceAll(Product.Thumbnail.Path, "./public", "") } class="object-fit " />
                 </div>
 
                 <div class="w-[70%] flex flex-col p-7 gap-3 rounded-[8px]">
@@ -33,24 +35,20 @@ templ ProductDetail(Product model.Products) {
                     </p>
 
                     <p class="w-full">
-                        { Product.Description }
+                        @templ.Raw(html.UnescapeString(Product.DescriptionHtml))
                     </p>
                 </div>
             </div>
 
             <div class="w-full flex">
                 <div class="w-[30%] pt-8 bg-[#fff] flex justify-start items-center flex-col gap-5">
-                    <a  class="w-full flex gap-5 justify-start items-center "
-                        href={templ.SafeURL(Product.TechnicalSheet.Path )} target="_blank">
-                        <span class=""> ‣ </span>
-                        <p class="font-deja"> უსაფრთხოების მონაცემთა დოკუმენტი </p> 
-                    </a>
                     <a  class="w-full flex gap-5 justify-start items-center"
-                        href={templ.SafeURL(Product.TechnicalSheet.Path )} target="_blank">
+                        href={templ.SafeURL(Product.TechnicalSheetUrl)} target="_blank">
                         <span class=""> ‣ </span>
                         <p class="font-deja"> მონაცემთა ფურცელი </p> 
                     </a>
 
+                    if len(Product.Specifications) > 0 {
                     <div class="w-full flex flex-col gap-2">
                         <a  class="w-full flex gap-5 justify-start items-center">
                             <span class=""> ‣ </span>
@@ -63,7 +61,24 @@ templ ProductDetail(Product model.Products) {
                             </div>
                         }
                     </div>
+                    }
 
+                    if len(Product.Properties) > 0 {
+                    <div class="w-full flex flex-col gap-2">
+                        <a  class="w-full flex gap-5 justify-start items-center">
+                            <span class=""> ‣ </span>
+                            <p class="font-deja"> მონაცემები </p> 
+                        </a>
+                        for _, Properties := range Product.Properties {
+                            <div class="pl-8 w-full flex justify-start items-start gap-2">
+                                <span class=""> • </span> 
+                                <p class=""> {Properties.Name} </p>
+                            </div>
+                        }
+                    </div>
+                    }
+
+                    if len(Product.Approvals) > 0 {
                     <div class="w-full flex flex-col gap-2">
                         <a  class="w-full flex gap-5 justify-start items-center">
                             <span class=""> ‣ </span>
@@ -76,38 +91,63 @@ templ ProductDetail(Product model.Products) {
                             </div>
                         }
                     </div>
+                    }
 
-                    <table class="w-full  border-separate  border-spacing-2">
-                        <thead>
-                            <tr class="font-bold text-1xl">
-                                <td> პროდუქტი </td>
-                                <td> მითითება </td>
-                                <td> კონდიცირება </td>
-                                <td> მუყაო </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            for _, packing := range Product.Packing {
-                                <tr>
-                                    <td class="font-deja"> { packing.Name } </td>
-                                    <td> { packing.Reference } </td>
-                                    <td> { packing.Conditioning } </td>
-                                    <td> { packing.Cardboard } </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                    // if len(Product.Packing) > 0 {
+                    // <table class={"w-full  border-separate  border-spacing-2"}>
+                    //     <thead>
+                    //         <tr class="font-bold text-1xl">
+                    //             <td> პროდუქტი </td>
+                    //             <td> მითითება </td>
+                    //             <td> კონდიცირება </td>
+                    //             <td> მუყაო </td>
+                    //         </tr>
+                    //     </thead>
+                    //     <tbody>
+                    //         for _, packing := range Product.Packing {
+                    //             <tr>
+                    //                 <td class="font-deja"> { packing.Name } </td>
+                    //                 <td> { packing.Reference } </td>
+                    //                 <td> { packing.Conditioning } </td>
+                    //                 <td> { packing.Cardboard } </td>
+                    //             </tr>
+                    //         }
+                    //     </tbody>
+                    // </table>
+                    // }
                 </div>
 
+
+                if len(Product.Packing) > 0 {
                 <div class="w-[70%] flex flex-col p-7 gap-3 rounded-[8px]">
                     <p class="w-full font-deja font-bold text-2xl">
-                        აღწერა
+                        შეფუთვა
                     </p>
 
                     <p class="w-full">
-                        { Product.Description }
+                        <table class={"w-full  border-separate  border-spacing-2"}>
+                            <thead>
+                                <tr class="font-bold text-1xl">
+                                    <td> პროდუქტი </td>
+                                    <td> მითითება </td>
+                                    <td> კონდიცირება </td>
+                                    <td> მუყაო </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                for _, packing := range Product.Packing {
+                                    <tr>
+                                        <td class="font-deja"> { packing.Name } </td>
+                                        <td> { packing.Reference } </td>
+                                        <td> { packing.Conditioning } </td>
+                                        <td> { packing.Cardboard } </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </p>
                 </div>
+                }
             </div>
         </div>
     </div>

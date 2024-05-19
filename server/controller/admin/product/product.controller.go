@@ -10,10 +10,10 @@ import (
 func index(ctx *controller.Context) error {
 	var Products []model.Products
 
-	storage.DB.Preload("TechnicalSheet").
-			   Preload("Thumbnail").
+	storage.DB.Preload("Thumbnail").
 			   Preload("Packing").
 			   Preload("Approvals").
+			   Preload("Properties").
 			   Preload("Specifications").
 			   Find(&Products)
 	return ctx.Html(view.Product(Products))

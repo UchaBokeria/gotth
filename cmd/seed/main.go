@@ -3,11 +3,11 @@ package main
 import (
 	"main/cmd/seed/branches"
 	"main/cmd/seed/categories"
+	"main/cmd/seed/chat"
 	"main/cmd/seed/faq"
 	"main/cmd/seed/files"
 	"main/cmd/seed/interfaces"
 	"main/cmd/seed/news"
-	"main/cmd/seed/products"
 	"main/cmd/seed/users"
 	"main/server/common/globals"
 	"main/server/common/storage"
@@ -38,7 +38,9 @@ func main() {
 
 	categories.Populate()
 
-	products.Populate()
+	// products.Populate()
 
 	users.Populate()
+
+	chat.Populate()
 }

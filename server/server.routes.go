@@ -13,6 +13,7 @@ import (
 	"main/server/controller/news"
 	"main/server/controller/products"
 	"main/server/controller/terms"
+	"main/server/controller/upload"
 	"main/server/middleware"
 )
 
@@ -20,6 +21,7 @@ func ServerRouters(app *echo.Echo) {
 	admin.Register(app)
 
 	app.Use(middleware.Interface())
+	upload.Register(app)
 	landing.Register(app)
 	categories.Register(app)
 	products.Register(app)

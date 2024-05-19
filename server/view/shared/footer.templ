@@ -28,14 +28,14 @@ var FooterLinks []LinksType = []LinksType{
 }
 
 templ Footer(Interface model.Interface) {
-    <footer class="w-[100%] h-[400px] flex flex-col justify-between bg-primary relative bottom-[0]">
+    <footer class="w-[100%] h-[400px] flex flex-col justify-between bg-primary relative bottom-[0] max-md:overflow-visible md-max:h-[600px]">
 
-        <div class="flex justify-between items-center w-[100%] h-[360px] px-[150px] py-[40px] max-md:px-[30px]">
-            <div class="w-[45%] flex flex-col justify-between items-start flex-grow-0 flex-shrink-0 relative gap-[25px]">
+        <div class="flex justify-between items-center w-[100%] h-full px-[150px] py-[40px] max-md:px-[30px] max-md:flex-col max-md:gap-[50px]">
+            <div class="w-[45%] flex flex-col justify-between items-start flex-grow-0 flex-shrink-0 relative gap-[25px] max-md:w-full max-md:items-center">
                 <img    src="/assets/images/logo.png" class="cursor-pointer flex-grow-0 flex-shrink-0 w-[138px] h-[77px] object-cover" 
                         hx-get={ "/" } hx-push-url={ "/" } hx-indicator=".Loading" hx-swap="innerHTML show:window:top" hx-target="#Content" />
 
-                <a class="flex-grow-0 flex-shrink-0 h-[72px] w-[100%] leading-6 line-clamp-3 text-md font-arial text-white">
+                <a class="flex-grow-0 flex-shrink-0 h-[72px] w-[100%] leading-6 line-clamp-3 text-md font-arial text-white max-md:hidden">
                     { Interface.Contact.ShortDesc }
                 </a>
 
@@ -71,12 +71,12 @@ templ Footer(Interface model.Interface) {
             </div>
 
 
-            <div class="w-[45%] flex justify-evenly items-center flex-grow-0 flex-shrink-0 ">
+            <div class="w-[45%] flex justify-evenly items-center flex-grow-0 flex-shrink-0  max-md:w-full max-md:items-center ">
                 for _, Link := range FooterLinks {
                     <div class="flex flex-col justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative gap-7 max-md:hidden">
-                        <p class="flex-grow-0 flex-shrink-0 w-[110px] text-lg font-nino font-bold text-left text-white"> { Link.Title } </p>
+                        <p class="flex-grow-0 flex-shrink-0 w-[110px] text-lg font-nino font-bold text-left text-white max-md:hidden"> { Link.Title } </p>
 
-                        <div class="flex flex-col justify-end items-start flex-grow gap-4">
+                        <div class="flex flex-col justify-end items-start flex-grow gap-4 max-md:items-center">
                             for _, Nav := range Link.Routes {
                                 <a  class="cursor-pointer flex-grow-0 flex-shrink-0 w-[110px] h-[20px] text-sm font-deja text-left text-white"
                                     hx-get={ Nav.Path } hx-push-url={ Nav.Path } hx-indicator=".Loading"
@@ -89,9 +89,9 @@ templ Footer(Interface model.Interface) {
                 }
 
                 <div class="flex flex-col justify-between items-start self-stretch flex-grow-0 flex-shrink-0 gap-7">
-                    <p class="flex-grow-0 flex-shrink-0 w-[110px] text-lg font-nino font-bold text-white">კონტაქტი</p>
+                    <p class="flex-grow-0 flex-shrink-0 w-[110px] text-lg font-nino font-bold text-white max-md:hidden">კონტაქტი</p>
 
-                    <div class="flex flex-col justify-start items-start flex-grow gap-4 ">
+                    <div class="flex flex-col justify-start items-start flex-grow gap-4 max-md:items-center ">
                         <div class="cursor-pointer flex justify-start items-start flex-grow-0 flex-shrink-0 gap-2"
                              onclick={Call(Interface.Contact.Phone)} >
                             <div class="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 w-6 relative overflow-hidden">
@@ -120,7 +120,7 @@ templ Footer(Interface model.Interface) {
                                 @Location("white")
                             </p>
 
-                            <p class="w-[200px] cursor-pointer text-white line-clamp-3 flex justify-start items-start flex-grow-0 flex-shrink-1 font-deja">
+                            <p class="w-[200px] cursor-pointer text-white line-clamp-3 flex justify-start items-start flex-grow-0 flex-shrink-1 font-deja max-md:line-clamp-2">
                                 { Interface.Contact.Location }
                             </p>
                         </a>
