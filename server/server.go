@@ -15,6 +15,7 @@ import (
 func Run() {
 	app := echo.New()
 	app.Static("", "./public/")
+	
     app.Pre(middleware.RemoveTrailingSlash())
 
 	// app.Use(middleware.Secure())

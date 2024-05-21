@@ -50,3 +50,7 @@ type NewserDto struct {
 	Thumbnail		[]byte	     `form:"Thumbnail"`
 	TypeID 			string       `form:"TypeID"`
 }
+
+type AbouterDto struct {
+	Content			string       `form:"content"`
+}

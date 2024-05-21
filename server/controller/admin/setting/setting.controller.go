@@ -191,7 +191,7 @@ func SlideshowerNew(ctx *controller.Context) error {
 	}
 
 
-	result := storage.DB.Debug().Create(&Parameters)
+	result := storage.DB.Create(&Parameters)
 	if result.Error != nil { return ctx.String(http.StatusBadRequest, result.Error.Error()) }
 
 	var Slides []model.Interface_slideShow
@@ -290,7 +290,7 @@ func ReasonerNew(ctx *controller.Context) error {
 		}
 	}
 
-	result := storage.DB.Debug().Create(&Parameters)
+	result := storage.DB.Create(&Parameters)
 						 
 	if result.Error != nil { return ctx.String(http.StatusBadRequest, result.Error.Error()) }
 
@@ -357,7 +357,7 @@ func FaqersNew(ctx *controller.Context) error {
 		return err
 	}
 
-	result := storage.DB.Debug().Create(&model.Faq{
+	result := storage.DB.Create(&model.Faq{
 		Name: Body.Name,
 		Answer: Body.Answer,
 		Question: Body.Question,
@@ -479,7 +479,7 @@ func NewserNew(ctx *controller.Context) error {
 		return ctx.String(http.StatusBadRequest, err.Error())
 	}
 
-	result := storage.DB.Debug().Create(&Parameters)
+	result := storage.DB.Create(&Parameters)
 						 
 	if result.Error != nil {
 		return ctx.String(http.StatusBadRequest, result.Error.Error())
@@ -507,4 +507,60 @@ func NewserRemove(ctx *controller.Context) error {
 	var Newz []model.News
 	storage.DB.Order("created_at desc").Preload("Thumbnail").Find(&Newz)
 	return ctx.Html(view.Newser(Newz))
+}
+
+/* About */
+
+func Abouter(ctx *controller.Context) error {
+	var Body AbouterDto
+
+	if err := ctx.Bind(&Body); err != nil {
+		return ctx.String(http.StatusBadRequest, "Parameters Binding Problem: " + err.Error())
+	}
+
+	var About model.Interface_about
+
+	match := storage.DB.Last(&About, uint(1))
+	if match.Error != nil {
+		fmt.Print("No About as ", uint(1))
+		return ctx.String(http.StatusNotFound, "")
+	}
+
+	result := storage.DB.Model(About).Updates(&model.Interface_about{Body: Body.Content})
+
+	if result.Error != nil {
+		return ctx.String(http.StatusBadRequest, result.Error.Error())
+	}
+
+	var Abouts model.Interface_about
+	storage.DB.Last(&Abouts)
+	return ctx.Html(view.Abouter(Abouts.Body))
+}
+
+
+func Termer(ctx *controller.Context) error {
+	var Body AbouterDto
+
+	if err := ctx.Bind(&Body); err != nil {
+		return ctx.String(http.StatusBadRequest, "Parameters Binding Problem: " + err.Error())
+	}
+
+	var About model.Interface_about
+	var ID uint = uint(1)
+
+	match := storage.DB.Last(&About, ID)
+	if match.Error != nil {
+		fmt.Print("No Termer as ", ID)
+		return ctx.String(http.StatusNotFound, "")
+	}
+
+	result := storage.DB.Model(About).Updates(&model.Interface_about{Terms: Body.Content})
+
+	if result.Error != nil {
+		return ctx.String(http.StatusBadRequest, result.Error.Error())
+	}
+
+	var Abouts model.Interface_about
+	storage.DB.Last(&Abouts)
+	return ctx.Html(view.Termer(Abouts.Terms))
 }

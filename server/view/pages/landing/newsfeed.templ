@@ -14,7 +14,7 @@ templ NewsFeed(Interface model.Interface) {
                         hx-push-url={ "/news/" + strconv.Itoa(int(Slide.ID)) } 
                         hx-swap="innerHTML show:window:top" hx-target="#Content">
 
-                    <img src={ "/assets/images/news/" + Slide.Thumbnail.Path } alt="Slide 1" 
+                    <img src={ Slide.Thumbnail.Path } alt="Slide 1" 
                          class="w-[50%] h-[426px] object-cover" />
                          
                     <div class="flex-col gap-[30px] overflow-hidden w-half justify-start items-start">

@@ -19,7 +19,7 @@ templ Categories(Categories []model.Categories) {
                         hx-push-url={"/products/?category=" + strconv.Itoa(int(Category.ID))} 
                         hx-swap="innerHTML show:window:top" hx-target="#Content">
                     <div class="w-[100%] h-[80%] py-5 px-2">
-                        <img class="h-[100%] w-[100%]" src={ "/assets/images/categories/" + Category.Icon.Path } />
+                        <img class="h-[100%] w-[100%]" src={ Category.Icon.Path } />
                     </div>
                     <p class="font-nino font-bold text-primary w-[100%] h-[10%] text-left truncate "> { Category.Name } </p>
                 </div>

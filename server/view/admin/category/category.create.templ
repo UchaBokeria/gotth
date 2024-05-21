@@ -3,28 +3,18 @@ package view
 templ CreateCategory(config TableConfig, x any) {
     <div class="w-full flex flex-col gap-5">
         <div class="w-full gap-5 flex flex-col">
-            <label class=""> ლოგო </label>
-            <input  class="hidden"
-                    id="category-logo"
-                    placeholder="აირჩიე ლოგო"
-                    type="file"
-                    name="file" 
-                    required />
-            <label for="category-logo" class="cursor-pointer w-[8vw] bg-primary text-white p-2 px-3 rounded-[8px] flex gap-3 items-center justify-evenly">
+            <input  class="hidden" id="category-logo" placeholder="აირჩიე ლოგო" type="file" name="file"  required />
+            <label for="category-logo" class="cursor-pointer h-[15vh]  bg-primary text-white p-2 px-3 rounded-[8px] flex gap-3 items-center justify-evenly">
                     <span class="">
                         @ImportIcon()
                     </span>
-                    <p class="">ატვირთვა</p>
+                    <p class="text-2xl">ატვირთვა</p>
             </label>
         </div>
 
         <div class="w-full gap-5 flex flex-col">
             <label class=""> დასახელება </label>
-            <input  class="p-2 rounded-[8px] outline-0"
-                    placeholder="დასახელება"
-                    type="text"
-                    name="name" 
-                    required />
+            <input  class="p-2 rounded-[8px] outline-0" placeholder="დასახელება" type="text" name="name"  required />
         </div>
     </div>
 }

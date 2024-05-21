@@ -9,21 +9,25 @@ import (
 
 func index(ctx *controller.Context) error {
 	var Categories []model.Categories
+	storage.DB.Order("created_at desc").Preload("Icon").Find(&Categories)
+	return ctx.Html(view.Category(Categories))
+}
+
+func create(ctx *controller.Context) error {
+	var Categories []model.Categories
 	storage.DB.Preload("Icon").Find(&Categories)
 	return ctx.Html(view.Category(Categories))
 }
 
-// func create(ctx *controller.Context) error {
+func update(ctx *controller.Context) error {
 
-// 	return ctx.Html(view.Category())
-// }
+	var Categories []model.Categories
+	storage.DB.Order("created_at desc").Preload("Icon").Find(&Categories)
+	return ctx.Html(view.Category(Categories))
+}
 
-// func update(ctx *controller.Context) error {
-
-// 	return ctx.Html(view.Category())
-// }
-
-// func remove(ctx *controller.Context) error {
-
-// 	return ctx.Html(view.Category())
-// }
+func remove(ctx *controller.Context) error {
+	var Categories []model.Categories
+	storage.DB.Order("created_at desc").Preload("Icon").Find(&Categories)
+	return ctx.Html(view.Category(Categories))
+}

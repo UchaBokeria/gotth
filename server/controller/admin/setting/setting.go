@@ -26,4 +26,7 @@ func Register(app *echo.Group) {
 	app.POST("/setting/newser", controller.Register(NewserNew))
 	app.POST("/setting/newser/:id", controller.Register(Newser))
 	app.DELETE("/setting/newser/:id", controller.Register(NewserRemove))
+
+	app.POST("/setting/termer", controller.Register(Termer))
+	app.POST("/setting/abouter", controller.Register(Abouter))
 }
