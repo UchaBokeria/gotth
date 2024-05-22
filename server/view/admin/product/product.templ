@@ -6,8 +6,6 @@ import(
 )
 
 templ Product(Producties []model.Products, Categories []model.Categories) {
-    <script type="text/javascript" src="/assets/scripts/ckeditor/build/ckeditor.js"></script>
-    @CkeEditorConfig()
     @Table(ProductConfig(Producties, Categories))
 }
 

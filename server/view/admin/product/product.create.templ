@@ -1,30 +1,16 @@
 package view
 
-import(
-    "strconv"
-)
-
-script CreateProdscript() {
-    let inputHid = document.querySelector("#prod-create-cat-prop");
-    var xasdasd = document.querySelector("#prod-create-cat-placeholder");
-    document.querySelectorAll(".prod-create-cat-option").forEach(e => {
-        e.addEventListener("click", ev => {
-            xasdasd.innerHTML = ev.target.getAttribute("data-val");
-            inputHid.value = ev.target.getAttribute("data-id");
-            xasdasd.click()
-        })
-    })
-}
-
 templ CreateProduct(config TableConfig) {
     <div class="w-[100%] flex flex-wrap gap-7 items-start justify-start">
         <div class="w-[50%] gap-5 flex flex-col">
-            <label class=""> დასახელება </label>
+            <label class=" font-bold"> დასახელება </label>
+
             <input  class="p-2 rounded-[8px] outline-0" placeholder="დასახელება" type="text" name="Name"  required />
         </div>
 
         <div class="w-[50%] gap-5 flex flex-col">
-            <label class=""> სტატუსი </label>
+            <label class=" font-bold"> სტატუსი </label>
+
             <div class="">
                 <div class="">
                     <input type="radio" id="product-statuser-public"  name="Public" value="true" checked />
@@ -38,63 +24,39 @@ templ CreateProduct(config TableConfig) {
         </div>
         
         <div class="w-[50%] gap-5 flex flex-col">
-            <label class=""> კატეგორია </label>
-            <input class="hidden" placeholder="აირჩიე კატეგორია" type="text" name="CategoryID" id="prod-create-cat-prop"  required />
-            <div class="relative flex flex-col gap-2 min-w-[300px] z-[55]">
-            <label  class="cursor-pointer bg-white w-full flex justify-between items-center px-5 py-2 rounded-xl"
-                    for={ "ProdFilterID-Category_$_$_" }>
-                <p class="font-poppins" id="prod-create-cat-placeholder"> აირჩიე </p>
+            <label class=" font-bold"> კატეგორია </label>
 
-                <div class="w-8">
-                    @DownToggleArrow()
-                </div>
-            </label>
-
-            <input type="checkbox" id={ "ProdFilterID-Category_$_$_" } class="peer hidden" />
-            <div class="absolute z-[57] top-[55px] w-full group bg-white rounded-xl flex flex-col overflow-hidden max-h-[0] peer-checked:max-h-[30vh] peer-checked:py-2 peer-checked:overflow-y-auto">
-                for _, Categorie := range config.Args{
-                    <div class="w-full flex jutify-start items-center">
-                        <input  type="checkbox" id={ "ProdFilter-Category-" + strconv.Itoa(int(Categorie.ID)) } 
-                                class="peer hidden" />
-
-                        <label  class="prod-create-cat-option cursor-pointer py-2 px-5 h-full w-full peer-checked:bg-[#008772] peer-checked:text-white hover:text-white hover:bg-[#008772]"
-                                data-id={strconv.Itoa(int(Categorie.ID)) }
-                                data-val={ Categorie.Name }>
-                                { Categorie.Name }
-                        </label>
-                    </div>
-                }
-            </div>
+            @Select(SelectConf{
+                For: "product-create-category",
+                Placeholder: "კატეგორია",
+                Data: SelectDataFormatter(config.Args),
+                Default: "1",
+                FormName: "CategoryID",
+            })
         </div>
-        </div>
-    
+
         <div class="w-[50%] gap-5 flex flex-col">
-            <label class=""> დოკუმენტი </label>
+            <label class=" font-bold"> დოკუმენტი </label>
+
             <input  class="p-2 rounded-[8px] outline-0" placeholder="დოკუმენტის მისამართი" type="text" name="TechnicalSheetUrl" 
                     value="https://yacco.com/upload/media/default/0001/17/988f07e3899979d5115d96ecb06931e7c8ef5ab5.pdf"  required />
         </div>
 
-        <div class="w-[50%] gap-5 flex flex-col">
+        <div class="w-[30%] mr-[30%] gap-5 flex flex-col">
+            <label class="w-full font-bold">ლოგო</label>
+
             <input  class="hidden" id="product-logo" placeholder="აირჩიე ლოგო" type="file" name="Thumbnail"  required />
-            <label for="product-logo" class="cursor-pointer h-[15vh] bg-primary text-white p-2 px-3 rounded-[8px] px-5">
-                <div class="w-full h-full flex gap-3 items-center justify-center">
-                    <span class="">
-                        @ImportIcon()
-                    </span>
-                    <p class="text-2xl">ატვირთვა</p>
-                </div>
-            </label>
+            @ImgUploader("product-logo", "")
         </div>
 
         <div class="w-full gap-5 flex flex-col">
-            <p class="w-full font-bold font-arial text-xl">აღწერა</p>
+            <label class="w-full font-bold">აღწერა</label>
 
             <div class="w-full min-h-[70vh] overflow-scroll no-scrollbar">
                 <textarea class="w-full h-full productEditor" name="DescriptionHtml"></textarea>
             </div>
             @ProductCke("")
         </div>
-        @CreateProdscript()
     </div>
 }
 

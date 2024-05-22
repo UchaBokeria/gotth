@@ -9,6 +9,6 @@ import (
 
 func index(ctx *controller.Context) error {
 	var Categories []model.Categories
-	storage.DB.Preload("Icon").Find(&Categories)
+	storage.DB.Preload("Icon").Where(&model.Categories{Public: true}).Find(&Categories)
 	return ctx.Html(view.Categories(Categories))
 }

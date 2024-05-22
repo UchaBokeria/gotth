@@ -1,0 +1,42 @@
+package view
+
+script PreviewImg(name string) {
+    let inp = document.querySelector("#" + name)
+    let img = document.querySelector("#previewImg-" + name)
+    let label = document.querySelector("label[for='" + name + "']")
+
+    if(!img) {
+        img = document.createElement("img")
+        img.setAttribute("class", "hidden object-fit h-full w-full")
+        img.setAttribute("src", "")
+        img.id = "previewImg-" + name
+
+        let overlay = document.createElement("div")
+        overlay.setAttribute("class", "bg-[#333] opacity-60 w-full h-full absolute z-[1]") 
+        
+        label.prepend(overlay)
+        label.prepend(img)
+    }
+
+    inp.onchange = evt => {
+        img.classList.remove("hidden")
+        const [file] = evt.target.files
+        if (file) img.src = URL.createObjectURL(file)
+    }
+}
+
+templ ImgUploader(name string, imgPath string) {
+    <label for={name} class="relative cursor-pointer min-h-[15vh] bg-primary text-white p-2 px-3 rounded-[8px] px-5 flex justify-center items-center">
+        if imgPath != "" {
+            <img src={imgPath} class="object-fit h-full w-full" alt="" id={"previewImg-" + name} />
+            <div class="bg-[#333] opacity-60 w-full h-full absolute z-[1]"></div>
+        }
+        <div class="w-full h-full flex gap-3 items-center justify-center w-full h-full absolute z-[2]">
+            <span class="">
+                @ImportIcon()
+            </span>
+            <p class="text-2xl">ატვირთვა</p>
+        </div>
+    </label>
+    @PreviewImg(name)
+}

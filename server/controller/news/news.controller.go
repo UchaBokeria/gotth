@@ -23,6 +23,7 @@ func index(ctx *controller.Context) error {
 
 	storage.DB.Find(&Types)
 	storage.DB.
+		Order("news.created_at desc").
 		Where(Where).
 		Preload("Thumbnail").
 		Find(&News)

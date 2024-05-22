@@ -5,8 +5,6 @@ import(
 )
 
 templ Setting(Interface model.Interface, Faqs []model.Faq, Newz []model.News) {
-    @CkeEditorConfig()
-    <script type="text/javascript" src="/assets/scripts/ckeditor/build/ckeditor.js"></script>
     <div class="w-full flex flex-wrap gap-[5%] justify-between items-start">
         <div class="mb-10 w-full h-12 bg-primary text-white flex flex-wrap gap-2 justify-start items-center rounded-[8px]">
             <input type="radio" id="Contacter" name="setting_tabs" value="Contacter" class="hidden tab" checked />

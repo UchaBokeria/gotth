@@ -1,6 +1,8 @@
 package view
 
 import(
+    "fmt"
+	"reflect"
     "strconv"
 )
 
@@ -17,35 +19,77 @@ type SelectConf struct {
     Placeholder string
 }
 
-script SelectScript(SelectConfig SelectConf) {
-    if(!window.selector) window.selector = {}
-    if(window.selector[SelectConfig.For]) 
-        console.error("selector error -> selector named " + SelectConfig.For + " already exists")
-    return
-    window.selector[SelectConfig.For] = {}
-    window.selector[SelectConfig.For].valuer = document.querySelector(SelectConfig.For)
-    window.selector[SelectConfig.For].container = document.querySelector(SelectConfig.For + "-select-container")
-    window.selector[SelectConfig.For].label = document.querySelector(SelectConfig.For + "-select-label")
-    window.selector[SelectConfig.For].placeholder = document.querySelector(SelectConfig.For + "-select-placeholder")
-    window.selector[SelectConfig.For].dropdownIcon = document.querySelector(SelectConfig.For + "-select-dropdownIcon")
-    window.selector[SelectConfig.For].Toggler = document.querySelector(SelectConfig.For + "-select-Toggler")
-    window.selector[SelectConfig.For].dropdown = document.querySelector(SelectConfig.For + "-select-dropdown")
-    window.selector[SelectConfig.For].Items = document.querySelectorAll(SelectConfig.For + "-select-dropdown div label")
+func SelectDataFormatter(dataSource interface{}) []DataT {
+    value := reflect.ValueOf(dataSource)
+	if value.Kind() != reflect.Slice {
+		fmt.Errorf("expected a slice, got %s", value.Kind())
+	}
+
+	var formatted []DataT
+
+	for i := 0; i < value.Len(); i++ {
+		item := value.Index(i).Interface()
+
+		v := reflect.ValueOf(item)
+		nameField := v.FieldByName("Name")
+		idField := v.FieldByName("ID")
+
+
+		// Ensure the fields exist and are of the correct type
+		if !nameField.IsValid() || !idField.IsValid() {
+			fmt.Errorf("item does not have the expected fields")
+		}
+
+		if nameField.Kind() != reflect.String || idField.Kind() != reflect.Int {
+			fmt.Errorf("incorrect field types")
+		}
+
+		var idStr string
+		switch idField.Kind() {
+            case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+                idStr = strconv.Itoa(int(idField.Int()))
+            case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+                idStr = strconv.Itoa(int(idField.Uint()))
+            default:
+                fmt.Errorf("incorrect field type for ID, expected int or uint, got %s", idField.Kind())
+		}
+
+		formatted = append(formatted, DataT{
+			Key:   nameField.String(),
+			Value: idStr,
+		})
+	}
+    return formatted
 }
 
-script selectorFucntions() {
-    const SelectorChoosing = (event) => {
-        let key = event.target.getAttribute("data-key")
-        let value = event.target.getAttribute("data-value")
-        window.selector[SelectConfig.For].valuer.value = value
-        window.selector[SelectConfig.For].placeholder.innerHTML = key
-    }
+script SelectScript(SelectConfig SelectConf) {
+    if(!window.selector) window.selector = {}
+    window.selector[SelectConfig.For] = {}
+    window.selector[SelectConfig.For].valuer = document.querySelector("#"+SelectConfig.For)
+    window.selector[SelectConfig.For].container = document.querySelector("#"+SelectConfig.For + "-select-container")
+    window.selector[SelectConfig.For].label = document.querySelector("#"+SelectConfig.For + "-select-label")
+    window.selector[SelectConfig.For].placeholder = document.querySelector("#"+SelectConfig.For + "-select-placeholder")
+    window.selector[SelectConfig.For].dropdownIcon = document.querySelector("#"+SelectConfig.For + "-select-dropdownIcon")
+    window.selector[SelectConfig.For].Toggler = document.querySelector("#"+SelectConfig.For + "-select-Toggler")
+    window.selector[SelectConfig.For].dropdown = document.querySelector("#"+SelectConfig.For + "-select-dropdown")
+    window.selector[SelectConfig.For].items = document.querySelectorAll("#"+SelectConfig.For + "-select-dropdown div label")
+    window.selector[SelectConfig.For].items.forEach(each => {
+        each.addEventListener("click", event => {
+            let key = event.target.getAttribute("data-key")
+            let value = event.target.getAttribute("data-value")
+            window.selector[SelectConfig.For].valuer.value = value
+            window.selector[SelectConfig.For].placeholder.innerHTML = key
+            window.selector[SelectConfig.For].items.forEach(e => e.previousElementSibling.checked = false)
+            event.target.previousElementSibling.checked = true
+            window.selector[SelectConfig.For].label.click()
+        })
+    })
 }
 
 templ Select(SelectConfig SelectConf) {
     <input class="hidden"  id={SelectConfig.For} value={SelectConfig.Default} name={SelectConfig.FormName} /> 
     <div class="select-container relative flex flex-col gap-2 min-w-[300px] z-[55]" id={SelectConfig.For + "-select-container"}>
-        <label  class="cursor-pointer bg-[#eee] w-full flex justify-between items-center px-5 py-2 rounded-xl" 
+        <label  class="cursor-pointer bg-[#fff] w-full flex justify-between items-center px-5 py-2 rounded-xl" 
                 for={ SelectConfig.For + "-Toggler" } id={SelectConfig.For + "-select-label"} >
             <p class="font-poppins" id={SelectConfig.For + "-select-placeholder"} > 
                 { SelectConfig.Placeholder } </p>
@@ -57,18 +101,19 @@ templ Select(SelectConfig SelectConf) {
 
         <input type="checkbox" id={ SelectConfig.For + "-Toggler" } class="peer hidden" />
 
-        <div class="absolute z-[57] top-[55px] w-full group bg-[#eee] rounded-xl flex flex-col overflow-hidden max-h-[0] peer-checked:max-h-[30vh] peer-checked:py-2 peer-checked:overflow-y-auto"
+        <div class="absolute z-[57] top-[55px] w-full group bg-[#fff] rounded-xl flex flex-col overflow-hidden max-h-[0] peer-checked:max-h-[30vh] peer-checked:py-2 peer-checked:overflow-y-auto"
              id={SelectConfig.For + "-select-dropdown"} >
             for index, data := range SelectConfig.Data {
                 <div class="w-full flex jutify-start items-center" tabindex={strconv.Itoa(index)}>
-                    <input type="checkbox" id={ SelectConfig.For + "-item-" + strconv.Itoa(index) } class="peer hidden" checked?={SelectConfig.Default == data.Value} />
+                    <input type="radio" id={ SelectConfig.For + "-item-" + strconv.Itoa(index) } class="peer hidden" checked?={SelectConfig.Default == data.Value} />
 
                     <label  class="cursor-pointer py-2 px-5 h-full w-full peer-checked:bg-[#008772] peer-checked:text-white hover:text-white hover:bg-[#008772]"
-                            for={ SelectConfig.For + "-item-" + strconv.Itoa(index) } data-value={data.Value}  data-key={data.Key} onclick="SelectorChoosing" >
+                            for={ SelectConfig.For + "-item-" + strconv.Itoa(index) } data-value={data.Value}  data-key={data.Key} >
                             { data.Key }
                     </label>
                 </div>
             }
         </div>
+        @SelectScript(SelectConfig)
     </div>
 }

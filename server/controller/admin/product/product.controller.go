@@ -26,14 +26,17 @@ func findProducts(ctx *controller.Context) ([]model.Products, []model.Categories
 				Preload("Specifications").
 				Find(&Products)
 
+	return Products, findCategories()
+}
+
+func findCategories() []model.Categories {
 	var Categories []model.Categories
 
 	storage.DB.Find(&Categories)
-	return Products, Categories
+	return Categories
 }
 
 func index(ctx *controller.Context) error {
-
 	return ctx.Html(view.Product(findProducts(ctx)))
 }
 
@@ -45,13 +48,19 @@ func indexByID(ctx *controller.Context) error {
 		return ctx.String(http.StatusBadRequest, "Parameters Binding Problem: " + err.Error())
 	}
 
-	result := storage.DB.Preload("Thumbnail").First(&Productie, ID)
+	result := storage.DB.Preload("Category").
+						 Preload("Thumbnail").
+						 Preload("Packing").
+						 Preload("Approvals").
+						 Preload("Properties").
+						 Preload("Specifications").
+						 First(&Productie, ID)
+
 	if result.Error != nil {
 		return ctx.String(http.StatusBadRequest, result.Error.Error())
 	}
 
-
-	return ctx.Html(view.UpdateProducts(Productie))
+	return ctx.Html(view.UpdateProducts(Productie, findCategories()))
 }
 
 func ProductsNew(ctx *controller.Context) error {
@@ -105,6 +114,7 @@ func ProductsUpdate(ctx *controller.Context) error {
 	}
 	var Productie model.Products
 	ID, _ := strconv.Atoi(Body.ID)
+	CategoryID, _ := strconv.Atoi(Body.CategoryID)
 
 	match := storage.DB.Last(&Productie, uint(ID))
 	if match.Error != nil {
@@ -114,7 +124,13 @@ func ProductsUpdate(ctx *controller.Context) error {
 
 	Public := true
 	if Body.Public == "false" { Public = false }
-	Parameters := map[string]interface{}{"Name": Body.Name, "Public": Public}
+	Parameters := map[string]interface{}{
+		"Name": Body.Name, 
+		"Public": Public,
+		"CategoryID": CategoryID,
+		"DescriptionHtml": Body.DescriptionHtml,
+		"TechnicalSheetUrl": Body.TechnicalSheetUrl,
+	}
 
 	file, err := ctx.FormFile("Thumbnail")
 	if file != nil && err == nil {

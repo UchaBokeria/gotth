@@ -17,6 +17,9 @@ var AdminRoutes []AdminRoute = []AdminRoute{
 
 templ Admin(Page templ.Component) {
     @Layout() {
+        <script type="text/javascript" src="/assets/scripts/ckeditor/build/ckeditor.js"></script>
+        @CkeEditorConfig()
+        
         <div class="w-full h-full ">
             <div class="w-[15vw] bg-primary h-[100vh] fixed top-0 left-0 px-8 py-5 flex flex-col gap-10 item-start justify-start">
                 <a class="h-16 w-full flex justify-center items-center cursor-pointer">

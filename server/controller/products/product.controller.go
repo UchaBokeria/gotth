@@ -18,8 +18,9 @@ func index(ctx *controller.Context) error {
 	ctx.Bind(&Filters)
 	ID, _ := strconv.Atoi(Filters.Category)
 
-	storage.DB.Find(&Categories)
+	storage.DB.Find(&Categories, &model.Categories{Public: true})
 	storage.DB.Preload("Filters.Options").
+			   Where(&model.Categories{Public: true}).
 			   First(&Category, ID)
 
 
@@ -39,7 +40,7 @@ func list(ctx *controller.Context) error {
 	CategoryID, _ := strconv.Atoi(Filters.Category)
 
 	storage.DB.Scopes(storage.Paginate(ctx)).
-			   Where(&model.Products{CategoryID: CategoryID}).
+			   Where(&model.Products{CategoryID: CategoryID, Public: true}).
 			   Preload("Thumbnail").
 			   Preload("Packing").
 			   Preload("Approvals").
