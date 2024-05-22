@@ -1,0 +1,44 @@
+package view
+
+type SelectConf struct {
+    Data any
+    For string
+    Placeholder string
+    Selected struct { ID string }
+}
+
+script SelectScript(SelectConfig SelectConf) {
+    let dest = document.querySelector(SelectConfig.For)
+    dest.value = 0
+}
+
+templ Select(SelectConfig SelectConf) {
+    // <div class="relative flex flex-col gap-2 min-w-[300px] z-[55]">
+    //     <label  class="cursor-pointer bg-[#eee] w-full flex justify-between items-center px-5 py-2 rounded-xl"
+    //             for={ SelectConfig.For + "-Toggler" }>
+    //         <p class="font-poppins"> { SelectConfig.Placeholder } </p>
+
+    //         <div class="w-8">
+    //             @DownToggleArrow()
+    //         </div>
+    //     </label>
+
+    //     <input type="checkbox" id={ SelectConfig.For + "-Toggler" } class="peer hidden" />
+    //     <div class="absolute z-[57] top-[55px] w-full group bg-[#eee] rounded-xl flex flex-col overflow-hidden max-h-[0] peer-checked:max-h-[30vh] peer-checked:py-2 peer-checked:overflow-y-auto">
+    //         for _, data := range Data {
+    //             <div class="w-full flex jutify-start items-center">
+    //                 <input  type="checkbox" id={ SelectConfig.For + "-" + strconv.Itoa(int(data.ID)) } 
+    //                         class="peer hidden" checked?={Selected.ID == data.ID} />
+
+    //                 <label  class="cursor-pointer py-2 px-5 h-full w-full peer-checked:bg-[#008772] peer-checked:text-white hover:text-white hover:bg-[#008772]"
+    //                         for={ SelectConfig.For + "-" + strconv.Itoa(int(data.ID)) }
+    //                         onclick={"document.querySelector("+ SelectConfig.For + ").value=" +  strconv.Itoa(int(data.ID))} 
+    //                         >
+    //                         { data.Name }
+    //                 </label>
+    //             </div>
+    //         }
+    //     </div>
+    // </div>
+    // @SelectScript(SelectConfig)
+}

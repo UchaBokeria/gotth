@@ -1,0 +1,47 @@
+package view
+
+import(
+    "strconv"
+    "main/server/model"
+)
+
+templ UpdateCategory(Categorie model.Categories) {
+    <script>
+    document.querySelector('#Table-Modal-Update-toggle-Category-Table').click()
+    </script>
+
+    <input class="hidden" value={strconv.Itoa(int(Categorie.ID))} name="id" />
+
+    <div class="w-[30%] flex flex-col gap-7 items-start justify-start">
+        <div class="w-full gap-5 flex flex-col">
+            <label class=""> დასახელება {Categorie.Name} </label>
+            <input  class="p-2 rounded-[8px] outline-0" placeholder="დასახელება" type="text" name="Name" value={Categorie.Name} required />
+        </div>
+
+        <div class="w-full gap-5 flex flex-col">
+            <label class=""> სტატუსი </label>
+            <div class="w-full">
+                <input type="radio" id="category-statuser-public-update"  name="Public" value="true" checked?={Categorie.Public == true} />
+                <label for="category-statuser-public-update" class="cursor-pointer">აქტიური</label>
+            </div>
+            <div class="w-full">
+                <input type="radio" id="category-statuser-private-update" name="Public" value="false" checked?={Categorie.Public == false}  />
+                <label for="category-statuser-private-update" class="cursor-pointer">დეაქტიური</label>
+            </div>
+        </div>
+
+        <div class="w-full gap-5 flex flex-col">
+            <input  class="hidden" id="category-logo-update" placeholder="აირჩიე ლოგო" type="file" name="Icon"  />
+            <label for="category-logo-update" class="relative cursor-pointer h-[15vh] bg-primary text-white p-2 px-3 rounded-[8px] px-5 flex justify-center items-center">
+                <img src={Categorie.Icon.Path} class="object-fit h-full" alt="" />
+                <div class="bg-[#333] opacity-60 w-full h-full absolute z-[1]"></div>
+                <div class="w-full h-full flex gap-3 items-center justify-center w-full h-full absolute z-[2]">
+                    <span class="">
+                        @ImportIcon()
+                    </span>
+                    <p class="text-2xl">ატვირთვა</p>
+                </div>
+            </label>
+        </div>
+    </div>
+}

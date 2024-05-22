@@ -1,86 +1,86 @@
 package view
 
 import(
-    "main/server/model"
     "strconv"
-    "strings"
+    "main/server/model"
 )
 
-func ProductConfig(Products []model.Products) TableConfig {
+templ Product(Producties []model.Products, Categories []model.Categories) {
+    <script type="text/javascript" src="/assets/scripts/ckeditor/build/ckeditor.js"></script>
+    @CkeEditorConfig()
+    @Table(ProductConfig(Producties, Categories))
+}
+
+func ProductConfig(Producties []model.Products, Categories []model.Categories) TableConfig {
     ProductTable := TableDefConfig
     ProductTable.Name = "Product-Table"
+    ProductTable.Body.Templ = ProductBody(Producties)
+    ProductTable.Head.Templ = ProductHeader(Producties)
+
     ProductTable.Tools.Title = "პროდუქტი"
-    ProductTable.Tools.Actions.Import = true
-    ProductTable.Tools.Actions.Export = false
     ProductTable.Tools.Actions.Create = true
-    ProductTable.Body.Templ = ProductBody(Products)
-    ProductTable.Head.Templ = ProductHeader(Products)
+    ProductTable.Tools.Actions.Import = false
+    ProductTable.Tools.Actions.Export = false
+
+    
+    ProductTable.Args = Categories
     ProductTable.Modal.Content = CreateProduct
+    ProductTable.Modal.Hx.Target = "#AdminContent"
+    ProductTable.Modal.Hx.Endpoint = "/admin/product?page=1"
+    ProductTable.Modal.Hx.Encoding = "multipart/form-data"
+    ProductTable.Modal.Hx.Extension = ""
     return ProductTable
 }
 
-templ ProductHeader(Products []model.Products) {
+templ ProductHeader(Producties []model.Products) {
     <tr class="text-white">
         <td class="py-4 px-6">სურათი</td>
         <td class="py-4 px-6">სახელი</td>
-        <td class="py-4 px-6">აღწერა</td>
-        <td class="py-4 px-6"></td>
-        <td class="py-4 px-6"></td>
+        <td class="py-4 px-6">კატეგორია</td>
+        <td class="py-4 px-6">წაშლა</td>
+        <td class="py-4 px-6">დამალვა</td>
     </tr>
 }
 
-templ ProductBody(Products []model.Products) {
-    for _, Prod := range Products{
-        <tr class="group py-4 px-6 focus-within:bg-[#fff] focus:text-black select-none" tabindex={strconv.Itoa(int(Prod.ID))}>
-            <td class="py-4 px-6">
-                <img src={ strings.ReplaceAll(Prod.Thumbnail.Path, "./public", "") } class="object-fit h-[5vw]" />
+templ ProductBody(Producties []model.Products) {
+    for _, Product := range Producties{
+        <tr hx-get={"/admin/product/" + strconv.Itoa(int(Product.ID))}
+            hx-trigger="dblclick" hx-swap="innerHTML" hx-target={"#Table-Modal-Content-Update-Product-Table"}
+            class="group py-4 px-6 focus-within:bg-[#fff] focus:text-black select-none" tabindex={strconv.Itoa(int(Product.ID))}>
+
+            <td class="py-4 px-6 w-[15%]">
+                <img src={ Product.Thumbnail.Path } class="object-fit h-[5vw]" />
             </td>
-            <td class="py-4 px-6">
-                <p class=""> { Prod.Name } </p>
+
+            <td class="py-4 px-6 w-[25%]">
+                <p class=""> { Product.Name } </p>
             </td>
-            <td class="py-4 px-6">
-                <p class="line-clamp-2"> { Prod.Description } </p>
+
+            <td class="py-4 px-6 w-[50%]">
+                <p class=""> { Product.Category.Name } </p>
             </td>
-            <td class="py-4 px-6">
+
+            <td class="py-4 px-6 w-[5%]">
                 <p class="cursor-pointer p-2"
-                    hx-delete={"/admin/Prod/" + strconv.Itoa(int(Prod.ID))}
                     hx-swap="outerHTML"
-                    hx-target={"tr[tabindex='" + strconv.Itoa(int(Prod.ID)) + "']"}> 
-                    @DeleteIcon() 
+                    hx-delete={"/admin/product/" + strconv.Itoa(int(Product.ID))}
+                    hx-target={"tr[tabindex='" + strconv.Itoa(int(Product.ID)) + "']"}>
+                    @DeleteIcon()
                 </p>
             </td>
-            <td class="py-4 px-6">
+
+            <td class="py-4 px-6 w-[5%]">
                 <p class="cursor-pointer p-2"
-                    hx-patch={"/admin/Prod/" + strconv.Itoa(int(Prod.ID))}
-                    hx-swap="outerHTML"
-                    hx-target={"tr[tabindex='" + strconv.Itoa(int(Prod.ID)) + "']"}> 
-                    @ClosedEyeIcon() 
+                    hx-patch={"/admin/product/" + strconv.Itoa(int(Product.ID))}
+                    hx-swap="innerHTML" hx-target={"#AdminContent"}>
+                    if Product.Public {
+                        @ClosedEyeIcon()
+                    } else {
+                        @EyeIcon()    
+                    }
                 </p>
             </td>
+
         </tr>
     }
-}
-
-templ CreateProduct(config TableConfig, x any) {
-    <div class="w-full flex flex-col gap-8">
-        <div class="w-full gap-10">
-            <label class=""> ლოგო </label>
-            <input  class=""
-                    placeholder="აირჩიე ლოგო"
-                    type="file"
-                    name="name" />
-        </div>
-
-        <div class="w-full gap-5">
-            <label class=""> დასახელება </label>
-            <input  class=""
-                    placeholder="დასახელება"
-                    type="text"
-                    name="name" />
-        </div>
-    </div>
-}
-
-templ Product(Products []model.Products) {
-    @Table(ProductConfig(Products))
 }

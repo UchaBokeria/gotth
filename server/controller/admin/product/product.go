@@ -7,5 +7,11 @@ import (
 )
 
 func Register(app *echo.Group) {
-	app.GET("/product", controller.Register(index))
+	Products := app.Group("/product")
+	Products.GET("", controller.Register(index))
+	Products.GET("/:id", controller.Register(indexByID))
+	Products.POST("", controller.Register(ProductsNew))
+	Products.PUT("", controller.Register(ProductsUpdate))
+	Products.PATCH("/:id", controller.Register(ProductsStatus))
+	Products.DELETE("/:id", controller.Register(ProductsRemove))
 }

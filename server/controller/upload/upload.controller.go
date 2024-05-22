@@ -58,11 +58,11 @@ func FileUpload(ctx *controller.Context) error {
 	hashName := hex.EncodeToString(hash.Sum(nil))
 
 	// Create a new file on the server to store the uploaded file
-	dst, err := os.Create(globals.Env.Uploads + hashName + extension)
+	dst, err := os.Create("./public" + globals.Env.Uploads + hashName + extension)
 	if err != nil {
 		return ctx.JSON(
 			http.StatusBadRequest, 
-			&uploader.UploadResponse{ ID: -1, Message: "Error creating file on server", Success: false },
+			&uploader.UploadResponse{ ID: -1, Message: "Error creating file on server: " + globals.Env.Uploads + hashName + extension, Success: false },
 		)
 	}
 	defer dst.Close()

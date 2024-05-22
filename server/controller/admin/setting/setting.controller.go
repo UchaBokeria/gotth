@@ -434,7 +434,6 @@ func Newser(ctx *controller.Context) error {
 	}
 
 	result := storage.DB.Model(New).Updates(&Parameters)
-	fmt.Print(New.Public)
 	if result.Error != nil {
 		return ctx.String(http.StatusBadRequest, result.Error.Error())
 	}

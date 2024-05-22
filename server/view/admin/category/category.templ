@@ -1,19 +1,29 @@
 package view
 
 import(
-    "main/server/model"
     "strconv"
+    "main/server/model"
 )
+
+templ Category(Categories []model.Categories) {
+    @Table(CategoryConfig(Categories))
+}
 
 func CategoryConfig(Categories []model.Categories) TableConfig {
     CategoryTable := TableDefConfig
     CategoryTable.Name = "Category-Table"
-    CategoryTable.Tools.Actions.Import = false
-    CategoryTable.Tools.Actions.Export = false
-    CategoryTable.Tools.Actions.Create = true
     CategoryTable.Body.Templ = CategoryBody(Categories)
     CategoryTable.Head.Templ = CategoryHeader(Categories)
+
+    CategoryTable.Tools.Actions.Create = true
+    CategoryTable.Tools.Actions.Import = false
+    CategoryTable.Tools.Actions.Export = false
+
     CategoryTable.Modal.Content = CreateCategory
+    CategoryTable.Modal.Hx.Target = "#AdminContent"
+    CategoryTable.Modal.Hx.Endpoint = "/admin/category"
+    CategoryTable.Modal.Hx.Encoding = "multipart/form-data"
+    CategoryTable.Modal.Hx.Extension = ""
     return CategoryTable
 }
 
@@ -21,33 +31,46 @@ templ CategoryHeader(Categories []model.Categories) {
     <tr class="text-white">
         <td class="py-4 px-6">სურათი</td>
         <td class="py-4 px-6">სახელი</td>
-        <td class="py-4 px-6"></td>
+        <td class="py-4 px-6">წაშლა</td>
+        <td class="py-4 px-6">დამალვა</td>
     </tr>
 }
 
 templ CategoryBody(Categories []model.Categories) {
     for _, Category := range Categories{
         <tr hx-get={"/admin/category/" + strconv.Itoa(int(Category.ID))}
-            hx-trigger="dblclick" hx-target={"#Category-Table-modal-ID"} hx-swap="innerHTML"
+            hx-trigger="dblclick" hx-swap="innerHTML" hx-target={"#Table-Modal-Content-Update-Category-Table"}
             class="group py-4 px-6 focus-within:bg-[#fff] focus:text-black select-none" tabindex={strconv.Itoa(int(Category.ID))}>
-            <td class="py-4 px-6">
-                <img src={ "/assets/images/categories/" + Category.Icon.Path } class="object-fit h-[5vw]" />
+
+            <td class="py-4 px-6 w-[15%]">
+                <img src={ Category.Icon.Path } class="object-fit h-[5vw]" />
             </td>
-            <td class="py-4 px-6">
+
+            <td class="py-4 px-6 w-[75%]">
                 <p class=""> { Category.Name } </p>
             </td>
-            <td class="py-4 px-6">
+
+            <td class="py-4 px-6 w-[5%]">
                 <p class="cursor-pointer p-2"
-                    hx-delete={"/admin/category/" + strconv.Itoa(int(Category.ID))}
                     hx-swap="outerHTML"
-                    hx-target={"tr[tabindex='" + strconv.Itoa(int(Category.ID)) + "']"}> 
-                    @DeleteIcon() 
+                    hx-delete={"/admin/category/" + strconv.Itoa(int(Category.ID))}
+                    hx-target={"tr[tabindex='" + strconv.Itoa(int(Category.ID)) + "']"}>
+                    @DeleteIcon()
                 </p>
             </td>
+
+            <td class="py-4 px-6 w-[5%]">
+                <p class="cursor-pointer p-2"
+                    hx-patch={"/admin/category/" + strconv.Itoa(int(Category.ID))}
+                    hx-swap="innerHTML" hx-target={"#AdminContent"}>
+                    if Category.Public {
+                        @ClosedEyeIcon()
+                    } else {
+                        @EyeIcon()    
+                    }
+                </p>
+            </td>
+
         </tr>
     }
-}
-
-templ Category(Categories []model.Categories) {
-    @Table(CategoryConfig(Categories))
 }

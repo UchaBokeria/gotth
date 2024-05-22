@@ -8,6 +8,7 @@ type Products struct {
 	Slug 				string
 	Description 		string
 	DescriptionHtml     string
+	Public              bool               `gorm:"default:true"`
 	CategoryID          int
 	Category            Categories         `gorm:"foreignKey:CategoryID"`
 	TechnicalSheetUrl 	string

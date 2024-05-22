@@ -1,95 +1,126 @@
 package view
 
-type EndpointType struct {
-    Create string
-    Update string
-    Delete string
+type TableConfigHx struct {
+    Target      string
+    Endpoint    string
+    Encoding    string
+    Extension   string
+}
+
+type TableModalFooters struct {
+    Modal func(config TableConfig) templ.Component
+    Update func(config TableConfig) templ.Component
 }
 
 type TableConfigModal struct {
-    Endpoints   *EndpointType
-    Head        func(config TableConfig, x any) templ.Component
-    Content     func(config TableConfig, x any) templ.Component
-    Footer      func(config TableConfig, x any) templ.Component
+    Hx          TableConfigHx
+    Head        func(config TableConfig) templ.Component
+    Content     func(config TableConfig) templ.Component
+    Footer      TableModalFooters
 }
 
 var TableModalDefault TableConfigModal = TableConfigModal{
-    Endpoints:   &EndpointType{ Create: "/x/create", Update: "/x/update/1", Delete: "/x/1" },
+    Hx: TableConfigHx{
+        Target:      "Table-Table-Example",
+        Extension:   "json-enc",
+        Encoding:    "multipart/form-data",
+        Endpoint:    "x/form/table",
+    },
     Head:        TableModalHeadDefault,
     Content:     TableModalContentDefault,
-    Footer:      TableModalFooterDefault,
+    Footer:      TableModalFooters{
+        Modal: TableModalFooterDefault,
+        Update: TableModalUpdateFooterDefault,
+    },
 }
 
-templ TableModalHeadDefault(config TableConfig, x any) {
+templ TableModalHeadDefault(config TableConfig) {
         // <p> { strconv.Itoa(int(x.ID)) } </p>
         <p class="font-bold"> { config.Tools.Title } </p>
 }
 
-templ TableModalContentDefault(config TableConfig, x any) {
+templ TableModalContentDefault(config TableConfig) {
         <p class="">Modal</p>
 }
 
-templ TableModalFooterDefault(config TableConfig, x any) {
+templ TableModalFooterDefault(config TableConfig) {
         <button class="" type="submit">
             <label class="cursor-pointer p-2 px-3 outline-0 border-0 rounded-[8px] bg-primary text-white font-deja"
-                    for={"Table-Modal-" + config.Name}>
+                    for={"Table-Modal-toggle-" + config.Name}>
                 შენახვა
             </label>
         </button> 
 
         <button class="" type="button">
             <label class="cursor-pointer p-2 px-3 outline-0 border-0 rounded-[8px] bg-secondary text-black  font-deja"
-                    for={"Table-Modal-" + config.Name}>
+                    for={"Table-Modal-toggle-" + config.Name}>
+                დახურვა
+            </label>
+        </button> 
+}
+
+templ TableModalUpdateFooterDefault(config TableConfig) {
+        <button class="" type="submit">
+            <label class="cursor-pointer p-2 px-3 outline-0 border-0 rounded-[8px] bg-primary text-white font-deja"
+                    for={"Table-Modal-Update-toggle-" + config.Name}>
+                შენახვა
+            </label>
+        </button> 
+
+        <button class="" type="button">
+            <label class="cursor-pointer p-2 px-3 outline-0 border-0 rounded-[8px] bg-secondary text-black  font-deja"
+                    for={"Table-Modal-Update-toggle-" + config.Name}>
                 დახურვა
             </label>
         </button> 
 }
 
 templ TableModal(config TableConfig) {
-    <div  id={config.Name + "-modal-ID"}>
-        <input class="hidden peer" type="checkbox" id={"Table-Modal-" + config.Name} />
-        <div class="Table-modal hidden peer-checked:block">
-            <div class="modal-overlay w-[100vw] fixed top-0 left-0 h-[100vh] z-[99999] bg-black opacity-30"></div>
-            <form   class="modal-window w-[80vw] fixed top-[10vh] left-[10vw] h-[80vh] z-[999999] bg-[#eee] rounded-[8px] flex flex-col justify-start items-start gap-8 py-8 px-20"
-                    hx-post={config.Modal.Endpoints.Create}
-                    hx-trigger="submit"
-                    hx-ext='json-enc'>
-                <div class="modal-header">
-                    @config.Modal.Head(config, nil)
-                </div>
+    <input class="hidden peer" type="checkbox" id={"Table-Modal-toggle-" + config.Name} />
+    <div class="Table-modal hidden peer-checked:block">
+        <div class="modal-overlay w-[100vw] fixed top-0 left-0 min-h-[100vh] z-[99999] bg-black opacity-30"></div>
+        <form   class="modal-window w-[80vw] fixed top-[10vh] left-[10vw] overflow-scroll h-[80vh] z-[999999] bg-[#eee] rounded-[8px] flex flex-col justify-start items-start gap-8 py-8 px-20"
+                hx-trigger="submit"
+                hx-target={config.Modal.Hx.Target}
+                hx-post={config.Modal.Hx.Endpoint}
+                hx-ext={config.Modal.Hx.Extension}
+                hx-encoding={config.Modal.Hx.Encoding}>
+            <div class="modal-header">
+                @config.Modal.Head(config)
+            </div>
 
-                <div class="modal-content grow">
-                    @config.Modal.Content(config, nil)
-                </div>
+            <div class="modal-content grow w-full">
+                @config.Modal.Content(config)
+            </div>
 
 
-                <div class="w-full flex gap-5">
-                    @config.Modal.Footer(config, nil)
-                </div>
-            </form>
-        </div>
+            <div class="w-full flex gap-5 w-full">
+                @config.Modal.Footer.Modal(config)
+            </div>
+        </form>
     </div>
 }
 
-templ TableUpdateModal(config TableConfig, x any) {
-    <input class="hidden peer" type="checkbox" />
+templ TableUpdateModal(config TableConfig) {
+    <input class="hidden peer" type="checkbox" id={"Table-Modal-Update-toggle-" + config.Name} />
     <div class="Table-modal hidden peer-checked:block">
         <div class="modal-overlay w-[100vw] fixed top-0 left-0 h-[100vh] z-[99999] bg-black opacity-30"></div>
-        <form   class="modal-window w-[80vw] fixed top-[10vh] left-[10vw] h-[80vh] z-[999999] bg-[#eee] rounded-[8px] flex flex-col justify-start items-start gap-8 py-8 px-20"
-                hx-put={config.Modal.Endpoints.Update}
+        <form   class="modal-window w-[80vw] fixed top-[10vh] left-[10vw] overflow-scroll h-[80vh] z-[999999] bg-[#eee] rounded-[8px] flex flex-col justify-start items-start gap-8 py-8 px-20"
                 hx-trigger="submit"
-                hx-ext='json-enc'>
+                hx-target={config.Modal.Hx.Target}
+                hx-put={config.Modal.Hx.Endpoint}
+                hx-ext={config.Modal.Hx.Extension}
+                hx-encoding={config.Modal.Hx.Encoding}>
             <div class="modal-header">
-                @config.Modal.Head(config, x)
+                @config.Modal.Head(config)
             </div>
 
-            <div class="modal-content grow">
-                @config.Modal.Content(config, x)
+            <div class="modal-content grow w-full" id={"Table-Modal-Content-Update-" + config.Name} >
+                .
             </div>
 
-
-            <div class="w-full flex gap-5">
-                @config.Modal.Footer(config, x)
+            <div class="w-full flex gap-5 w-full">
+                @config.Modal.Footer.Update(config)
             </div>
         </form>
     </div>
