@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 
 	"main/server/common/controller"
 	"main/server/common/globals"
@@ -18,7 +19,7 @@ func Run() {
 	app.Static("", "./public/")
 
 	
-    // app.Pre(middleware.RemoveTrailingSlash())
+    app.Pre(middleware.RemoveTrailingSlash())
 
 	// app.Use(middleware.Secure())
 	// app.Pre(middleware.HTTPSNonWWWRedirect())
