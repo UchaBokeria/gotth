@@ -1,0 +1,21 @@
+.tab:nth-of-type(1):checked ~ .tab-content:nth-of-type(1),
+.tab:nth-of-type(2):checked ~ .tab-content:nth-of-type(2),
+.tab:nth-of-type(3):checked ~ .tab-content:nth-of-type(3),
+.tab:nth-of-type(4):checked ~ .tab-content:nth-of-type(4),
+.tab:nth-of-type(5):checked ~ .tab-content:nth-of-type(5),
+.tab:nth-of-type(6):checked ~ .tab-content:nth-of-type(6),
+.tab:nth-of-type(7):checked ~ .tab-content:nth-of-type(7) {
+    display: flex;
+}
+.ck-editor__editable[role="textbox"] {
+    /* Editing area */
+    min-height: 700px;
+}
+.ck-content .image {
+    /* Block images */
+    max-width: 80%;
+    margin: 20px auto;
+}
+.ck-editor__editable_inline {
+    min-height: 600px;
+}
