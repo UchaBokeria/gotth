@@ -10,6 +10,7 @@ import (
 	"main/server/model"
 	"mime/multipart"
 	"os"
+	"strconv"
 )
 
 type UploadResponse struct { ID int; Message string; Success bool }
@@ -75,6 +76,18 @@ func File(file *multipart.FileHeader) *UploadResponse {
 	}
 
 	return &UploadResponse{ ID: int(File.ID), Message: "Successfully uploaded", Success: true }
+}
+
+func GetDbTypeIdByExtension(extension string) int {
+	types := map[string]string{
+		"jpeg": "2",
+		"jpg": "3",
+		"png": "4",
+		"gif": "5",
+	}
+
+	indeger, _ := strconv.Atoi(types[extension])
+	return indeger
 }
 
 func GetFileExtension(file *multipart.FileHeader) string {

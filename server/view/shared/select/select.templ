@@ -1,44 +1,74 @@
 package view
 
+import(
+    "strconv"
+)
+
+type DataT struct {
+    Key string
+    Value string
+}
+
 type SelectConf struct {
-    Data any
+    Data []DataT
     For string
+    Default string
+    FormName string
     Placeholder string
-    Selected struct { ID string }
 }
 
 script SelectScript(SelectConfig SelectConf) {
-    let dest = document.querySelector(SelectConfig.For)
-    dest.value = 0
+    if(!window.selector) window.selector = {}
+    if(window.selector[SelectConfig.For]) 
+        console.error("selector error -> selector named " + SelectConfig.For + " already exists")
+    return
+    window.selector[SelectConfig.For] = {}
+    window.selector[SelectConfig.For].valuer = document.querySelector(SelectConfig.For)
+    window.selector[SelectConfig.For].container = document.querySelector(SelectConfig.For + "-select-container")
+    window.selector[SelectConfig.For].label = document.querySelector(SelectConfig.For + "-select-label")
+    window.selector[SelectConfig.For].placeholder = document.querySelector(SelectConfig.For + "-select-placeholder")
+    window.selector[SelectConfig.For].dropdownIcon = document.querySelector(SelectConfig.For + "-select-dropdownIcon")
+    window.selector[SelectConfig.For].Toggler = document.querySelector(SelectConfig.For + "-select-Toggler")
+    window.selector[SelectConfig.For].dropdown = document.querySelector(SelectConfig.For + "-select-dropdown")
+    window.selector[SelectConfig.For].Items = document.querySelectorAll(SelectConfig.For + "-select-dropdown div label")
+}
+
+script selectorFucntions() {
+    const SelectorChoosing = (event) => {
+        let key = event.target.getAttribute("data-key")
+        let value = event.target.getAttribute("data-value")
+        window.selector[SelectConfig.For].valuer.value = value
+        window.selector[SelectConfig.For].placeholder.innerHTML = key
+    }
 }
 
 templ Select(SelectConfig SelectConf) {
-    // <div class="relative flex flex-col gap-2 min-w-[300px] z-[55]">
-    //     <label  class="cursor-pointer bg-[#eee] w-full flex justify-between items-center px-5 py-2 rounded-xl"
-    //             for={ SelectConfig.For + "-Toggler" }>
-    //         <p class="font-poppins"> { SelectConfig.Placeholder } </p>
+    <input class="hidden"  id={SelectConfig.For} value={SelectConfig.Default} name={SelectConfig.FormName} /> 
+    <div class="select-container relative flex flex-col gap-2 min-w-[300px] z-[55]" id={SelectConfig.For + "-select-container"}>
+        <label  class="cursor-pointer bg-[#eee] w-full flex justify-between items-center px-5 py-2 rounded-xl" 
+                for={ SelectConfig.For + "-Toggler" } id={SelectConfig.For + "-select-label"} >
+            <p class="font-poppins" id={SelectConfig.For + "-select-placeholder"} > 
+                { SelectConfig.Placeholder } </p>
 
-    //         <div class="w-8">
-    //             @DownToggleArrow()
-    //         </div>
-    //     </label>
+            <div class="w-8" id={SelectConfig.For + "-select-dropdownIcon"} >
+                @DownToggleArrow()
+            </div>
+        </label>
 
-    //     <input type="checkbox" id={ SelectConfig.For + "-Toggler" } class="peer hidden" />
-    //     <div class="absolute z-[57] top-[55px] w-full group bg-[#eee] rounded-xl flex flex-col overflow-hidden max-h-[0] peer-checked:max-h-[30vh] peer-checked:py-2 peer-checked:overflow-y-auto">
-    //         for _, data := range Data {
-    //             <div class="w-full flex jutify-start items-center">
-    //                 <input  type="checkbox" id={ SelectConfig.For + "-" + strconv.Itoa(int(data.ID)) } 
-    //                         class="peer hidden" checked?={Selected.ID == data.ID} />
+        <input type="checkbox" id={ SelectConfig.For + "-Toggler" } class="peer hidden" />
 
-    //                 <label  class="cursor-pointer py-2 px-5 h-full w-full peer-checked:bg-[#008772] peer-checked:text-white hover:text-white hover:bg-[#008772]"
-    //                         for={ SelectConfig.For + "-" + strconv.Itoa(int(data.ID)) }
-    //                         onclick={"document.querySelector("+ SelectConfig.For + ").value=" +  strconv.Itoa(int(data.ID))} 
-    //                         >
-    //                         { data.Name }
-    //                 </label>
-    //             </div>
-    //         }
-    //     </div>
-    // </div>
-    // @SelectScript(SelectConfig)
+        <div class="absolute z-[57] top-[55px] w-full group bg-[#eee] rounded-xl flex flex-col overflow-hidden max-h-[0] peer-checked:max-h-[30vh] peer-checked:py-2 peer-checked:overflow-y-auto"
+             id={SelectConfig.For + "-select-dropdown"} >
+            for index, data := range SelectConfig.Data {
+                <div class="w-full flex jutify-start items-center" tabindex={strconv.Itoa(index)}>
+                    <input type="checkbox" id={ SelectConfig.For + "-item-" + strconv.Itoa(index) } class="peer hidden" checked?={SelectConfig.Default == data.Value} />
+
+                    <label  class="cursor-pointer py-2 px-5 h-full w-full peer-checked:bg-[#008772] peer-checked:text-white hover:text-white hover:bg-[#008772]"
+                            for={ SelectConfig.For + "-item-" + strconv.Itoa(index) } data-value={data.Value}  data-key={data.Key} onclick="SelectorChoosing" >
+                            { data.Key }
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
 }

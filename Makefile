@@ -13,6 +13,7 @@ prod:
 
 .PHONY: build
 build:
+	go mod tidy
 	@rm -rf build && mkdir -p ./build/view && chmod -R 777 ./public
 	make templ tailwind vet staticcheck test
 	go build -o ./bin/app ./cmd/app/main.go
@@ -21,14 +22,23 @@ build:
 migrate:
 	go run ./cmd/migrate/main.go
 
+.PHONY: drop
+drop:
+	go run ./cmd/migrate/drop/main.go
+
 .PHONY: seed
 seed:
 	go run ./cmd/seed/main.go
+	go run ./cmd/parser/main.go
 
 .PHONY: parser-products
 parser-products:
 	go run ./cmd/parser/main.go
 
+.PHONY: parser
+parser:
+	mkdir -p ./public/uploads/products && chmod 777 ./public/uploads/products
+	python3 ./cmd/parser/main.py
 
 
 .PHONY: tailwind
@@ -53,7 +63,6 @@ templ-watch:
 .PHONY: templ-clean
 templ-clean:
 	@find ./server/view/ -type f \( -name "*_templ.go" -o -name "*_templ.txt" \) -exec mv -t ./build/view {} +
-
 
 
 .PHONY: vet
