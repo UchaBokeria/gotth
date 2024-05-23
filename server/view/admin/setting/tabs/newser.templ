@@ -9,11 +9,6 @@ script removeNew(id int) {
     htmx.ajax('DELETE', '/admin/setting/newser/' + id, '#Newser-cont')
 }
 
-func PublicOrNot(public bool) string {
-    if public { return "on" }
-    return "off"
-} 
-
 templ Newser(Newz []model.News) {
     <div class="w-[100%] py-5 rounded-[8px] flex flex-col gap-5" id="Newser-cont">
         <p class="w-full font-bold font-arial text-xl">სიახლეები</p>

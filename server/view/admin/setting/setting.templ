@@ -4,73 +4,93 @@ import(
     "main/server/model"
 )
 
-templ Setting(Interface model.Interface, Faqs []model.Faq, Newz []model.News) {
-    <div class="w-full flex flex-wrap gap-[5%] justify-between items-start">
+type TabsRoutesType struct{
+    Path string
+    Slug string
+    Name string
+    Component []templ.Component
+}
+
+var Tabs []TabsRoutesType
+
+func SettingTabs(Interface model.Interface, Faqs []model.Faq, Newz []model.News, Branches []model.Branches, Current string) templ.ComponentFunc {
+    Tabs = []TabsRoutesType{
+        {
+            Path: "contacter", Slug: "Contacter", Name: "კონტაქტი",
+            Component: []templ.Component{Contacter(Interface.Contact), SocialMediaer(Interface.SocialMedia)},
+        },
+        {
+            Path: "socialMediaer", Slug: "SocialMediaer", Name: "სლაიდერი",
+            Component: []templ.Component{Slideshower(Interface.SlideShow)},
+        },
+        {
+            Path: "slideshower", Slug: "Slideshower", Name: "მიზეზები",
+            Component: []templ.Component{Reasoners(Interface.Reasons)},
+        },
+        {
+            Path: "reasoners", Slug: "Reasoners", Name: "კითხვარი",
+            Component: []templ.Component{Faqers(Faqs)},
+        },
+        {
+            Path: "brancher", Slug: "Brancher", Name: "ლოკაციები",
+            Component: []templ.Component{Brancher(Branches)},
+        },
+        {
+            Path: "newser", Slug: "Newser", Name: "სიახლეები",
+            Component: []templ.Component{Newser(Newz)},
+        },
+        {
+            Path: "abouter", Slug: "Abouter", Name: "ჩვენს შესახებ",
+            Component: []templ.Component{Abouter(Interface.About.Body)},
+        },
+        {
+            Path: "termer", Slug: "Termer", Name: "წესები და პირობები",
+            Component: []templ.Component{Termer(Interface.About.Terms)},
+        },
+    }
+
+    return templ.NopComponent
+}
+
+script ChangeTab(newPath string) {
+    history.pushState(null, null, newPath)
+    currentTab = document.querySelector(".admin-settings label[data-path='" + newPath + "']")
+    document.querySelectorAll(".admin-settings label[data-path]").forEach(e => {
+        e.classList.remove("text-black")
+        e.classList.remove("bg-[#FFF200]")
+    })
+    currentTab.classList.add("bg-[#FFF200]")
+    currentTab.classList.add("text-black")
+}
+
+script ActivateCurrentTab(current string) {
+    currentTab = document.querySelector(".admin-settings label[data-path='" + current + "']")
+    currentTab.classList.add("bg-[#FFF200]")
+    currentTab.classList.add("text-black")
+}
+
+templ Setting(Interface model.Interface, Faqs []model.Faq, Newz []model.News, Branches []model.Branches, Current string) {
+    @SettingTabs(Interface, Faqs, Newz, Branches, Current)
+    <div class="admin-settings w-full flex flex-wrap gap-[5%] justify-between items-start">
         <div class="mb-10 w-full h-12 bg-primary text-white flex flex-wrap gap-2 justify-start items-center rounded-[8px]">
-            <input type="radio" id="Contacter" name="setting_tabs" value="Contacter" class="hidden tab" checked />
-            <label  for="Contacter"
-                    class="cursor-pointer h-full px-5 flex items-center hover:bg-[#FFF200] hover:text-black">
-                <p class="w-full">კონტაქტი</p>
-            </label>
 
-            <input type="radio" id="SocialMediaer" name="setting_tabs" value="SocialMediaer" class="hidden tab" />
-            <label  for="SocialMediaer"
-                    class="cursor-pointer h-full px-5 flex items-center hover:bg-[#FFF200] hover:text-black">
-                <p class="w-full">სლაიდერი</p>
-            </label>
+            for _, Tab := range Tabs {
+                <input type="radio" id={Tab.Slug} name="setting_tabs" value={Tab.Slug} class="hidden tab peer" checked?={Current == Tab.Path} />
+                <label  for={Tab.Slug} onclick={ChangeTab(Tab.Path)} data-path={Tab.Path}
+                        class="cursor-pointer h-full px-5 flex items-center hover:bg-[#FFF200] hover:text-black font-bold text-sm">
+                    <p class="w-full"> { Tab.Name } </p>
+                </label>
+            }
 
-            <input type="radio" id="Slideshower" name="setting_tabs" value="Slideshower" class="hidden tab" />
-            <label  for="Slideshower"
-                    class="cursor-pointer h-full px-5 flex items-center hover:bg-[#FFF200] hover:text-black">
-                <p class="w-full">მიზეზები</p>
-            </label>
-
-            <input type="radio" id="Reasoners" name="setting_tabs" value="Reasoners" class="hidden tab" />
-            <label  for="Reasoners"
-                    class="cursor-pointer h-full px-5 flex items-center hover:bg-[#FFF200] hover:text-black">
-                <p class="w-full">კითხვარი</p>
-            </label>
-
-            <input type="radio" id="Newser" name="setting_tabs" value="Newser" class="hidden tab" />
-            <label  for="Newser"
-                    class="cursor-pointer h-full px-5 flex items-center hover:bg-[#FFF200] hover:text-black">
-                <p class="w-full">სიახლეები</p>
-            </label>
-
-            <input type="radio" id="Abouter" name="setting_tabs" value="Abouter" class="hidden tab" />
-            <label  for="Abouter"
-                    class="cursor-pointer h-full px-5 flex items-center hover:bg-[#FFF200] hover:text-black">
-                <p class="w-full">ჩვენს შესახებ</p>
-            </label>
-
-            <input type="radio" id="Termer" name="setting_tabs" value="Termer" class="hidden tab" />
-            <label  for="Termer"
-                    class="cursor-pointer h-full px-5 flex items-center hover:bg-[#FFF200] hover:text-black">
-                <p class="w-full">წესები და პირობები</p>
-            </label>
-
-            <span class="tab-content hidden w-full flex flex-wrap gap-[5%] justify-between items-start text-black mt-7">
-                @Contacter(Interface.Contact)    
-                @SocialMediaer(Interface.SocialMedia)
-            </span>
-            <span class="tab-content hidden w-full flex flex-wrap gap-[5%] justify-between items-start text-black mt-7">        
-                @Slideshower(Interface.SlideShow)
-            </span>
-            <span class="tab-content hidden w-full flex flex-wrap gap-[5%] justify-between items-start text-black mt-7">        
-                @Reasoners(Interface.Reasons)
-            </span>
-            <span class="tab-content hidden w-full flex flex-wrap gap-[5%] justify-between items-start text-black mt-7">        
-                @Faqers(Faqs)
-            </span>
-            <span class="tab-content hidden w-full flex flex-wrap gap-[5%] justify-between items-start text-black mt-7">        
-                @Newser(Newz)
-            </span>
-            <span class="tab-content hidden w-full flex flex-wrap gap-[5%] justify-between items-start text-black mt-7">
-                @Abouter(Interface.About.Body)
-            </span>
-            <span class="tab-content hidden w-full flex flex-wrap gap-[5%] justify-between items-start text-black mt-7">        
-                @Termer(Interface.About.Terms)
-            </span>
+            for _, Tab := range Tabs {
+                <span class="tab-content hidden w-full flex flex-wrap gap-[5%] justify-between items-start text-black mt-7">
+                    for _, Component := range Tab.Component {
+                        @Component
+                    }
+                </span>
+            }
+            
         </div>
+        @ActivateCurrentTab(Current)
     </div>
 }

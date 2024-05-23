@@ -1,0 +1,158 @@
+package view
+
+import(
+    "strconv"
+    "main/server/model"
+)
+
+script removeBrancher(id int) {
+    htmx.ajax('DELETE', '/admin/setting/brancher/' + id, '#Brancher-cont')
+}
+
+// Name
+// PhoneNumber
+// Map
+
+// Region
+// Shifts
+// CityID
+
+templ Brancher(Branches []model.Branches) {
+    <div class="w-[100%] py-5 rounded-[8px] flex flex-col gap-5" id="Brancher-cont">
+        <p class="w-full font-bold font-arial text-xl">სიახლეები</p>
+        
+        <div class="flex flex-wrap w-full gap-5">
+            <form class="flex flex-col h-[45vh] grow-0 gap-7 w-[30%] p-7 bg-[#f5f5f5] rounded-[8px]"
+                        hx-post={"/admin/setting/brancher/"}
+                        hx-swap="outerHTML"
+                        hx-trigger="submit"
+                        hx-target="#Brancheser-cont"
+                        hx-encoding='multipart/form-data'>
+                
+                <p class="w-full font-bold font-arial">შექმენი ახალი სიახლე</p>
+                // <input class="hidden" id={"brancher-logo-new"} type="file" name="Thumbnail" />
+                                    
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="Name" placeholder="დასახელება"  />
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="PhoneNumber" placeholder="ტელეფონი" />
+                <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="Map" placeholder="რუკა"  />
+
+                
+                // <div class="relative flex flex-col gap-2 w-full z-[556]">
+                //     <div class="">
+                //         <input  type="radio" class="px-4" id={ "brancher-status-active-$_$_-new" }
+                //                 checked value="true" name="Public" />
+                //         <label for={"brancher-status-active-$_$_-new"}> აქტიური </label>
+                //     </div>
+                //     <div class="">
+                //         <input  type="radio" class="px-4" id={ "brancher-status-deactive-$_$_-new" }
+                //                 value="false" name="Public" />
+                //         <label for={"brancher-status-deactive-$_$_-new"}> დეაქტიური </label>
+                //     </div>
+                // </div>
+                
+                // <div class="relative flex flex-col gap-2 w-full z-[556]">
+                //     <div class="">
+                //         <input  type="radio" class="px-4" id={"brancher-type-photo-$_$_-new"} 
+                //                 checked value={"1"} name="TypeID" />
+                //         <label for={"brancher-type-photo-$_$_-new"}> ფოტო </label>
+                //     </div>
+
+                //     <div class="">
+                //         <input  type="radio" class="px-4" id={"brancher-type-video-$_$_-new"} 
+                //                  value={"2"} name="TypeID" />
+                //         <label for={"brancher-type-video-$_$_-new"}> ვიდეო </label>
+                //     </div>
+
+                //     <div class="">
+                //         <input  type="radio" class="px-4" id={"brancher-type-blog-$_$_-new"} 
+                //                 value={"3"} name="TypeID" />
+                //         <label for={"brancher-type-blog-$_$_-new"}> ბლოგი </label>
+                //     </div>
+                // </div>
+
+                // <label for="brancher-logo-new" 
+                //         class="cursor-pointer flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
+                //     @ImportIcon()
+                //     <p class="">ლოგო</p>
+                // </label>
+
+                <div class="flex flex-col gap-2 w-[100%]">
+                    <button type="submit" class="bg-primary text-white rounded-[8px] px-3 py-2">დამატება</button>
+                </div>
+            </form>
+
+            for _, Branch := range Branches {
+                <form class="flex flex-col gap-7 w-[30%] p-7 bg-[#f5f5f5] rounded-[8px]"
+                        id={"update-Branch-" + strconv.Itoa(int(Branch.ID))}
+                        hx-post={"/admin/setting/brancher/" + strconv.Itoa(int(Branch.ID))}
+                        hx-swap="outerHTML"
+                        hx-trigger="submit"
+                        hx-target="#Brancheser-cont"
+                        hx-encoding='multipart/form-data'>
+                    
+                    // <input class="hidden" id={"brancher-logo-" + strconv.Itoa(int(Branch.ID))} type="file" name="Thumbnail" />
+                                        
+                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="Name" placeholder="დასახლება" value={Branch.Name} />
+                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="PhoneNumber" placeholder="ტელეფონი" value={Branch.PhoneNumber} />
+                    // <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="Public" placeholder="სტატუსი" Branch.Public />
+                    <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="Map" placeholder="რუკა" value={Branch.Map} />
+
+                    
+                    // <div class="relative flex flex-col gap-2 w-full z-[556]">
+                    //     <div class="">
+                    //         <input  type="radio" class="px-4" id={ "brancher-status-active-$_$_" + strconv.Itoa(int(Branch.ID)) }
+                    //                 checked?={Branch.Public == true} value="true" name="Public" />
+                    //         <label for={"brancher-status-active-$_$_" + strconv.Itoa(int(Branch.ID))}> აქტიური </label>
+                    //     </div>
+                    //     <div class="">
+                    //         <input  type="radio" class="px-4" id={ "brancher-status-deactive-$_$_" + strconv.Itoa(int(Branch.ID)) }
+                    //                 checked?={Branch.Public == false} value="false" name="Public" />
+                    //         <label for={"brancher-status-deactive-$_$_" + strconv.Itoa(int(Branch.ID))}> დეაქტიური </label>
+                    //     </div>
+                    // </div>
+
+                    // <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="TypeID" placeholder="ტიპი" value={Branch.TypeID} />
+                    
+                    // <div class="relative flex flex-col gap-2 w-full z-[556]">
+                    //     <div class="">
+                    //         <input  type="radio" class="px-4" id={ "brancher-type-photo-$_$_" + strconv.Itoa(int(Branch.ID)) } 
+                    //                 checked?={Branch.TypeID == 1} value={"1"} name="TypeID" />
+                    //         <label for={"brancher-type-photo-$_$_" + strconv.Itoa(int(Branch.ID))}> ფოტო </label>
+                    //     </div>
+
+                    //     <div class="">
+                    //         <input  type="radio" class="px-4" id={ "brancher-type-video-$_$_" + strconv.Itoa(int(Branch.ID)) } 
+                    //                 checked?={Branch.TypeID == 2} value={"2"} name="TypeID" />
+                    //         <label for={"brancher-type-video-$_$_" + strconv.Itoa(int(Branch.ID))}> ვიდეო </label>
+                    //     </div>
+
+                    //     <div class="">
+                    //         <input  type="radio" class="px-4" id={ "brancher-type-blog-$_$_" + strconv.Itoa(int(Branch.ID)) } 
+                    //                 checked?={Branch.TypeID == 3} value={"3"} name="TypeID" />
+                    //         <label for={"brancher-type-blog-$_$_" + strconv.Itoa(int(Branch.ID))}> ბლოგი </label>
+                    //     </div>
+                    // </div>
+
+
+                    // <label for={"brancher-logo-" + strconv.Itoa(int(Branch.ID))} 
+                    //        class="cursor-pointer h-[20vh] relative flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
+                    //     <img src={ Branch.Thumbnail.Path } class="object-fit h-full" />
+                    //     <div class="absolute w-full h-full bg-black opacity-70"></div>
+                    //     <div class="absolute w-full h-full flex justify-center items-center">
+                    //         @ImportIcon()
+                    //         <p class="font-deja">ლოგო</p>
+                    //     </div>
+                    // </label>
+
+                    <div class="flex flex-col gap-2 w-[100%]">
+                        <button type="submit" class="bg-primary text-white rounded-[8px] px-3 py-2">შენახვა</button>
+                    </div>
+
+                    <button type="button" class="bg-[#FF3232] text-white rounded-[8px] px-3 py-2" onclick={removeBrancher(int(Branch.ID))}>
+                        წაშლა
+                    </button>
+                </form>
+            }
+        </div>
+    </div>
+}
