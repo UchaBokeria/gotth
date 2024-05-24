@@ -4,6 +4,7 @@ import "main/server/model"
 
 var Models = []interface{}{
 	&model.Cities{},
+	&model.Districts{},
 	&model.Branches{},
 	&model.Branch_shifts{},
 

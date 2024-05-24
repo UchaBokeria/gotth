@@ -1,4 +1,4 @@
-package setting
+package slideshower
 
 import (
 	"github.com/labstack/echo/v4"
@@ -6,8 +6,9 @@ import (
 	"main/server/common/controller"
 )
 
-func Register(app *echo.Group) {
-	app.POST("/setting/slideshower", controller.Register(SlideshowerNew))
-	app.POST("/setting/slideshower/:id", controller.Register(Slideshower))
-	app.DELETE("/setting/slideshower/:id", controller.Register(SlideRemove))
+func Register(setting *echo.Group) {
+	slideshower := setting.Group("/slideshower")
+	slideshower.POST("", controller.Register(SlideshowerNew))
+	slideshower.POST("/:id", controller.Register(Slideshower))
+	slideshower.DELETE("/:id", controller.Register(SlideRemove))
 }

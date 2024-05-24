@@ -13,7 +13,7 @@ type TabsRoutesType struct{
 
 var Tabs []TabsRoutesType
 
-func SettingTabs(Interface model.Interface, Faqs []model.Faq, Newz []model.News, Branches []model.Branches, Current string) templ.ComponentFunc {
+func SettingTabs(Interface model.Interface, Faqs []model.Faq, Newz []model.News, Branches []model.Branches, Cities []model.Cities, Districts []model.Districts, Current string) templ.ComponentFunc {
     Tabs = []TabsRoutesType{
         {
             Path: "contacter", Slug: "Contacter", Name: "კონტაქტი",
@@ -33,7 +33,7 @@ func SettingTabs(Interface model.Interface, Faqs []model.Faq, Newz []model.News,
         },
         {
             Path: "brancher", Slug: "Brancher", Name: "ლოკაციები",
-            Component: []templ.Component{Brancher(Branches)},
+            Component: []templ.Component{Brancher(Branches, Cities, Districts)},
         },
         {
             Path: "newser", Slug: "Newser", Name: "სიახლეები",
@@ -69,8 +69,8 @@ script ActivateCurrentTab(current string) {
     currentTab.classList.add("text-black")
 }
 
-templ Setting(Interface model.Interface, Faqs []model.Faq, Newz []model.News, Branches []model.Branches, Current string) {
-    @SettingTabs(Interface, Faqs, Newz, Branches, Current)
+templ Setting(Interface model.Interface, Faqs []model.Faq, Newz []model.News, Branches []model.Branches, Cities []model.Cities, Districts []model.Districts, Current string) {
+    @SettingTabs(Interface, Faqs, Newz, Branches, Cities, Districts, Current)
     <div class="admin-settings w-full flex flex-wrap gap-[5%] justify-between items-start">
         <div class="mb-10 w-full h-12 bg-primary text-white flex flex-wrap gap-2 justify-start items-center rounded-[8px]">
 

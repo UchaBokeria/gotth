@@ -26,12 +26,13 @@ templ CreateProduct(config TableConfig) {
         <div class="w-[50%] gap-5 flex flex-col">
             <label class=" font-bold"> კატეგორია </label>
 
+            <input class="hidden" id="product-create-category" name="CategoryID" value="1" /> 
             @Select(SelectConf{
+                Color: "[#f5f5f5]",
                 For: "product-create-category",
                 Placeholder: "კატეგორია",
                 Data: SelectDataFormatter(config.Args),
                 Default: "1",
-                FormName: "CategoryID",
             })
         </div>
 

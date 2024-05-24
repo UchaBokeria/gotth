@@ -4,30 +4,26 @@ import (
 	"github.com/labstack/echo/v4"
 
 	"main/server/common/controller"
+	"main/server/controller/admin/setting/abouter"
+	"main/server/controller/admin/setting/brancher"
+	"main/server/controller/admin/setting/contacter"
+	"main/server/controller/admin/setting/faqers"
+	"main/server/controller/admin/setting/newser"
+	"main/server/controller/admin/setting/reasoner"
+	"main/server/controller/admin/setting/slideshower"
 )
 
-func Register(app *echo.Group) {
-	app.GET("/settings/", controller.Register(index))
-	app.GET("/settings/:tab", controller.Register(index))
-	app.POST("/setting/socials", controller.Register(Socials))
-	app.POST("/setting/contacts", controller.Register(Contact))
+func Register(admin *echo.Group) {
+	admin.GET("/settings/", controller.Register(index))
+	admin.GET("/settings/:tab", controller.Register(index))
 
-	app.POST("/setting/slideshower", controller.Register(SlideshowerNew))
-	app.POST("/setting/slideshower/:id", controller.Register(Slideshower))
-	app.DELETE("/setting/slideshower/:id", controller.Register(SlideRemove))
+	setting := admin.Group("/setting")
 
-	app.POST("/setting/reasoner", controller.Register(ReasonerNew))
-	app.POST("/setting/reasoner/:id", controller.Register(Reasoner))
-	app.DELETE("/setting/reasoner/:id", controller.Register(ReasonerRemove))
-
-	app.POST("/setting/faqers", controller.Register(FaqersNew))
-	app.POST("/setting/faqers/:id", controller.Register(Faqers))
-	app.DELETE("/setting/faqers/:id", controller.Register(FaqersRemove))
-
-	app.POST("/setting/newser", controller.Register(NewserNew))
-	app.POST("/setting/newser/:id", controller.Register(Newser))
-	app.DELETE("/setting/newser/:id", controller.Register(NewserRemove))
-
-	app.POST("/setting/termer", controller.Register(Termer))
-	app.POST("/setting/abouter", controller.Register(Abouter))
+	abouter.Register(setting)
+	brancher.Register(setting)
+	contacter.Register(setting)
+	faqers.Register(setting)
+	newser.Register(setting)
+	reasoner.Register(setting)
+	slideshower.Register(setting)
 }

@@ -1,4 +1,4 @@
-package setting
+package newser
 
 import (
 	"github.com/labstack/echo/v4"
@@ -6,28 +6,9 @@ import (
 	"main/server/common/controller"
 )
 
-func Register(app *echo.Group) {
-	app.GET("/settings/", controller.Register(index))
-	app.GET("/settings/:tab", controller.Register(index))
-	app.POST("/setting/socials", controller.Register(Socials))
-	app.POST("/setting/contacts", controller.Register(Contact))
-
-	app.POST("/setting/slideshower", controller.Register(SlideshowerNew))
-	app.POST("/setting/slideshower/:id", controller.Register(Slideshower))
-	app.DELETE("/setting/slideshower/:id", controller.Register(SlideRemove))
-
-	app.POST("/setting/reasoner", controller.Register(ReasonerNew))
-	app.POST("/setting/reasoner/:id", controller.Register(Reasoner))
-	app.DELETE("/setting/reasoner/:id", controller.Register(ReasonerRemove))
-
-	app.POST("/setting/faqers", controller.Register(FaqersNew))
-	app.POST("/setting/faqers/:id", controller.Register(Faqers))
-	app.DELETE("/setting/faqers/:id", controller.Register(FaqersRemove))
-
-	app.POST("/setting/newser", controller.Register(NewserNew))
-	app.POST("/setting/newser/:id", controller.Register(Newser))
-	app.DELETE("/setting/newser/:id", controller.Register(NewserRemove))
-
-	app.POST("/setting/termer", controller.Register(Termer))
-	app.POST("/setting/abouter", controller.Register(Abouter))
+func Register(setting *echo.Group) {
+	newser := setting.Group("/newser")
+	newser.POST("", controller.Register(NewserNew))
+	newser.POST("/:id", controller.Register(Newser))
+	newser.DELETE("/:id", controller.Register(NewserRemove))
 }

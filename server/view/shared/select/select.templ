@@ -12,14 +12,18 @@ type DataT struct {
 }
 
 type SelectConf struct {
+    Color string
     Data []DataT
     For string
     Default string
-    FormName string
     Placeholder string
 }
 
 func SelectDataFormatter(dataSource interface{}) []DataT {
+    return SelectDataCustomFormatter(dataSource, "Name", "ID")
+}
+
+func SelectDataCustomFormatter(dataSource interface{}, key string, val string) []DataT {
     value := reflect.ValueOf(dataSource)
 	if value.Kind() != reflect.Slice {
 		fmt.Errorf("expected a slice, got %s", value.Kind())
@@ -31,8 +35,8 @@ func SelectDataFormatter(dataSource interface{}) []DataT {
 		item := value.Index(i).Interface()
 
 		v := reflect.ValueOf(item)
-		nameField := v.FieldByName("Name")
-		idField := v.FieldByName("ID")
+		nameField := v.FieldByName(key)
+		idField := v.FieldByName(val)
 
 
 		// Ensure the fields exist and are of the correct type
@@ -64,7 +68,9 @@ func SelectDataFormatter(dataSource interface{}) []DataT {
 
 script SelectScript(SelectConfig SelectConf) {
     if(!window.selector) window.selector = {}
+    var counter = Object.keys(window.selector).length
     window.selector[SelectConfig.For] = {}
+    window.selector[SelectConfig.For].counter = counter
     window.selector[SelectConfig.For].valuer = document.querySelector("#"+SelectConfig.For)
     window.selector[SelectConfig.For].container = document.querySelector("#"+SelectConfig.For + "-select-container")
     window.selector[SelectConfig.For].label = document.querySelector("#"+SelectConfig.For + "-select-label")
@@ -73,6 +79,9 @@ script SelectScript(SelectConfig SelectConf) {
     window.selector[SelectConfig.For].Toggler = document.querySelector("#"+SelectConfig.For + "-select-Toggler")
     window.selector[SelectConfig.For].dropdown = document.querySelector("#"+SelectConfig.For + "-select-dropdown")
     window.selector[SelectConfig.For].items = document.querySelectorAll("#"+SelectConfig.For + "-select-dropdown div label")
+    
+    window.selector[SelectConfig.For].container.style.zIndex = (55 - window.selector[SelectConfig.For]).toString()
+
     window.selector[SelectConfig.For].items.forEach(each => {
         each.addEventListener("click", event => {
             let key = event.target.getAttribute("data-key")
@@ -82,14 +91,14 @@ script SelectScript(SelectConfig SelectConf) {
             window.selector[SelectConfig.For].items.forEach(e => e.previousElementSibling.checked = false)
             event.target.previousElementSibling.checked = true
             window.selector[SelectConfig.For].label.click()
+            window.selector[SelectConfig.For].valuer.dispatchEvent(new Event('change'))
         })
     })
 }
 
 templ Select(SelectConfig SelectConf) {
-    <input class="hidden"  id={SelectConfig.For} value={SelectConfig.Default} name={SelectConfig.FormName} /> 
     <div class="select-container relative flex flex-col gap-2 min-w-[300px] z-[55]" id={SelectConfig.For + "-select-container"}>
-        <label  class="cursor-pointer bg-[#fff] w-full flex justify-between items-center px-5 py-2 rounded-xl" 
+        <label  class={"cursor-pointer w-full flex justify-between items-center px-5 py-2 rounded-xl bg-" + SelectConfig.Color}
                 for={ SelectConfig.For + "-Toggler" } id={SelectConfig.For + "-select-label"} >
             <p class="font-poppins" id={SelectConfig.For + "-select-placeholder"} > 
                 { SelectConfig.Placeholder } </p>
@@ -101,7 +110,7 @@ templ Select(SelectConfig SelectConf) {
 
         <input type="checkbox" id={ SelectConfig.For + "-Toggler" } class="peer hidden" />
 
-        <div class="absolute z-[57] top-[55px] w-full group bg-[#fff] rounded-xl flex flex-col overflow-hidden max-h-[0] peer-checked:max-h-[30vh] peer-checked:py-2 peer-checked:overflow-y-auto"
+        <div class={"absolute z-[57] top-[55px] w-full group rounded-xl flex flex-col overflow-hidden max-h-[0] peer-checked:max-h-[30vh] peer-checked:py-2 peer-checked:overflow-y-auto bg-" + SelectConfig.Color}
              id={SelectConfig.For + "-select-dropdown"} >
             for index, data := range SelectConfig.Data {
                 <div class="w-full flex jutify-start items-center" tabindex={strconv.Itoa(index)}>

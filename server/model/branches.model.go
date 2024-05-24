@@ -11,11 +11,10 @@ type Branches struct {
 	Name       	string
 	Slug       	string
 	PhoneNumber string
-	Region 		string
 	Map         string
 	Shifts      []Branch_shifts
-	CityID 		int
-	City 		Cities 			`gorm:"constraint: OnUpdate:CASCADE, OnDelete:SET NULL;"`
+	DistrictID  int
+	District 	Districts 			`gorm:"constraint: OnUpdate:CASCADE, OnDelete:SET NULL;"`
 }
 
 type Branch_shifts struct {
@@ -27,9 +26,22 @@ type Branch_shifts struct {
 	ClosesAt    time.Time 		`gorm:"type:time"`
 }
 
+type Districts struct {
+	gorm.Model
+	CityID          int
+	City            Cities
+	Display_name 	string
+	Display_name_in string
+	Lat 			string
+	Lng 			string
+	Streets_count 	int
+}
+
 type Cities struct {
 	gorm.Model
-	Name  		string
-	Slug 		string
-	State 		string
+	Display_name 	string
+	Display_name_in string
+	Lat 			string
+	Lng 			string
+	Streets_count	int
 }
