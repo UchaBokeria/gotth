@@ -48,7 +48,7 @@ func Cities() {
 			Lng: Lng,
 			Lat: Lat,
 		}
-		fmt.Print(RawRow)
+		// fmt.Print(RawRow)
 		storage.DB.Create(&row)
 
 		for _, distraw := range RawRow["districts"].([]interface{}) {
