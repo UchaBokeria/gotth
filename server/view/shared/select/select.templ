@@ -6,30 +6,30 @@ import(
     "strconv"
 )
 
-type DataT struct {
+type SelectDataT struct {
     Key string
     Value string
 }
 
 type SelectConf struct {
     Color string
-    Data []DataT
+    Data []SelectDataT
     For string
     Default string
     Placeholder string
 }
 
-func SelectDataFormatter(dataSource interface{}) []DataT {
+func SelectDataFormatter(dataSource interface{}) []SelectDataT {
     return SelectDataCustomFormatter(dataSource, "Name", "ID")
 }
 
-func SelectDataCustomFormatter(dataSource interface{}, key string, val string) []DataT {
+func SelectDataCustomFormatter(dataSource interface{}, key string, val string) []SelectDataT {
     value := reflect.ValueOf(dataSource)
 	if value.Kind() != reflect.Slice {
 		fmt.Errorf("expected a slice, got %s", value.Kind())
 	}
 
-	var formatted []DataT
+	var formatted []SelectDataT
 
 	for i := 0; i < value.Len(); i++ {
 		item := value.Index(i).Interface()
@@ -58,7 +58,7 @@ func SelectDataCustomFormatter(dataSource interface{}, key string, val string) [
                 fmt.Errorf("incorrect field type for ID, expected int or uint, got %s", idField.Kind())
 		}
 
-		formatted = append(formatted, DataT{
+		formatted = append(formatted, SelectDataT{
 			Key:   nameField.String(),
 			Value: idStr,
 		})
@@ -80,7 +80,8 @@ script SelectScript(SelectConfig SelectConf) {
     window.selector[SelectConfig.For].dropdown = document.querySelector("#"+SelectConfig.For + "-select-dropdown")
     window.selector[SelectConfig.For].items = document.querySelectorAll("#"+SelectConfig.For + "-select-dropdown div label")
     
-    window.selector[SelectConfig.For].container.style.zIndex = (55 - window.selector[SelectConfig.For]).toString()
+    window.selector[SelectConfig.For].container.style.zIndex = (55 - window.selector[SelectConfig.For].counter).toString()
+    window.selector[SelectConfig.For].container.style.zIndex = (55 - window.selector[SelectConfig.For].counter).toString()
 
     window.selector[SelectConfig.For].items.forEach(each => {
         each.addEventListener("click", event => {
@@ -97,8 +98,8 @@ script SelectScript(SelectConfig SelectConf) {
 }
 
 templ Select(SelectConfig SelectConf) {
-    <div class="select-container relative flex flex-col gap-2 min-w-[300px] z-[55]" id={SelectConfig.For + "-select-container"}>
-        <label  class={"cursor-pointer w-full flex justify-between items-center px-5 py-2 rounded-xl bg-" + SelectConfig.Color}
+    <div class="select-container relative flex flex-col gap-2 min-w-[300px]" id={SelectConfig.For + "-select-container"}>
+        <label  class={"cursor-pointer w-full flex justify-between items-center px-5 py-2 rounded-xl relative bg-" + SelectConfig.Color}
                 for={ SelectConfig.For + "-Toggler" } id={SelectConfig.For + "-select-label"} >
             <p class="font-poppins" id={SelectConfig.For + "-select-placeholder"} > 
                 { SelectConfig.Placeholder } </p>
@@ -110,7 +111,7 @@ templ Select(SelectConfig SelectConf) {
 
         <input type="checkbox" id={ SelectConfig.For + "-Toggler" } class="peer hidden" />
 
-        <div class={"absolute z-[57] top-[55px] w-full group rounded-xl flex flex-col overflow-hidden max-h-[0] peer-checked:max-h-[30vh] peer-checked:py-2 peer-checked:overflow-y-auto bg-" + SelectConfig.Color}
+        <div class={"absolute top-[55px] w-full group rounded-xl flex flex-col overflow-hidden max-h-[0] peer-checked:max-h-[30vh] peer-checked:py-2 peer-checked:overflow-y-auto bg-" + SelectConfig.Color}
              id={SelectConfig.For + "-select-dropdown"} >
             for index, data := range SelectConfig.Data {
                 <div class="w-full flex jutify-start items-center" tabindex={strconv.Itoa(index)}>

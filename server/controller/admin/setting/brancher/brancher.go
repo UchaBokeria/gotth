@@ -11,4 +11,5 @@ func Register(setting *echo.Group) {
 	brancher.POST("", controller.Register(BrancherNew))
 	brancher.POST("/:id", controller.Register(Brancher))
 	brancher.DELETE("/:id", controller.Register(BrancherRemove))
+	brancher.GET("/districts/:id/:district/:default", controller.Register(Districts))
 }

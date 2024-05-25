@@ -37,9 +37,7 @@ func Brancher(ctx *controller.Context) error {
 		return ctx.String(http.StatusBadRequest, result.Error.Error())
 	}
 
-	var branchs []model.Branches
-	storage.DB.Order("created_at desc").Preload("District.City").Find(&branchs)
-	return ctx.Html(view.Brancher(branchs, FindCities(), FindDistricts()))
+	return refresh(ctx)
 }
 
 func BrancherNew(ctx *controller.Context) error {
@@ -62,9 +60,7 @@ func BrancherNew(ctx *controller.Context) error {
 		return ctx.String(http.StatusBadRequest, result.Error.Error())
 	}
 
-	var branchs []model.Branches
-	storage.DB.Order("created_at desc").Preload("District.City").Find(&branchs)
-	return ctx.Html(view.Brancher(branchs, FindCities(), FindDistricts()))
+	return refresh(ctx)
 }
 
 func BrancherRemove(ctx *controller.Context) error {
@@ -81,21 +77,39 @@ func BrancherRemove(ctx *controller.Context) error {
 		return ctx.String(http.StatusBadRequest, result.Error.Error())
 	}
 
-	var branchs []model.Branches
-	storage.DB.Order("created_at desc").Preload("District.City").Find(&branchs)
-	return ctx.Html(view.Brancher(branchs, FindCities(), FindDistricts()))
+	return refresh(ctx)
 }
 
-func FindCities() []model.Cities{
+func refresh(ctx *controller.Context) error {
 	var Cities []model.Cities
 	storage.DB.Find(&Cities)
 
-	return Cities
+	var branchs []model.Branches
+	storage.DB.Order("created_at desc").Preload("District.City").Find(&branchs)
+	return ctx.Html(view.Brancher(branchs, Cities))
 }
 
-func FindDistricts() []model.Districts{
-	var Districts []model.Districts
-	storage.DB.Find(&Districts)
+func Districts(ctx *controller.Context) error {
+	var Params struct{ DistrictDom string `param:"district"`; CityID string `param:"id"`; Default string `param:"default"`;}
 
-	return Districts
+	if err := ctx.Bind(&Params); err != nil {
+		fmt.Print("Parameters Binding Problem: ", err)
+		return err
+	}
+
+	CityID, _ := strconv.Atoi(Params.CityID)
+
+	var Districts []model.Districts
+	storage.DB.Where(model.Districts{CityID: CityID}).Find(&Districts)
+
+	var District model.Districts
+	ID, _ := strconv.Atoi(Params.Default)
+	storage.DB.Last(&District, ID)
+	
+	var placeholder string = District.Display_name
+	if placeholder == "" {
+		placeholder = "უბანი"
+	}
+
+	return ctx.Html(view.LoadDistricts(Districts, placeholder, Params.DistrictDom, Params.Default))
 }

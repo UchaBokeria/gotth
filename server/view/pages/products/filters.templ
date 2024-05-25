@@ -5,6 +5,27 @@ import(
     "main/server/model"
 )
 
+script ProdSearcher() {
+    const params = new URLSearchParams(window.location.search)
+    let productSearcher = document.querySelector("#productSearcher")
+
+    productSearcher.addEventListener("keyup", e => {
+        let path = (params.get("page") || 1) + 
+                "&category=" + (params.get("category")) + 
+                "&searcher=" + e.target.value
+        htmx.ajax(
+            'GET',
+            "/products/list?page=" + path,
+            { 
+                target: '#ProductContent', 
+                swap: "innerHTML show:window:top",
+                indicatorClass: ".Loading",
+            }
+        )
+        // history.pushState("", "", "/products?page=" + path)
+    })
+}
+
 templ ProductFilters(Category model.Categories, Categories []model.Categories) {
     <div class=" w-full flex flex-wrap gap-5 py-[2vh]">
         <div class="relative flex flex-col gap-2 min-w-[300px] z-[55]">
@@ -35,6 +56,13 @@ templ ProductFilters(Category model.Categories, Categories []model.Categories) {
                 }
             </div>
         </div>
+        
+        <div class="relative flex items-center justify-start gap-3 min-w-[350px] z-[55] bg-[#eee] px-5 py-2 rounded-xl">
+            @SearchIcon()
+            <input name="search" class="w-full bg-[#eee] outline-0" placeholder="ძებნა" id="productSearcher" />
+        </div>
+
+        @ProdSearcher()
 
         // for _, Filter := range Category.Filters {
         //     <div class="relative flex flex-col gap-2">

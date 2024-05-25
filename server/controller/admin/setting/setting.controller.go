@@ -5,7 +5,6 @@ import (
 	"main/build/view"
 	"main/server/common/controller"
 	"main/server/common/storage"
-	"main/server/controller/admin/setting/brancher"
 	"main/server/model"
 	"net/http"
 
@@ -48,8 +47,11 @@ func index(ctx *controller.Context) error {
 	var Newz []model.News
 	storage.DB.Order("created_at desc").Preload("Thumbnail").Find(&Newz)
 
+	var Cities []model.Cities
+	storage.DB.Find(&Cities)
+
 	var Branches []model.Branches
 	storage.DB.Order("created_at desc").Preload("District.City").Find(&Branches)
-	
-	return ctx.Html(view.Setting(Interface, Faq, Newz, Branches, brancher.FindCities(), brancher.FindDistricts(), Current.Tab))
+
+	return ctx.Html(view.Setting(Interface, Faq, Newz, Branches, Cities, Current.Tab))
 }

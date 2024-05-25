@@ -4,7 +4,8 @@
 .tab:nth-of-type(4):checked ~ .tab-content:nth-of-type(4),
 .tab:nth-of-type(5):checked ~ .tab-content:nth-of-type(5),
 .tab:nth-of-type(6):checked ~ .tab-content:nth-of-type(6),
-.tab:nth-of-type(7):checked ~ .tab-content:nth-of-type(7) {
+.tab:nth-of-type(7):checked ~ .tab-content:nth-of-type(7),
+.tab:nth-of-type(8):checked ~ .tab-content:nth-of-type(8) {
     display: flex;
 }
 .ck-editor__editable[role="textbox"] {

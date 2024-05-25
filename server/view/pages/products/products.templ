@@ -6,7 +6,7 @@ import(
     "main/server/model"
 )
 
-templ Products(Page string, CategoryID string, Products []model.Products) {
+templ Products(Page string, Searcher string, CategoryID string, Products []model.Products) {
     for _, Product := range Products {
         <div class="cursor-pointer w-[300px] flex flex-col justify-between gap-3 py-4 px-5 shadower rounded-lg max-md:w-full max-md:justify-center"
             hx-get={ "/products/" + strconv.Itoa(int(Product.ID)) } hx-swap="innerHTML show:window:top"
@@ -22,7 +22,7 @@ templ Products(Page string, CategoryID string, Products []model.Products) {
         </div>
     }
     <div
-         hx-get={"/products/list?category=" + CategoryID + "&page=" + Page}
+         hx-get={"/products/list?page=" + Page + "&category=" + CategoryID + "&searcher=" + Searcher}
          hx-trigger="intersect once" hx-swap="beforeend swap:0.6s" hx-target="#ProductContent">
     </div>
 }

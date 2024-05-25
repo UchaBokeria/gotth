@@ -5,6 +5,7 @@ import (
 	"main/server/common/controller"
 	"main/server/common/storage"
 	"main/server/model"
+	"net/http"
 	"strconv"
 )
 
@@ -30,26 +31,35 @@ func index(ctx *controller.Context) error {
 func list(ctx *controller.Context) error {
 	var Filters FiltersQuery
 	var Products []model.Products
+	var Where model.Products = model.Products{Public: true}
+	query := storage.DB.Scopes(storage.Paginate(ctx))
 
-	if ctx.QueryParam("category") == "" {
-		return ctx.Html(view.Wildcard())
+	if err := ctx.Bind(&Filters); err != nil {
+		return ctx.String(http.StatusBadRequest, "Parameters Binding Problem: " + err.Error())
 	}
 
-	ctx.Bind(&Filters)
+	if Filters.Category != "" {
+		CategoryID, _ := strconv.Atoi(Filters.Category)
+		Where.CategoryID = CategoryID
+		query = query.Where(Where)
+	}
+
+	if Filters.Searcher != "" {
+		query.Where("name LIKE ?", "%" + Filters.Searcher + "%")
+	}
+
 	NextPage := strconv.Itoa(ctx.Page() + 1)
-	CategoryID, _ := strconv.Atoi(Filters.Category)
 
-	storage.DB.Scopes(storage.Paginate(ctx)).
-			   Where(&model.Products{CategoryID: CategoryID, Public: true}).
-			   Preload("Thumbnail").
-			   Preload("Packing").
-			   Preload("Approvals").
-			   Preload("Properties").
-			   Preload("Specifications").
-			   Find(&Products)
+	query.
+			Preload("Thumbnail").
+			Preload("Packing").
+			Preload("Approvals").
+			Preload("Properties").
+			Preload("Specifications").
+			Find(&Products)
 
-	if len(Products) == 0 { return ctx.String(404, "") }
-	return ctx.Html(view.Products(NextPage, Filters.Category, Products))
+	if len(Products) == 0 { return ctx.String(http.StatusOK, "") }
+	return ctx.Html(view.Products(NextPage, Filters.Searcher, Filters.Category, Products))
 }
 
 func detail(ctx *controller.Context) error {

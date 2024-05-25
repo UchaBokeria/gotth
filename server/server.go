@@ -15,8 +15,9 @@ import (
 func Run() {
 	app := echo.New()
 
-	app.Static("", "./public/")
 
+	
+	app.Static("", "./public/")
 	
     app.Pre(middleware.RemoveTrailingSlash())
 
@@ -33,8 +34,8 @@ func Run() {
 	// app.Use(middleware.Logger())
 	// app.Use(echoprometheus.NewMiddleware("yacco"))
 
-
 	
+
 	// app.GET("/metrics", echoprometheus.NewHandler())
 
 	app.Use(controller.Initialize())

@@ -17,7 +17,7 @@ templ ProductLayout(Category model.Categories, Categories []model.Categories) {
         </div>
 
         <div class="w-full flex flex-wrap gap-5 gap-y-[4vh] py-[2vh]" id="ProductContent"
-             hx-get={"/products/list?category=" + strconv.Itoa(int(Category.ID)) + "&page=1"}
+             hx-get={"/products/list?" + "&page=1" + "&category=" + strconv.Itoa(int(Category.ID)) + "&searcher="}
              hx-trigger="intersect once" hx-swap="innerHTML" hx-target="#ProductContent">
         </div>
     </div>

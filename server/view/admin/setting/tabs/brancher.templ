@@ -9,46 +9,60 @@ script removeBrancher(id int) {
     htmx.ajax('DELETE', '/admin/setting/brancher/' + id, '#Brancher-cont')
 }
 
-// Name
-// PhoneNumber
-// Map
+script BranchersFilters(citieDom string, districtDom string) {
+    const params = new URLSearchParams(window.location.search);
+    let BranchesCityFilter = document.querySelector("#" + citieDom)
+    let BranchesDistrictFilter = document.querySelector("#" + districtDom)
 
-// Region
-// Shifts
-// CityID
+    BranchesCityFilter.onchange = e => {
+        let path = "/admin/setting/brancher/districts/" + e.target.value + "/" + districtDom + "/1" 
+        htmx.ajax('GET', path, {target: '#' + districtDom + "-select-container", swap: "outterHTML" })
+    }
+}
 
-// script BranchesUpdateFilters() {
-//     const params = new URLSearchParams(window.location.search);
-//     let BranchesCityFilter = document.querySelector("#branch-city-updater-filter")
-//     let BranchesDistrictFilter = document.querySelector("#branch-district-filter")
+script BranchersUpdateFilters(CityID string, Default string, districtDom string, citieDom string) {
+    const params = new URLSearchParams(window.location.search);
+    let BranchesDistrictFilter = document.querySelector("#" + districtDom)
+    let BranchesCityFilter = document.querySelector("#" + citieDom)
 
-//     BranchesCityFilter.onchange = e => {
-//         let path = location.pathname + "?citie=" + e.target.value + "&district=" + (params.get("district") || "")
-//         htmx.ajax('GET', path, {target: '#222222222222222222', swap: "outerHTML" })
-//         history.pushState("", "", path)
-//     }
-// }
+    let path = "/admin/setting/brancher/districts/" + CityID + "/" + districtDom + "/" + Default 
+    htmx.ajax('GET', path, {target: '#' + districtDom + "-select-container", swap: "outterHTML" })
 
-templ Brancher(Branches []model.Branches, Cities []model.Cities, Districts []model.Districts) {
+    BranchesCityFilter.onchange = e => {
+        let path = "/admin/setting/brancher/districts/" + e.target.value + "/" + districtDom + "/1" 
+        htmx.ajax('GET', path, {target: '#' + districtDom + "-select-container", swap: "outterHTML" })
+    }
+}
+
+templ LoadDistricts(Districts []model.Districts, Placeholder string, For string, Default string) {
+    @Select(SelectConf{
+        For:For,
+        Default:Default,
+        Color: "[#fff]",
+        Placeholder:Placeholder,
+        Data: SelectDataCustomFormatter(Districts, "Display_name", "ID"),
+    })
+
+}
+
+templ Brancher(Branches []model.Branches, Cities []model.Cities) {
     <div class="w-[100%] py-5 rounded-[8px] flex flex-col gap-5" id="Brancher-cont">
         <p class="w-full font-bold font-arial text-xl">სიახლეები</p>
         
         <div class="flex flex-wrap w-full gap-5">
-            <form class="flex flex-col h-[45vh] grow-0 gap-7 w-[30%] p-7 bg-[#f5f5f5] rounded-[8px]"
-                        hx-post={"/admin/setting/brancher/"}
-                        hx-swap="outerHTML"
-                        hx-trigger="submit"
-                        hx-target="#Brancheser-cont"
-                        hx-encoding='multipart/form-data'>
-                
+            <form class="flex flex-col h-[55vh] grow-0 gap-7 w-[30%] p-7 bg-[#f5f5f5] rounded-[8px]"
+                    hx-post="/admin/setting/brancher"
+                    hx-swap="outerHTML"
+                    hx-trigger="submit"
+                    hx-target="#Brancher-cont">
+
                 <p class="w-full font-bold font-arial">შექმენი ახალი სიახლე</p>
-                // <input class="hidden" id={"brancher-logo-new"} type="file" name="Thumbnail" />
                                     
                 <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="Name" placeholder="დასახელება"  />
                 <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="PhoneNumber" placeholder="ტელეფონი" />
                 <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="Map" placeholder="რუკა"  />
 
-                <input  class="hidden" id="branch-city-filter" name="CityID" id="branch-city-updater-filter" value={"1"} /> 
+                <input  class="hidden" name="CityID" id="branch-city-creater-filter" value={"1"} /> 
                 @Select(SelectConf{
                     Color: "[#fff]",
                     For: "branch-city-creater-filter",
@@ -57,18 +71,10 @@ templ Brancher(Branches []model.Branches, Cities []model.Cities, Districts []mod
                     Default: "1",
                 })                  
 
-                <input  class="hidden" id="branch-city-filter" name="DistrictID" 
-                            id={"branch-city-updater-filter"}
-                            value="1" /> 
-                    @Select(SelectConf{
-                        Color: "[#fff]",
-                        For: "branch-city-updater-filter",
-                        Placeholder: "უბანი",
-                        Data: SelectDataCustomFormatter(Districts, "Display_name", "ID"),
-                        Default:"1",
-                    })
+                <input  class="hidden" name="DistrictID" id={"branch-district-creater-filter"} value="1" /> 
+                <div class="h-[13vh]" id="branch-district-creater-filter-select-container"> </div>
+                @BranchersFilters("branch-city-creater-filter", "branch-district-creater-filter")
 
-                
                 <div class="flex flex-col gap-2 w-[100%]">
                     <button type="submit" class="bg-primary text-white rounded-[8px] px-3 py-2">დამატება</button>
                 </div>
@@ -80,80 +86,36 @@ templ Brancher(Branches []model.Branches, Cities []model.Cities, Districts []mod
                         hx-post={"/admin/setting/brancher/" + strconv.Itoa(int(Branch.ID))}
                         hx-swap="outerHTML"
                         hx-trigger="submit"
-                        hx-target="#Brancheser-cont"
-                        hx-encoding='multipart/form-data'>
-                                        
+                        hx-target="#Brancher-cont">
+
                     <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="Name" placeholder="დასახლება" value={Branch.Name} />
                     <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="PhoneNumber" placeholder="ტელეფონი" value={Branch.PhoneNumber} />
                     <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="Map" placeholder="რუკა" value={Branch.Map} />
 
-                    <input  class="hidden" id="branch-city-filter" name="CityID" 
-                            id={"branch-city-creater-filter" + strconv.Itoa(int(Branch.ID))}
+                    <input  class="hidden" name="CityID" id={"branch-city-updater-filter-" + strconv.Itoa(int(Branch.ID))}
                             value={strconv.Itoa(int(Branch.District.City.ID))} /> 
                     @Select(SelectConf{
                         Color: "[#fff]",
-                        For: "branch-city-creater-filter" + strconv.Itoa(int(Branch.ID)),
+                        For: "branch-city-updater-filter-" + strconv.Itoa(int(Branch.ID)),
                         Placeholder: Branch.District.City.Display_name,
                         Data: SelectDataCustomFormatter(Cities, "Display_name", "ID"),
                         Default: strconv.Itoa(int(Branch.District.City.ID)),
                     })
 
-                    <input  class="hidden" id="branch-city-filter" name="DistrictID" 
-                            id={"branch-city-updater-filter" + strconv.Itoa(int(Branch.ID))}
+                    <input  class="hidden" name="DistrictID" id={"branch-district-updater-filter-" + strconv.Itoa(int(Branch.ID))}
                             value={strconv.Itoa(int(Branch.District.ID))} /> 
-                    @Select(SelectConf{
-                        Color: "[#fff]",
-                        For: "branch-city-updater-filter" + strconv.Itoa(int(Branch.ID)),
-                        Placeholder: Branch.District.Display_name,
-                        Data: SelectDataCustomFormatter(Districts, "Display_name", "ID"),
-                        Default: strconv.Itoa(int(Branch.District.ID)),
-                    })
+                            
+                    <div class="h-[13vh]" id={"branch-district-updater-filter-" + strconv.Itoa(int(Branch.ID)) + "-select-container"}> </div>
+                    @BranchersUpdateFilters(strconv.Itoa(int(Branch.District.City.ID)), strconv.Itoa(int(Branch.District.ID)), "branch-district-updater-filter-" + strconv.Itoa(int(Branch.ID)), "branch-city-updater-filter-" + strconv.Itoa(int(Branch.ID)))
+                    // @Select(SelectConf{
+                    //     Color: "[#fff]",
+                    //     For: "branch-district-updater-filter" + strconv.Itoa(int(Branch.ID)),
+                    //     Placeholder: Branch.District.Display_name,
+                    //     Data: SelectDistrictData(strconv.Itoa(int(Branch.District.City.ID))),
+                    //     Default: strconv.Itoa(int(Branch.District.ID)),
+                    // })
 
-                    // <div class="relative flex flex-col gap-2 w-full z-[556]">
-                    //     <div class="">
-                    //         <input  type="radio" class="px-4" id={ "brancher-status-active-$_$_" + strconv.Itoa(int(Branch.ID)) }
-                    //                 checked?={Branch.Public == true} value="true" name="Public" />
-                    //         <label for={"brancher-status-active-$_$_" + strconv.Itoa(int(Branch.ID))}> აქტიური </label>
-                    //     </div>
-                    //     <div class="">
-                    //         <input  type="radio" class="px-4" id={ "brancher-status-deactive-$_$_" + strconv.Itoa(int(Branch.ID)) }
-                    //                 checked?={Branch.Public == false} value="false" name="Public" />
-                    //         <label for={"brancher-status-deactive-$_$_" + strconv.Itoa(int(Branch.ID))}> დეაქტიური </label>
-                    //     </div>
-                    // </div>
-
-                    // <input class="w-[100%] p-2 px-5 rounded-[8px] outline-0" type="text" name="TypeID" placeholder="ტიპი" value={Branch.TypeID} />
-                    
-                    // <div class="relative flex flex-col gap-2 w-full z-[556]">
-                    //     <div class="">
-                    //         <input  type="radio" class="px-4" id={ "brancher-type-photo-$_$_" + strconv.Itoa(int(Branch.ID)) } 
-                    //                 checked?={Branch.TypeID == 1} value={"1"} name="TypeID" />
-                    //         <label for={"brancher-type-photo-$_$_" + strconv.Itoa(int(Branch.ID))}> ფოტო </label>
-                    //     </div>
-
-                    //     <div class="">
-                    //         <input  type="radio" class="px-4" id={ "brancher-type-video-$_$_" + strconv.Itoa(int(Branch.ID)) } 
-                    //                 checked?={Branch.TypeID == 2} value={"2"} name="TypeID" />
-                    //         <label for={"brancher-type-video-$_$_" + strconv.Itoa(int(Branch.ID))}> ვიდეო </label>
-                    //     </div>
-
-                    //     <div class="">
-                    //         <input  type="radio" class="px-4" id={ "brancher-type-blog-$_$_" + strconv.Itoa(int(Branch.ID)) } 
-                    //                 checked?={Branch.TypeID == 3} value={"3"} name="TypeID" />
-                    //         <label for={"brancher-type-blog-$_$_" + strconv.Itoa(int(Branch.ID))}> ბლოგი </label>
-                    //     </div>
-                    // </div>
-
-
-                    // <label for={"brancher-logo-" + strconv.Itoa(int(Branch.ID))} 
-                    //        class="cursor-pointer h-[20vh] relative flex gap-5 items-center justify-center w-half bg-primary text-white rounded-[8px] px-5 py-2">
-                    //     <img src={ Branch.Thumbnail.Path } class="object-fit h-full" />
-                    //     <div class="absolute w-full h-full bg-black opacity-70"></div>
-                    //     <div class="absolute w-full h-full flex justify-center items-center">
-                    //         @ImportIcon()
-                    //         <p class="font-deja">ლოგო</p>
-                    //     </div>
-                    // </label>
+                    // @BranchersFilters("branch-city-updater-filter" + strconv.Itoa(int(Branch.ID)), "branch-district-updater-filter" + strconv.Itoa(int(Branch.ID)))
 
                     <div class="flex flex-col gap-2 w-[100%]">
                         <button type="submit" class="bg-primary text-white rounded-[8px] px-3 py-2">შენახვა</button>

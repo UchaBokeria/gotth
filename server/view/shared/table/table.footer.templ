@@ -10,6 +10,30 @@ var TableFooterDefault TableConfigFooter = TableConfigFooter{
     PageButtons:    true,
 }
 
+script TablePages(prevDom string, nextDom string, target string) {
+    const params = new URLSearchParams(window.location.search)
+    let prev = document.querySelector("#" + prevDom)
+    prev.addEventListener("click", e => {
+        let page = (Number(params.get("page") || "2") - 1)
+        htmx.ajax('GET', '/admin/product?page=' + (page == 0 || !page ? 1 : page) , {
+            target: '#' + target,
+            swap: "innerHTML",
+        })
+        history.pushState("", "",  '/admin/product?page=' + (page == 0 || !page ? 1 : page))
+    })
+
+    let next = document.querySelector("#" + nextDom)
+    next.addEventListener("click", e => {
+        let page = (Number(params.get("page") || "1") + 1)
+        htmx.ajax('GET', '/admin/product?page=' + (page == 0 || !page ? 1 : page) ,  {
+            target: '#' + target,
+            swap: "innerHTML",
+        })
+        history.pushState("", "", '/admin/product?page=' + (page == 0 || !page ? 1 : page) )
+    })
+
+}
+
 templ TableFooter(config TableConfig) {
     <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
         if config.Footer.PageNums {
@@ -20,7 +44,8 @@ templ TableFooter(config TableConfig) {
 
         if config.Footer.PageButtons {
             <div class="flex items-center mt-4 gap-x-4 sm:mt-0">
-                <a class="bg-primary flex items-center justify-center w-1/2 px-5 py-2 text-sm text-white capitalize transition-colors duration-200 cursor-pointer border rounded-md sm:w-auto gap-x-2 hover:bg-primary dark:bg-primary dark:text-white dark:border-primary dark:hover:bg-primary">
+                <a class="bg-primary flex items-center justify-center w-1/2 px-5 py-2 text-sm text-white capitalize transition-colors duration-200 cursor-pointer border rounded-md sm:w-auto gap-x-2 hover:bg-primary dark:bg-primary dark:text-white dark:border-primary dark:hover:bg-primary"
+                    id={"table-prev-page-" + config.Name}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
                     </svg>
@@ -29,7 +54,8 @@ templ TableFooter(config TableConfig) {
                     </span>
                 </a>
 
-                <a class="bg-primary flex items-center justify-center w-1/2 px-5 py-2 text-sm text-white capitalize transition-colors duration-200 cursor-pointer border rounded-md sm:w-auto gap-x-2 hover:bg-primary dark:bg-primary dark:text-white dark:border-primary dark:hover:bg-primary">
+                <a class="bg-primary flex items-center justify-center w-1/2 px-5 py-2 text-sm text-white capitalize transition-colors duration-200 cursor-pointer border rounded-md sm:w-auto gap-x-2 hover:bg-primary dark:bg-primary dark:text-white dark:border-primary dark:hover:bg-primary"
+                    id={"table-next-page-" + config.Name}>
                     <span>
                         შემდეგი
                     </span>
@@ -38,6 +64,7 @@ templ TableFooter(config TableConfig) {
                     </svg>
                 </a>
             </div>
+            @TablePages("table-prev-page-" + config.Name,"table-next-page-" + config.Name, "AdminContent")
         }
     </div>
 }
