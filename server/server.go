@@ -15,11 +15,15 @@ import (
 func Run() {
 	app := echo.New()
 
-
-	
 	app.Static("", "./public/")
-	
+
+
+
+
+
     app.Pre(middleware.RemoveTrailingSlash())
+
+
 
 	// app.Use(middleware.Secure())
 	// app.Pre(middleware.HTTPSNonWWWRedirect())
@@ -34,6 +38,8 @@ func Run() {
 	// app.Use(middleware.Logger())
 	// app.Use(echoprometheus.NewMiddleware("yacco"))
 
+
+	
 	
 
 	// app.GET("/metrics", echoprometheus.NewHandler())

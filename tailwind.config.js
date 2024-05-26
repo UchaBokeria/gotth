@@ -21,7 +21,10 @@ module.exports = {
     },
     extend: {
       screens: {
-        'mobile': '1319px',
+        // 'md': { 'raw': '(min-height: 800px)' },
+        'mob':  {'min': '1px', 'max': '1280px'},
+        
+        // 'md': '1280px', // Adjust the value as needed
       },
       colors: {
         primary: "#008772",

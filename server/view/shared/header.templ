@@ -5,19 +5,19 @@ import(
 )
 
 templ Header(Interface model.Interface) {
-    <div class="w-[100%] flex justify-start z-[999] items-center px-[150px] py-[15px] bg-primary max-md:justify-center ">
-        <img src="/assets/images/logo.png" class="cursor-pointer  h-[60px] object-fit max-md:z-[99999991]"
+    <div class="w-[100%] flex justify-start z-[999] items-center px-[150px] py-[15px] bg-primary mob:justify-center ">
+        <img src="/assets/images/logo.png" class="cursor-pointer  h-[60px] object-fit mob:z-[99999991]"
              hx-indicator=".Loading" hx-get={ "/" } hx-push-url={ "/" } hx-swap="innerHTML show:window:top" hx-target="#Content"/>
 
 
-        <label class="hidden absolute right-5 cursor-pointer max-md:flex"
+        <label class="hidden absolute right-5 cursor-pointer mob:flex"
                 for="menu">
             @Burger()
         </label>
 
         <input class="hidden peer" type="checkbox" id="menu" />
-        <div class="flex justify-start items-center flex-grow gap-[40px] px-[40px] max-md:hidden peer-checked:flex peer-checked:flex-col max-md:py-40 peer-checked:fixed peer-checked:top-0 peer-checked:left-0 peer-checked:w-full peer-checked:h-full peer-checked:bg-[#008772] peer-checked:z-[9999999] ">                
-            <div class="animated bounceInRight group rounded-lg cursor-pointer flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 hidden max-md:flex"
+        <div class="flex justify-start items-center flex-grow gap-[40px] px-[40px] mob:hidden peer-checked:flex peer-checked:flex-col mob:py-40 peer-checked:fixed peer-checked:top-0 peer-checked:left-0 peer-checked:w-full peer-checked:h-full peer-checked:bg-[#008772] peer-checked:z-[9999999] ">                
+            <div class="animated bounceInRight group rounded-lg cursor-pointer flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 hidden mob:flex"
                     onclick={Call(Interface.Contact.Phone)} >
                 <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 h-[39px] gap-[11px] px-[20px] pt-[15px] pb-3.5 rounded-lg bg-secondary">
                     @Phone()
@@ -29,24 +29,24 @@ templ Header(Interface model.Interface) {
                 </div>
             </div>
             for _, Nav := range Routes {
-                <a  class="cursor-pointer font-nino text-md text-white max-md:hidden"
+                <a  class="cursor-pointer font-nino text-md text-white mob:hidden"
                     hx-get={ Nav.Path } hx-push-url={ Nav.Path } hx-indicator=".Loading"
                     hx-swap="innerHTML show:window:top" hx-target="#Content">
                     { Nav.Name }
                 </a>
-                <label  class="cursor-pointer font-nino text-md text-white hidden max-md:block animated bounceIn"
+                <label  class="cursor-pointer font-nino text-md text-white hidden mob:block animated bounceIn"
                     hx-get={ Nav.Path } hx-push-url={ Nav.Path } hx-indicator=".Loading" for="menu"
                     hx-swap="innerHTML show:window:top" hx-target="#Content">
                     { Nav.Name }
                 </label>
             }
-            <label class="animated bounceInLeft hidden cursor-pointer max-md:flex"
+            <label class="animated bounceInLeft hidden cursor-pointer mob:flex"
                     for="menu">
                 @Close()
             </label>
         </div>
 
-        <div class="animated bounceInRight group rounded-lg cursor-pointer flex flex-col justify-center items-center flex-grow-0 flex-shrink-0  max-md:hidden"
+        <div class="animated bounceInRight group rounded-lg cursor-pointer flex flex-col justify-center items-center flex-grow-0 flex-shrink-0  mob:hidden"
              onclick={Call(Interface.Contact.Phone)} >
             <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 h-[39px] gap-[11px] px-[20px] pt-[15px] pb-3.5 rounded-lg bg-secondary">
                 @Phone()
