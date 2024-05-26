@@ -72,9 +72,9 @@ templ ProductBody(Producties []model.Products) {
                     hx-patch={"/admin/product/" + strconv.Itoa(int(Product.ID))}
                     hx-swap="innerHTML" hx-target={"#AdminContent"}>
                     if Product.Public {
-                        @ClosedEyeIcon()
+                        @EyeIcon()
                     } else {
-                        @EyeIcon()    
+                        @ClosedEyeIcon()    
                     }
                 </p>
             </td>

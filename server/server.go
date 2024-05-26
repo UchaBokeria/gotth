@@ -24,7 +24,6 @@ func Run() {
     app.Pre(middleware.RemoveTrailingSlash())
 
 
-
 	// app.Use(middleware.Secure())
 	// app.Pre(middleware.HTTPSNonWWWRedirect())
 	// app.Use(middleware.CORS())
@@ -39,7 +38,7 @@ func Run() {
 	// app.Use(echoprometheus.NewMiddleware("yacco"))
 
 
-	
+
 	
 
 	// app.GET("/metrics", echoprometheus.NewHandler())
