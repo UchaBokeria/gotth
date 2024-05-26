@@ -5354,6 +5354,10 @@ video {
     font-size: 1.875rem !important;
     line-height: 2.25rem !important;
   }
+
+  .mob\:min-w-\[300px\]{
+    min-width: 300px !important;
+  }
 }
 
 .rtl\:-scale-x-100:where([dir="rtl"], [dir="rtl"] *){

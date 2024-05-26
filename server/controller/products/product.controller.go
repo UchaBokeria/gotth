@@ -45,7 +45,7 @@ func list(ctx *controller.Context) error {
 	}
 
 	if Filters.Searcher != "" {
-		query.Where("name LIKE ?", "%" + Filters.Searcher + "%")
+		query.Where("name ILIKE ?", "%" + Filters.Searcher + "%")
 	}
 
 	NextPage := strconv.Itoa(ctx.Page() + 1)
