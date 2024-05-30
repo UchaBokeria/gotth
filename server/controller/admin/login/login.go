@@ -9,5 +9,5 @@ import (
 func Register(app *echo.Group) {
 	app.GET("/login", controller.Register(index))
 	app.POST("/login", controller.Register(login))
-	app.POST("/login/changePassword", controller.Register(changePassword))
+	// app.POST("/login/changePassword", controller.Register(changePassword))
 }
