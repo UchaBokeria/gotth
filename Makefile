@@ -14,7 +14,8 @@ prod:
 .PHONY: build
 build:
 	go mod tidy
-	@rm -rf build && mkdir -p ./build/view && chmod -R 777 ./public
+	@rm -rf build && mkdir -p ./build/view
+	@chmod -R 777 ./public
 	make templ tailwind vet staticcheck test
 	go build -o ./bin/app ./cmd/app/main.go
 

@@ -1,0 +1,83 @@
+package view
+
+import(
+	"main/server/common/globals"
+)
+
+templ SEO() {
+    <!-- Character Set -->
+    <meta charset="UTF-8" />
+    <!-- Viewport Settings for Responsive Design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Document Title -->
+    <title>Yacco</title>
+    <!-- Favicon -->
+    <link rel="icon" href="https://www.yacco.ge/assets/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="https://www.yacco.ge/assets/favicon.ico" type="image/x-icon" />
+    
+    <!-- Meta Description for SEO -->
+    <meta name="description" content="Yacco Oil World Records, გთავაზობთ მაღალი ხარისხის საპოხი მასალების სრულ ასორტიმენტს, მოტოციკლებისთვის, ავტომობილებისთვის, ტრანსპორტისთვის..." />
+    <!-- Robots Meta Tag for Indexing and Following Links -->
+    <meta name="robots" content="index, follow" />
+    <!-- Canonical URL to Avoid Duplicate Content -->
+    <link rel="canonical" href="https://www.yacco.ge/" />
+    
+    <!-- Language and Region -->
+    <meta name="language" content="KA" />
+    <meta http-equiv="content-language" content="ka-GE" />
+    
+    <!-- Author Meta Tag -->
+    <meta name="author" content="Yacco" />
+    
+    <!-- Generator Meta Tag (if applicable) -->
+    <meta name="generator" content="Yacco, Georgia" />
+    
+    <!-- Keywords Meta Tag (deprecated, but sometimes used) -->
+    <meta name="keywords" content="yacco, yacco.ge, car oils, www.yacco.ge, იაკო, ზეთები, საპოხი, Georgian, ქართული, მანქანები, ნაწილები" />
+    
+    <!-- Rating Meta Tag -->
+    <meta name="rating" content="general" />
+    
+    <!-- Distribution Meta Tag -->
+    <meta name="distribution" content="global" />
+    
+    <!-- Open Graph Meta Tags for Social Media Sharing -->
+    <meta property="og:title" content="იაკო საპოხი მასალების სრულ ასორტიმენტს" />
+    <meta property="og:description" content="Yacco Oil World Records, გთავაზობთ მაღალი ხარისხის საპოხი მასალების სრულ ასორტიმენტს, მოტოციკლებისთვის, ავტომობილებისთვის, ტრანსპორტისთვის..." />
+    <meta property="og:url" content="https://www.yacco.ge/" />
+    <meta property="og:image" content="https://yacco.ge/assets/images/logo.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ka_GE" />
+    <meta property="og:locale:alternate" content="en_US" />
+    
+    <!-- Structured Data Markup (Schema.org) -->
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "WebSite",
+            "name": "Yacco In Georgia",
+            "url": "https://www.yacco.ge",
+            "description": "Yacco Oil World Records, გთავაზობთ მაღალი ხარისხის საპოხი მასალების სრულ ასორტიმენტს, მოტოციკლებისთვის, ავტომობილებისთვის, ტრანსპორტისთვის...",
+            "author": {
+                "@type": "Organization",
+                "name": "Yacco"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Yacco"
+            }
+        }
+    </script>
+}
+
+templ ENV() {
+    if globals.env.GOENV == "development" {
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="/assets/scripts/reload.js"></script>
+        <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/debug.js"></script>
+        <link href="/assets/styles/style.css" rel="stylesheet" />
+    } else {
+        <link href="/assets/styles/style.min.css" rel="stylesheet" />
+    }
+}

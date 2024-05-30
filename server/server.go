@@ -14,16 +14,10 @@ import (
 
 func Run() {
 	app := echo.New()
-
 	app.Static("", "./public/")
-
-
-
-
-
     app.Pre(middleware.RemoveTrailingSlash())
 
-
+	
 	// app.Use(middleware.Secure())
 	// app.Pre(middleware.HTTPSNonWWWRedirect())
 	// app.Use(middleware.CORS())
@@ -36,20 +30,14 @@ func Run() {
 	// app.Use(middleware.Recover())
 	// app.Use(middleware.Logger())
 	// app.Use(echoprometheus.NewMiddleware("yacco"))
-
-
-	
-
-	
-
 	// app.GET("/metrics", echoprometheus.NewHandler())
 
 	app.Use(controller.Initialize())
 	storage.Connect(storage.Default())
-	
 	ServerRouters(app)
-	data, _ := json.MarshalIndent(app.Routes(), "", "  ")
-	os.WriteFile("routes.json", data, 0644)
+
+	data, _ := json.MarshalIndent(app.Routes(), "", "    ")
+	os.WriteFile("./build/routes.json", data, 0644)
 	
 
 	app.Logger.Fatal(app.Start(globals.Env.Port))
