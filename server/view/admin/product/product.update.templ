@@ -34,7 +34,7 @@ templ UpdateProducts(Productie model.Products, Categories []model.Categories) {
         <div class="w-[50%] gap-5 flex flex-col">
             <label class=" font-bold"> კატეგორია </label>
 
-            <input class="hidden" id="product-update-category" name="CityID" value={strconv.Itoa(int(Productie.CategoryID))} /> 
+            <input class="hidden" id="product-update-category" name="CategoryID" value={strconv.Itoa(int(Productie.CategoryID))} /> 
             @Select(SelectConf{
                 Color: "[#f5f5f5]",
                 For: "product-update-category",
@@ -74,6 +74,7 @@ script ProductUpdateCke(Text string) {
         window.ckeConfig
     ).then(editor => {
         editor.setData(Text)
+        editor.sourceElement.value = editor.getData()
         editor.model.document.on( 'change:data', () => editor.sourceElement.value = editor.getData())
     }).catch(e => console.log("ckeditor ->", e))
 }

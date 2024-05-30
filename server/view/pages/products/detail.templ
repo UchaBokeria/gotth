@@ -2,6 +2,7 @@ package view
 
 import(
     "main/server/model"
+    "strconv"
     "strings"
     "html"
 )
@@ -9,8 +10,9 @@ import(
 templ ProductDetail(Product model.Products) {
     <div class="w-full">
         <div class="w-full py-5 px-6 bg-[#eee] flex items-center justify-start gap-2 rounded-[8px]">
-            <p class="text-primary font-bold font-nino mt-2"
-                hx-get="/products/?">
+            <p class="text-primary font-bold font-nino mt-2 cursor-pointer"
+                hx-get={"/products/?category=" + strconv.Itoa(int(Product.Category.ID))} 
+                hx-push-url="true" hx-target="#Content" hx-swap="innerHTML" hx-trigger="click">
                 პროდუქტი
             </p>
 

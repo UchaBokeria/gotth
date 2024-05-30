@@ -70,11 +70,12 @@ func detail(ctx *controller.Context) error {
 	ID, _ := strconv.Atoi(Filters.ID)
 
 	storage.DB.Preload("Thumbnail").
-			   Preload("Packing").
-			   Preload("Approvals").
-			   Preload("Properties").
-			   Preload("Specifications").
-			   Find(&Product, ID)
+				Preload("Category").
+				Preload("Packing").
+				Preload("Approvals").
+				Preload("Properties").
+				Preload("Specifications").
+				Find(&Product, ID)
 
 	return ctx.Html(view.ProductDetail(Product))
 }
