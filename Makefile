@@ -16,7 +16,7 @@ build:
 	go mod tidy
 	@rm -rf build && mkdir -p ./build/view
 	@chmod -R 777 ./public
-	make templ tailwind vet staticcheck test
+	make templ tailwind-min vet staticcheck test
 	go build -o ./bin/app ./cmd/app/main.go
 
 .PHONY: migrate
@@ -44,7 +44,11 @@ parser:
 
 .PHONY: tailwind
 tailwind:
-	npx tailwindcss -i ./public/assets/styles/tailwind.css -o ./public/assets/styles/style.css
+	npx tailwindcss -i ./public/assets/styles/tailwind.css -o ./public/assets/styles/style.min.css
+
+.PHONY: tailwind-min
+tailwind-min:
+	npx tailwindcss -i ./public/assets/styles/tailwind.css -o ./public/assets/styles/style.min.css --minify
 
 .PHONY: tailwind-watch
 tailwind-watch:
