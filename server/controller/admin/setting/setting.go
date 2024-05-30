@@ -14,7 +14,7 @@ import (
 )
 
 func Register(admin *echo.Group) {
-	admin.GET("/settings/", controller.Register(index))
+	admin.GET("/settings", controller.Register(index))
 	admin.GET("/settings/:tab", controller.Register(index))
 
 	setting := admin.Group("/setting")

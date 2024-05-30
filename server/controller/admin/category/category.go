@@ -7,6 +7,7 @@ import (
 )
 
 func Register(app *echo.Group) {
+	app.GET("", controller.Register(index))
 	Category := app.Group("/category")
 	Category.GET("", controller.Register(index))
 	Category.GET("/:id", controller.Register(indexByID))

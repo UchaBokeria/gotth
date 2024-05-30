@@ -14,7 +14,7 @@ import (
 func Register(app *echo.Echo) {
 	admin := app.Group("admin")
 	login.Register(admin)
-
+	
 	admin.Use(middleware.Auth())
 
 	category.Register(admin)
