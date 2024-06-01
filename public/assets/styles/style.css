@@ -2868,6 +2868,10 @@ video {
   .mob\:min-w-\[300px\]{
     min-width: 300px !important;
   }
+
+  .mob\:min-w-\[200px\]{
+    min-width: 200px !important;
+  }
 }
 
 @keyframes autoScrollCatalog {
@@ -5219,6 +5223,10 @@ video {
   display: block;
 }
 
+.peer:checked ~ .peer-checked\:\!flex{
+  display: flex !important;
+}
+
 .peer:checked ~ .peer-checked\:flex{
   display: flex;
 }
@@ -5425,8 +5433,12 @@ video {
     width: 100%;
   }
 
-  .mob\:min-w-\[300px\]{
-    min-width: 300px;
+  .mob\:min-w-\[200px\]{
+    min-width: 200px;
+  }
+
+  .mob\:max-w-\[200px\]{
+    max-width: 200px;
   }
 
   .mob\:flex-col{

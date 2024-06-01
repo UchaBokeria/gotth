@@ -4,11 +4,11 @@ templ Layout() {
     <!DOCTYPE html>
     <html lang="geo">
         <head>
-            @SEO()
-            @ENV()
             <script src="/assets/scripts/utils.js"></script>
             <script src="/assets/scripts/htmx.min.js"></script>
             <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/json-enc.js"></script>
+            @SEO()
+            @ENV()
         </head>
         <body class="overflow-x-hidden">
             {children...}

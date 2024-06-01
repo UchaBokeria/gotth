@@ -6,7 +6,7 @@ import(
 
 templ Header(Interface model.Interface) {
     <div class="w-[100%] flex justify-start z-[999] items-center px-[150px] py-[15px] bg-primary mob:justify-center ">
-        <img src="/assets/images/logo.png" class="cursor-pointer  h-[60px] object-fit mob:z-[99999991]"
+        <img src="/assets/images/logo.png" class="cursor-pointer  h-[60px] object-fit mob:z-[99999991] max-[350px]:opacity-0"
              hx-indicator=".Loading" hx-get={ "/" } hx-push-url={ "/" } hx-swap="innerHTML show:window:top" hx-target="#Content"/>
 
 
@@ -16,7 +16,7 @@ templ Header(Interface model.Interface) {
         </label>
 
         <input class="hidden peer" type="checkbox" id="menu" />
-        <div class="flex justify-start items-center flex-grow gap-[40px] px-[40px] mob:hidden peer-checked:flex peer-checked:flex-col mob:py-40 peer-checked:fixed peer-checked:top-0 peer-checked:left-0 peer-checked:w-full peer-checked:h-full peer-checked:bg-[#008772] peer-checked:z-[9999999] ">                
+        <div class="flex justify-start items-center flex-grow gap-[40px] px-[40px] mob:hidden peer-checked:!flex peer-checked:flex-col mob:py-40 peer-checked:fixed peer-checked:top-0 peer-checked:left-0 peer-checked:w-full peer-checked:h-full peer-checked:bg-[#008772] peer-checked:z-[9999999] ">                
             <div class="animated bounceInRight group rounded-lg cursor-pointer flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 hidden mob:flex"
                     onclick={Call(Interface.Contact.Phone)} >
                 <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 h-[39px] gap-[11px] px-[20px] pt-[15px] pb-3.5 rounded-lg bg-secondary">

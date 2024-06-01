@@ -121,4 +121,8 @@
     .mob\:min-w-\[300px\]{
       min-width: 300px !important;
     }
+    
+    .mob\:min-w-\[200px\]{
+      min-width: 200px !important;
+    }
   }
