@@ -16,7 +16,7 @@ templ Products(Page string, Searcher string, CategoryID string, Products []model
 
             <p class="w-full font-deja font-bold text-gray-[#333]"> { Product.Name } </p>
 
-            <p class="w-full font-arial line-clamp-3 text-gray-600"> { Product.DescriptionHtml } </p>
+            <p class="w-full font-arial line-clamp-3 text-gray-600"> @templ.Raw(html.UnescapeString(Product.DescriptionHtml)) </p>
 
             <button class="w-full text-right text-primary font-nino font-bold"> გაიგე მეტი </button>
         </div>
