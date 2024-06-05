@@ -42,8 +42,8 @@ templ ProductDetail(Product model.Products) {
                 </div>
             </div>
 
-            <div class="w-full flex">
-                <div class="w-[30%] pt-8 bg-[#fff] flex justify-start items-center flex-col gap-5">
+            <div class="w-full flex mob:flex-wrap">
+                <div class="w-[30%] pt-8 bg-[#fff] flex justify-start items-center flex-col gap-5 mob:w-full">
                     <a  class="w-full flex gap-5 justify-start items-center"
                         href={templ.SafeURL(Product.TechnicalSheetUrl)} target="_blank">
                         <span class=""> ‣ </span>
@@ -121,15 +121,15 @@ templ ProductDetail(Product model.Products) {
 
 
                 if len(Product.Packing) > 0 {
-                <div class="w-[70%] flex flex-col p-7 gap-3 rounded-[8px]">
+                <div class="w-[100%] flex flex-col p-7 gap-3 rounded-[8px] mob:p-[0]">
                     <p class="w-full font-deja font-bold text-2xl">
                         შეფუთვა
                     </p>
 
-                    <p class="w-full">
-                        <table class={"w-full  border-separate  border-spacing-2"}>
+                    <div class="w-full  mob:overflow-scroll ">
+                        <table class={"w-full border-separate border-spacing-2"}>
                             <thead>
-                                <tr class="font-bold text-1xl">
+                                <tr class="font-bold text-1xl mob:text-sm">
                                     <td> პროდუქტი </td>
                                     <td> მითითება </td>
                                     <td> კონდიცირება </td>
@@ -147,7 +147,7 @@ templ ProductDetail(Product model.Products) {
                                 }
                             </tbody>
                         </table>
-                    </p>
+                    </div>
                 </div>
                 }
             </div>

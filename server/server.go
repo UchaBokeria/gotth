@@ -17,6 +17,7 @@ func Run() {
 	app.Static("", "./public/")
     app.Pre(middleware.RemoveTrailingSlash())
 	
+
 	// app.Use(middleware.Secure())
 	// app.Pre(middleware.HTTPSNonWWWRedirect())
 	// app.Use(middleware.CORS())
@@ -30,7 +31,7 @@ func Run() {
 	// app.Use(middleware.Logger())
 	// app.Use(echoprometheus.NewMiddleware("yacco"))
 	// app.GET("/metrics", echoprometheus.NewHandler())
-
+	
 	app.Use(controller.Initialize())
 	storage.Connect(storage.Default())
 	ServerRouters(app)

@@ -30,6 +30,7 @@
       display: flex !important;
     }
   
+    
     .mob\:hidden{
       display: none !important;
     }
@@ -94,10 +95,16 @@
       overflow: visible !important;
     }
   
+.mob\:overflow-scroll {
+  overflow: scroll !important;
+}
     .mob\:border-0{
       border-width: 0px !important;
     }
-  
+
+    .mob\:p-\[0\] {
+      padding: 0 !important;
+    }
     .mob\:px-\[30px\]{
       padding-left: 30px !important;
       padding-right: 30px !important;
