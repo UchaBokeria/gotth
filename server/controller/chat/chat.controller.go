@@ -52,7 +52,7 @@ func MailStrategy(ctx *controller.Context) error {
 	sent, _ := mailer.Send(mailer.Config{
 		Subject: Parameters.Fullname + " გწერთ ელფოსტა ( " + Parameters.Email + " )",
 		Body: Parameters.Message,
-		To: "ucha2bokeria@gmail.com",
+		To: "worldtrademotors@gmail.com",
 	})
 
 	if sent { return ctx.Html(view.NewMessage(Parameters.Fullname, Parameters.Message)) }

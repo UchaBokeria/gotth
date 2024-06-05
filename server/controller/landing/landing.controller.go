@@ -28,10 +28,16 @@ func index(ctx *controller.Context) error {
 }
 
 func subscribe(ctx *controller.Context) error {
+	var Form struct{ Address string `form:"address"` }
+
+	if err := ctx.Bind(&Form); err != nil {
+		return err
+	}
+
 	Result, _ := mailer.Send(mailer.Config{
-		To: "ucha2bokeria@gmail.com",
-		Subject: "New Subsribe",
-		Body: "მადლობა გამოწერისთვის, იხილეთ სიახლეები ჩვენს ვებ გვერდზე და მიიღეთ ექსკლუზიური სიახლეები ელ ფოსტის საშუალებით",
+		To: Form.Address,
+		Subject: "მადლობა გამოწერისთვის",
+		Body: "მადლობა გამოწერისთვის, იხილეთ პროდუქცია ჩვენს ვებ გვერდზე. ექსკლუზიურ სიახლეებს მიიღებთ ელ ფოსტის საშუალებით",
 	})
 
 	if Result {

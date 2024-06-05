@@ -39,4 +39,6 @@ var Models = []interface{}{
 	&model.Product_packaging{},
 
 	&model.Users{},
+	&model.Mails{},
+	&model.Subscribes{},
 }

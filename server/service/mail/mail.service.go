@@ -3,6 +3,8 @@ package mailer
 import (
 	"log"
 	"main/server/common/globals"
+	"main/server/common/storage"
+	"main/server/model"
 
 	"github.com/sendgrid/sendgrid-go"
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
@@ -26,6 +28,14 @@ func Send(config Config) (bool, error) {
 		log.Println(err, config)
 		return false, err
 	} else {
+		var Mail model.Mails = model.Mails{
+			From: "sendgrid/ucha1bokeria@gmail.com",
+			To: config.To,
+			Body: config.Body,
+			Subject: config.Subject,
+		}
+
+		storage.DB.Create(&Mail)
 		return true, nil
 	}
 }

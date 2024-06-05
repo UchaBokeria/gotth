@@ -38,6 +38,6 @@ func Run() {
 
 	data, _ := json.MarshalIndent(app.Routes(), "", "    ")
 	os.WriteFile("./build/routes.json", data, 0644)
-	
+
 	app.Logger.Fatal(app.Start(globals.Env.Port))
 }
