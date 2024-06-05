@@ -40,6 +40,12 @@ func subscribe(ctx *controller.Context) error {
 		Body: "მადლობა გამოწერისთვის, იხილეთ პროდუქცია ჩვენს ვებ გვერდზე. ექსკლუზიურ სიახლეებს მიიღებთ ელ ფოსტის საშუალებით",
 	})
 
+	var Subscriber model.Subscribes = model.Subscribes{
+		Email: Form.Address,
+	}
+
+	storage.DB.Create(&Subscriber)
+
 	if Result {
 		log.Print("Sent")
 	}
