@@ -8,7 +8,7 @@ script Clicker(query string) {
 templ ShareNewsModal(id string, text string) {
     <!-- CONTAINER MODAL-->
     <input class="hidden peer" type="checkbox" id={"xshare-news-toggle-" + id} />
-    <div class="shadower flex items-start justify-center fixed mt-[10vh] w-[90vw] h-[0vh] py-0 hidden peer-checked:flex relative z-[55555]">
+    <div class="shadower items-start justify-center fixed mt-[10vh] w-[90vw] h-[0vh] py-0 hidden peer-checked:flex relative z-[55555]">
 
       <!--MODAL ITEM-->
       <div class="bg-gray-100 w-full mx-4 p-4 rounded-xl md:w-1/2 lg:w-1/3 px-7">
@@ -33,7 +33,7 @@ templ ShareNewsModal(id string, text string) {
 
           <div class="flex justify-around my-4">
             <!--FACEBOOK ICON-->
-            <a href={templ.SafeURL("https://www.facebook.com/sharer/sharer.php?u=https://yacco.com.ge/news/" + id + "")} target="_blank" id="news-share-modal-facebook"
+            <a href={templ.SafeURL("https://www.facebook.com/sharer/sharer.php?u=https://yacco.ge/news/" + id + "")} target="_blank" id="news-share-modal-facebook"
               class="border hover:bg-[#1877f2] w-12 h-12 fill-[#1877f2] hover:fill-white border-blue-200 rounded-full flex items-center justify-center shadow-xl hover:shadow-blue-500/50 cursor-pointer"
             >
               <svg
@@ -48,7 +48,7 @@ templ ShareNewsModal(id string, text string) {
               </svg>
             </a>
             <!--TWITTER ICON-->
-            <a href={templ.SafeURL("https://twitter.com/intent/tweet?url=https://yacco.com.ge/news/" + id + "&text=" + text)} target="_blank" id="news-share-modal-twitter"
+            <a href={templ.SafeURL("https://twitter.com/intent/tweet?url=https://yacco.ge/news/" + id + "&text=" + text)} target="_blank" id="news-share-modal-twitter"
               class="border hover:bg-[#1d9bf0] w-12 h-12 fill-[#1d9bf0] hover:fill-white border-blue-200 rounded-full flex items-center justify-center shadow-xl hover:shadow-sky-500/50 cursor-pointer"
             >
               <svg
@@ -63,7 +63,7 @@ templ ShareNewsModal(id string, text string) {
               </svg>
             </a>
             <!--INSTAGRAM ICON-->
-            <a href={templ.SafeURL("https://www.facebook.com/sharer/sharer.php?u=https://yacco.com.ge/news/" + id + "")} target="_blank" id="news-share-modal-instagram"
+            <a href={templ.SafeURL("https://www.facebook.com/sharer/sharer.php?u=https://yacco.ge/news/" + id + "")} target="_blank" id="news-share-modal-instagram"
               class="border hover:bg-[#bc2a8d] w-12 h-12 fill-[#bc2a8d] hover:fill-white border-pink-200 rounded-full flex items-center justify-center shadow-xl hover:shadow-pink-500/50 cursor-pointer"
             >
               <svg
@@ -102,9 +102,9 @@ templ ShareNewsModal(id string, text string) {
               ></path>
             </svg>
 
-            <input class="w-full outline-none bg-transparent" type="text" placeholder="link" value={"https://yacco.com.ge/news/" + id} />
+            <input class="w-full outline-none bg-transparent" type="text" placeholder="link" value={"https://yacco.ge/news/" + id} />
 
-            <button class="bg-[#008772] hover:bg-[#025447] text-white rounded text-sm py-2 px-5 mr-2" onclick={Copy("https://yacco.com.ge/news/" + id)}>
+            <button class="bg-[#008772] hover:bg-[#025447] text-white rounded text-sm py-2 px-5 mr-2" onclick={Copy("https://yacco.ge/news/" + id)}>
                 კოპირება
             </button>
           </div>
